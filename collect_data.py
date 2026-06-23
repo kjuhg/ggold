@@ -15,8 +15,8 @@ import yfinance as yf
 
 TICKERS = {
     # 현물 금/은 (CFD 기준)
-    "xauusd":   "XAUUSD=X",   # 금 현물 XAU/USD
-    "xagusd":   "XAGUSD=X",   # 은 현물 XAG/USD
+    "xauusd":   "GC=F",       # 금 선물 (XAU/USD 대체)
+    "xagusd":   "SI=F",       # 은 선물 (XAG/USD 대체)
     # 금/은 선물
     "gold":     "GC=F",       # 금 선물
     "silver":   "SI=F",       # 은 선물
