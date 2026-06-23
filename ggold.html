@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GGOLD — 금 선물 대시보드</title>
+<script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+<style>
+:root {
+  --gold: #C4962A; --gold-bg: #FDF6E3;
+  --bull: #0F6E56; --bull-bg: #D5F0E5; --bull-border: #0D7A52;
+  --bear: #993C1D; --bear-bg: #FADFDC; --bear-border: #C0392B;
+  --neut: #7a5800; --neut-bg: #FDF0C0; --neut-border: #B8860B;
+  --bg: #F7F5EF; --bg2: #EDEAE0; --border: #CECCA0;
+  --text: #1a1a1a; --text2: #555; --text3: #888;
+  --q1: #1A3A5C; --q2: #2C5F8A; --q3b: #1B6B45; --q3r: #7A2C1A; --q4: #5A4A9A;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, 'Segoe UI', sans-serif; font-size: 14px; }
+.wrap { max-width: 900px; margin: 0 auto; padding: 16px; }
+
+/* 헤더 */
+.header { display: flex; justify-content: space-between; align-items: center; padding: 12px 0 14px; border-bottom: 1.5px solid var(--gold); margin-bottom: 16px; }
+.header-title { font-size: 18px; font-weight: 700; color: var(--text); letter-spacing: 0.05em; }
+.header-title span { color: var(--gold); }
+.header-time { font-size: 11px; color: var(--text3); text-align: right; line-height: 1.6; }
+.header-time b { color: var(--text2); }
+
+/* 지표 카드 */
+.cards-section { margin-bottom: 20px; }
+.section-title { font-size: 11px; font-weight: 600; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
+.card { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; cursor: pointer; transition: border-color 0.15s; }
+.card:hover { border-color: var(--gold); }
+.card.active { border-color: var(--gold); border-width: 2px; background: var(--gold-bg); }
+.card-label { font-size: 10px; color: var(--text3); margin-bottom: 3px; }
+.card-price { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.card-change { font-size: 11px; }
+.up { color: var(--bull); } .dn { color: var(--bear); } .nt { color: var(--text3); }
+.card-sym { font-size: 9px; color: var(--text3); margin-top: 2px; }
+
+/* 차트 영역 */
+.chart-section { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 14px; margin-bottom: 20px; }
+.chart-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
+.chart-sym-label { font-size: 14px; font-weight: 600; color: var(--text); }
+.chart-ohlc { font-size: 11px; color: var(--text2); margin-left: 8px; }
+.ctrl-group { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.tf-btn, .ind-btn { font-size: 11px; padding: 3px 10px; border: 1px solid var(--border); border-radius: 4px; background: #fff; color: var(--text2); cursor: pointer; transition: all 0.15s; }
+.tf-btn.active, .ind-btn.active { background: var(--q1); color: #fff; border-color: var(--q1); }
+.ind-btn.active { background: var(--q2); border-color: var(--q2); }
+#main-chart { width: 100%; height: 320px; }
+#rsi-chart  { width: 100%; height: 100px; margin-top: 4px; border-top: 1px solid var(--bg2); }
+#macd-chart { width: 100%; height: 100px; margin-top: 4px; border-top: 1px solid var(--bg2); }
+.chart-legend { font-size: 10px; color: var(--text3); margin-top: 6px; display: flex; gap: 12px; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 4px; }
+.legend-dot { width: 10px; height: 3px; border-radius: 2px; }
+
+/* 체크리스트 */
+.checklist-section { margin-bottom: 20px; }
+.phase-block { background: #fff; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 12px; opacity: 0.45; pointer-events: none; transition: opacity 0.2s; }
+.phase-block.active { opacity: 1; pointer-events: all; }
+.phase-block.done  { opacity: 1; pointer-events: none; }
+.phase-header { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--bg2); }
+.phase-num { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0; }
+.phase-title { font-size: 13px; font-weight: 600; }
+.phase-subtitle { font-size: 11px; color: var(--text3); margin-left: auto; }
+.phase-body { padding: 14px 16px; }
+
+/* 펀더멘털 슬라이더 */
+.fund-row { display: grid; grid-template-columns: 120px 1fr 60px 50px; align-items: center; gap: 10px; margin-bottom: 14px; }
+.fund-label { font-size: 12px; font-weight: 500; }
+.fund-desc { font-size: 10px; color: var(--text3); margin-top: 2px; }
+input[type=range] { width: 100%; accent-color: var(--q1); }
+.fund-val { font-size: 13px; font-weight: 700; text-align: center; padding: 2px 6px; border-radius: 4px; background: var(--bg2); }
+.fund-hint { font-size: 10px; color: var(--text3); text-align: center; }
+.fund-total-row { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; padding-top: 10px; border-top: 1px solid var(--bg2); }
+.fund-total-label { font-size: 12px; color: var(--text2); }
+.fund-total-val { font-size: 20px; font-weight: 700; }
+.fund-bias { font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
+
+/* 방향 선택 */
+.dir-btns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.dir-btn { padding: 14px 8px; border: 2px solid var(--border); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.15s; }
+.dir-btn:hover { border-color: var(--text2); }
+.dir-btn.sel-long  { border-color: var(--bull-border); background: var(--bull-bg); }
+.dir-btn.sel-short { border-color: var(--bear-border); background: var(--bear-bg); }
+.dir-btn.sel-neut  { border-color: var(--neut-border); background: var(--neut-bg); }
+.dir-icon { font-size: 20px; margin-bottom: 4px; }
+.dir-title { font-size: 13px; font-weight: 600; }
+.dir-sub { font-size: 10px; color: var(--text3); margin-top: 2px; }
+.dir-warn { font-size: 11px; color: var(--bear); margin-top: 8px; padding: 6px 10px; background: var(--bear-bg); border-radius: 6px; display: none; }
+
+/* 기술적 분석 선택지 */
+.step-block { margin-bottom: 16px; }
+.step-label { font-size: 11px; font-weight: 600; color: var(--text3); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; display: flex; justify-content: space-between; }
+.step-score-badge { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 10px; background: var(--bg2); }
+.options-list { display: flex; flex-direction: column; gap: 5px; }
+.opt-btn { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; cursor: pointer; background: #fff; transition: all 0.12s; text-align: left; width: 100%; }
+.opt-btn:hover { border-color: var(--text2); background: var(--bg2); }
+.opt-btn.sel-bull { border-color: var(--bull-border); background: var(--bull-bg); }
+.opt-btn.sel-bear { border-color: var(--bear-border); background: var(--bear-bg); }
+.opt-btn.sel-neut { border-color: var(--neut-border); background: var(--neut-bg); }
+.opt-text { font-size: 12px; }
+.opt-score { font-size: 11px; font-weight: 700; min-width: 30px; text-align: right; }
+
+/* 종합 판단 */
+.verdict-card { border-radius: 10px; padding: 18px 20px; margin-bottom: 12px; }
+.verdict-grade { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+.verdict-score { font-size: 13px; margin-bottom: 14px; }
+.verdict-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.verdict-item { background: rgba(255,255,255,0.6); border-radius: 6px; padding: 8px 12px; }
+.verdict-item-label { font-size: 10px; opacity: 0.75; margin-bottom: 3px; }
+.verdict-item-val { font-size: 15px; font-weight: 700; }
+.override-msg { font-size: 12px; padding: 8px 12px; border-radius: 6px; background: rgba(0,0,0,0.06); margin-top: 8px; }
+.reset-btn { width: 100%; padding: 12px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; cursor: pointer; color: var(--text2); }
+.reset-btn:hover { background: var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- 헤더 -->
+<div class="header">
+  <div class="header-title">GG<span>OLD</span> &nbsp;●&nbsp; 금 선물 매매 판단</div>
+  <div class="header-time">
+    <b id="update-time">로딩 중...</b><br>
+    자동 갱신: 15분
+  </div>
+</div>
+
+<!-- 지표 카드 -->
+<div class="cards-section">
+  <div class="section-title">실시간 지표</div>
+  <div class="cards-grid" id="cards-grid"></div>
+</div>
+
+<!-- 차트 -->
+<div class="chart-section">
+  <div class="chart-controls">
+    <div>
+      <span class="chart-sym-label" id="chart-sym-label">XAU/USD</span>
+      <span class="chart-ohlc" id="chart-ohlc"></span>
+    </div>
+    <div class="ctrl-group">
+      <div style="display:flex;gap:4px;">
+        <button class="tf-btn active" onclick="setTf('15m',this)">15분</button>
+        <button class="tf-btn" onclick="setTf('1d',this)">일봉</button>
+      </div>
+      <div style="display:flex;gap:4px;">
+        <button class="ind-btn active" id="btn-ema" onclick="toggleInd('ema',this)">EMA</button>
+        <button class="ind-btn active" id="btn-bb"  onclick="toggleInd('bb',this)">BB</button>
+        <button class="ind-btn active" id="btn-rsi" onclick="toggleInd('rsi',this)">RSI</button>
+        <button class="ind-btn active" id="btn-macd" onclick="toggleInd('macd',this)">MACD</button>
+      </div>
+    </div>
+  </div>
+  <div id="main-chart"></div>
+  <div id="rsi-chart"></div>
+  <div id="macd-chart"></div>
+  <div class="chart-legend">
+    <span class="legend-item"><span class="legend-dot" style="background:#2196F3"></span>EMA20</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#FF9800"></span>EMA50</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#E53935"></span>EMA200</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#9C27B0;opacity:0.5"></span>BB</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#00ACC1"></span>RSI(14)</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#7B1FA2"></span>MACD</span>
+  </div>
+</div>
+<!-- 체크리스트 -->
+<div class="checklist-section">
+  <div class="section-title">매매 판단 체크리스트</div>
+
+  <!-- Phase 1 -->
+  <div class="phase-block active" id="phase1">
+    <div class="phase-header">
+      <div class="phase-num" style="background:var(--q1)">1</div>
+      <div>
+        <div class="phase-title">펀더멘털 편향</div>
+      </div>
+      <div class="phase-subtitle" id="ph1-subtitle">각 영역 -2 ~ +2 선택</div>
+    </div>
+    <div class="phase-body">
+      <div class="fund-row">
+        <div><div class="fund-label">실질금리</div><div class="fund-desc">TIPS 10년 방향</div></div>
+        <input type="range" min="-2" max="2" step="1" value="0" id="f-rate" oninput="updateFund()">
+        <div class="fund-val" id="fv-rate">0</div>
+        <div class="fund-hint" id="fh-rate">중립</div>
+      </div>
+      <div class="fund-row">
+        <div><div class="fund-label">DXY 달러</div><div class="fund-desc">달러 강약</div></div>
+        <input type="range" min="-2" max="2" step="1" value="0" id="f-dxy" oninput="updateFund()">
+        <div class="fund-val" id="fv-dxy">0</div>
+        <div class="fund-hint" id="fh-dxy">중립</div>
+      </div>
+      <div class="fund-row">
+        <div><div class="fund-label">지정학</div><div class="fund-desc">VIX · 분쟁 리스크</div></div>
+        <input type="range" min="-2" max="2" step="1" value="0" id="f-geo" oninput="updateFund()">
+        <div class="fund-val" id="fv-geo">0</div>
+        <div class="fund-hint" id="fh-geo">중립</div>
+      </div>
+      <div class="fund-row">
+        <div><div class="fund-label">중앙은행</div><div class="fund-desc">순매입/매도</div></div>
+        <input type="range" min="-2" max="2" step="1" value="0" id="f-cb" oninput="updateFund()">
+        <div class="fund-val" id="fv-cb">0</div>
+        <div class="fund-hint" id="fh-cb">중립</div>
+      </div>
+      <div class="fund-total-row">
+        <span class="fund-total-label">합산 점수</span>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="fund-total-val" id="fund-total">0</span>
+          <span class="fund-bias" id="fund-bias" style="background:var(--neut-bg);color:var(--neut)">중립</span>
+        </div>
+      </div>
+      <div style="margin-top:12px;text-align:right;">
+        <button class="opt-btn" style="display:inline-block;width:auto;padding:8px 20px;" onclick="goPhase2()">다음 →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phase 2 -->
+  <div class="phase-block" id="phase2">
+    <div class="phase-header">
+      <div class="phase-num" style="background:var(--q2)">2</div>
+      <div><div class="phase-title">방향 선택</div></div>
+      <div class="phase-subtitle" id="ph2-subtitle">롱 / 숏 / 관망</div>
+    </div>
+    <div class="phase-body">
+      <div class="dir-btns">
+        <div class="dir-btn" id="dir-long" onclick="setDir('long')">
+          <div class="dir-icon">▲</div>
+          <div class="dir-title" style="color:var(--bull)">롱 (매수)</div>
+          <div class="dir-sub">상승 진입 탐색</div>
+        </div>
+        <div class="dir-btn" id="dir-neut" onclick="setDir('neut')">
+          <div class="dir-icon">—</div>
+          <div class="dir-title" style="color:var(--neut)">중립 관망</div>
+          <div class="dir-sub">대기</div>
+        </div>
+        <div class="dir-btn" id="dir-short" onclick="setDir('short')">
+          <div class="dir-icon">▼</div>
+          <div class="dir-title" style="color:var(--bear)">숏 (매도)</div>
+          <div class="dir-sub">하락 진입 탐색</div>
+        </div>
+      </div>
+      <div class="dir-warn" id="dir-warn">⚠ 펀더멘털 편향과 반대 방향입니다. 신중하게 판단하세요.</div>
+    </div>
+  </div>
+
+  <!-- Phase 3 -->
+  <div class="phase-block" id="phase3">
+    <div class="phase-header">
+      <div class="phase-num" style="background:var(--q3b)" id="ph3-num">3</div>
+      <div><div class="phase-title">기술적 분석</div></div>
+      <div class="phase-subtitle" id="ph3-subtitle">차트 보면서 선택</div>
+    </div>
+    <div class="phase-body" id="phase3-body">
+      <!-- JS로 동적 렌더 -->
+    </div>
+  </div>
+
+  <!-- Phase 4 -->
+  <div class="phase-block" id="phase4">
+    <div class="phase-header">
+      <div class="phase-num" style="background:var(--q4)">4</div>
+      <div><div class="phase-title">종합 판단</div></div>
+      <div class="phase-subtitle" id="ph4-subtitle"></div>
+    </div>
+    <div class="phase-body" id="phase4-body"></div>
+  </div>
+
+  <button class="reset-btn" onclick="resetAll()">↺ 처음부터 다시</button>
+</div>
+
+</div><!-- /wrap -->
+<script>
+const BASE = 'https://kjuhg.github.io/ggold/data';
+
+// 지표 카드 설정
+const CARD_DEFS = [
+  {key:'xauusd', label:'XAU/USD 현물금', histKey:'xauusd'},
+  {key:'xagusd', label:'XAG/USD 현물은', histKey:'xagusd'},
+  {key:'dxy',    label:'DXY 달러인덱스', histKey:'dxy'},
+  {key:'tnx',    label:'미국채 10년',    histKey:'tnx'},
+  {key:'vix',    label:'VIX 공포지수',   histKey:'vix'},
+  {key:'wti',    label:'WTI 원유',       histKey:'wti'},
+  {key:'sp500',  label:'S&P 500',        histKey:'sp500'},
+  {key:'usdkrw', label:'USD/KRW',        histKey:null},
+];
+
+// ── 차트 상태 ──────────────────────────────────
+let mainChart, mainSeries, rsiChart, rsiSeries, macdChart, macdSeries, macdSignalSeries;
+let ema20s, ema50s, ema200s, bbUpperS, bbLowerS, bbMidS;
+let currentTf = '15m', currentKey = 'xauusd', currentLabel = 'XAU/USD';
+let allHistory = {};
+const indActive = {ema:true, bb:true, rsi:true, macd:true};
+
+// ── 지표 계산 ────────────────────────────────
+function calcEMA(data, period) {
+  const k = 2 / (period + 1);
+  const res = [];
+  let ema = null;
+  for (const d of data) {
+    if (ema === null) { ema = d.c; }
+    else { ema = d.c * k + ema * (1 - k); }
+    res.push({time: toTime(d.t), value: +ema.toFixed(4)});
+  }
+  return res;
+}
+
+function calcBB(data, period=20, mult=2) {
+  const upper=[], lower=[], mid=[];
+  for (let i=0; i<data.length; i++) {
+    if (i < period-1) continue;
+    const slice = data.slice(i-period+1, i+1).map(d => d.c);
+    const mean = slice.reduce((a,b)=>a+b,0)/period;
+    const std = Math.sqrt(slice.reduce((a,b)=>a+(b-mean)**2,0)/period);
+    const t = toTime(data[i].t);
+    upper.push({time:t, value:+(mean+mult*std).toFixed(4)});
+    lower.push({time:t, value:+(mean-mult*std).toFixed(4)});
+    mid.push({time:t,   value:+mean.toFixed(4)});
+  }
+  return {upper,lower,mid};
+}
+
+function calcRSI(data, period=14) {
+  const res = [];
+  let gains=0, losses=0;
+  for (let i=1; i<=period; i++) {
+    const d = data[i].c - data[i-1].c;
+    if (d>0) gains+=d; else losses-=d;
+  }
+  let avgG = gains/period, avgL = losses/period;
+  for (let i=period; i<data.length; i++) {
+    if (i>period) {
+      const d = data[i].c - data[i-1].c;
+      avgG = (avgG*(period-1) + Math.max(d,0)) / period;
+      avgL = (avgL*(period-1) + Math.max(-d,0)) / period;
+    }
+    const rsi = avgL===0 ? 100 : 100 - 100/(1+avgG/avgL);
+    res.push({time: toTime(data[i].t), value: +rsi.toFixed(2)});
+  }
+  return res;
+}
+
+function calcMACD(data, fast=12, slow=26, signal=9) {
+  const kF = 2/(fast+1), kS = 2/(slow+1), kSig = 2/(signal+1);
+  const hist=[], sigLine=[];
+  let emaF=null, emaS=null, emaSig=null;
+  for (const d of data) {
+    emaF = emaF===null ? d.c : d.c*kF + emaF*(1-kF);
+    emaS = emaS===null ? d.c : d.c*kS + emaS*(1-kS);
+  }
+  // 재계산 (순서대로)
+  emaF=null; emaS=null;
+  const macdLine=[];
+  for (const d of data) {
+    emaF = emaF===null ? d.c : d.c*kF + emaF*(1-kF);
+    emaS = emaS===null ? d.c : d.c*kS + emaS*(1-kS);
+    macdLine.push({t:d.t, v: emaF-emaS});
+  }
+  for (const m of macdLine) {
+    emaSig = emaSig===null ? m.v : m.v*kSig + emaSig*(1-kSig);
+    const h = m.v - emaSig;
+    hist.push({time:toTime(m.t), value:+h.toFixed(4), color: h>=0?'#1B6B45':'#C0392B'});
+    sigLine.push({time:toTime(m.t), value:+emaSig.toFixed(4)});
+  }
+  return {hist, sigLine};
+}
+
+function toTime(isoStr) {
+  const d = new Date(isoStr);
+  return Math.floor(d.getTime()/1000);
+}
+
+// ── 차트 초기화 ──────────────────────────────
+function initCharts() {
+  const opts = {
+    layout:{ background:{type:'Solid',color:'#ffffff'}, textColor:'#555' },
+    grid:{ vertLines:{color:'#f0ede6'}, horzLines:{color:'#f0ede6'} },
+    crosshair:{ mode:1 },
+    timeScale:{ timeVisible:true, secondsVisible:false, borderColor:'#CECCA0' },
+    rightPriceScale:{ borderColor:'#CECCA0' },
+  };
+
+  mainChart = LightweightCharts.createChart(document.getElementById('main-chart'), {...opts, height:320});
+  mainSeries = mainChart.addCandlestickSeries({
+    upColor:'#1B6B45', downColor:'#C0392B',
+    borderUpColor:'#1B6B45', borderDownColor:'#C0392B',
+    wickUpColor:'#1B6B45', wickDownColor:'#C0392B'
+  });
+
+  ema20s  = mainChart.addLineSeries({color:'#2196F3', lineWidth:1, priceLineVisible:false, lastValueVisible:false});
+  ema50s  = mainChart.addLineSeries({color:'#FF9800', lineWidth:1, priceLineVisible:false, lastValueVisible:false});
+  ema200s = mainChart.addLineSeries({color:'#E53935', lineWidth:1, priceLineVisible:false, lastValueVisible:false});
+  bbUpperS = mainChart.addLineSeries({color:'rgba(156,39,176,0.35)', lineWidth:1, priceLineVisible:false, lastValueVisible:false, lineStyle:2});
+  bbLowerS = mainChart.addLineSeries({color:'rgba(156,39,176,0.35)', lineWidth:1, priceLineVisible:false, lastValueVisible:false, lineStyle:2});
+  bbMidS   = mainChart.addLineSeries({color:'rgba(156,39,176,0.25)', lineWidth:1, priceLineVisible:false, lastValueVisible:false, lineStyle:1});
+
+  const subOpts = {...opts, height:100,
+    layout:{...opts.layout, fontSize:10},
+    timeScale:{...opts.timeScale, visible:false}
+  };
+  rsiChart  = LightweightCharts.createChart(document.getElementById('rsi-chart'),  subOpts);
+  macdChart = LightweightCharts.createChart(document.getElementById('macd-chart'), subOpts);
+
+  rsiSeries = rsiChart.addLineSeries({color:'#00ACC1', lineWidth:1.5, priceLineVisible:false});
+  rsiChart.addLineSeries({color:'rgba(200,0,0,0.3)', lineWidth:1, priceLineVisible:false, lastValueVisible:false})
+    .setData([]);
+
+  macdSeries       = macdChart.addHistogramSeries({priceLineVisible:false});
+  macdSignalSeries = macdChart.addLineSeries({color:'#FF9800', lineWidth:1, priceLineVisible:false});
+
+  // 크로스헤어 동기화
+  function syncCross(src, targets) {
+    src.subscribeCrosshairMove(p => {
+      targets.forEach(t => {
+        if (p.time) t.setCrosshairPosition(p.point?.y ?? 0, p.time, t.series);
+      });
+    });
+  }
+
+  // OHLC 툴팁
+  mainChart.subscribeCrosshairMove(p => {
+    if (!p.seriesData.size) return;
+    const d = p.seriesData.get(mainSeries);
+    if (!d) return;
+    document.getElementById('chart-ohlc').textContent =
+      `O:${d.open?.toFixed(2)}  H:${d.high?.toFixed(2)}  L:${d.low?.toFixed(2)}  C:${d.close?.toFixed(2)}`;
+  });
+
+  // 차트 동기화
+  mainChart.timeScale().subscribeVisibleLogicalRangeChange(r => {
+    if (r) {
+      rsiChart.timeScale().setVisibleLogicalRange(r);
+      macdChart.timeScale().setVisibleLogicalRange(r);
+    }
+  });
+}
+
+// ── 차트 데이터 로드 ─────────────────────────
+async function loadChart(key, tf) {
+  currentKey = key;
+  currentTf  = tf;
+  const url = `${BASE}/history/${key}_${tf}.json`;
+  let data = allHistory[`${key}_${tf}`];
+  if (!data) {
+    try {
+      const r = await fetch(url);
+      data = await r.json();
+      allHistory[`${key}_${tf}`] = data;
+    } catch(e) { console.warn('차트 로드 실패', url); return; }
+  }
+  if (!data || data.length < 2) return;
+
+  const candles = data.map(d => ({
+    time: toTime(d.t),
+    open: d.o, high: d.h, low: d.l, close: d.c
+  }));
+  mainSeries.setData(candles);
+
+  // EMA
+  ema20s.setData(calcEMA(data, 20));
+  ema50s.setData(calcEMA(data, 50));
+  ema200s.setData(calcEMA(data, 200));
+
+  // BB
+  const bb = calcBB(data);
+  bbUpperS.setData(bb.upper);
+  bbLowerS.setData(bb.lower);
+  bbMidS.setData(bb.mid);
+
+  // RSI
+  if (data.length > 20) rsiSeries.setData(calcRSI(data));
+
+  // RSI 30/70 기준선
+  const rsiTimes = calcRSI(data);
+  if (rsiTimes.length) {
+    const t0 = rsiTimes[0].time, t1 = rsiTimes[rsiTimes.length-1].time;
+    rsiChart.series?.forEach?.(s => {}); // 기존 라인 제거 불필요 (init 시 추가)
+  }
+
+  // MACD
+  const macd = calcMACD(data);
+  macdSeries.setData(macd.hist);
+  macdSignalSeries.setData(macd.sigLine);
+
+  applyIndVisibility();
+  mainChart.timeScale().fitContent();
+  rsiChart.timeScale().fitContent();
+  macdChart.timeScale().fitContent();
+}
+
+function applyIndVisibility() {
+  [ema20s, ema50s, ema200s].forEach(s => s.applyOptions({visible: indActive.ema}));
+  [bbUpperS, bbLowerS, bbMidS].forEach(s => s.applyOptions({visible: indActive.bb}));
+  document.getElementById('rsi-chart').style.display  = indActive.rsi  ? '' : 'none';
+  document.getElementById('macd-chart').style.display = indActive.macd ? '' : 'none';
+}
+
+function setTf(tf, btn) {
+  document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  loadChart(currentKey, tf);
+}
+
+function toggleInd(ind, btn) {
+  indActive[ind] = !indActive[ind];
+  btn.classList.toggle('active', indActive[ind]);
+  applyIndVisibility();
+}
+
+// ── 현재가 카드 ───────────────────────────────
+async function loadMarket() {
+  try {
+    const r = await fetch(`${BASE}/market.json?_=${Date.now()}`);
+    const data = await r.json();
+    renderCards(data.current);
+    const t = new Date(data.updated_at);
+    document.getElementById('update-time').textContent =
+      t.toLocaleString('ko-KR', {timeZone:'Asia/Seoul', hour12:false}).replace('T',' ');
+  } catch(e) { document.getElementById('update-time').textContent = '로드 실패'; }
+}
+
+function renderCards(current) {
+  const grid = document.getElementById('cards-grid');
+  grid.innerHTML = '';
+  CARD_DEFS.forEach(def => {
+    const v = current[def.key];
+    if (!v) return;
+    const p = v.price, c = v.change_pct;
+    const cls = c > 0 ? 'up' : c < 0 ? 'dn' : 'nt';
+    const mark = c > 0 ? '▲' : c < 0 ? '▼' : '—';
+    const pStr = p ? (p > 100 ? p.toLocaleString('en',{maximumFractionDigits:2}) : p.toFixed(4)) : 'N/A';
+    const cStr = c !== null ? `${mark} ${Math.abs(c).toFixed(3)}%` : '—';
+    const div = document.createElement('div');
+    div.className = 'card' + (def.key==='xauusd' ? ' active' : '');
+    div.innerHTML = `<div class="card-label">${def.label}</div>
+      <div class="card-price">${pStr}</div>
+      <div class="card-change ${cls}">${cStr}</div>`;
+    if (def.histKey) {
+      div.style.cursor = 'pointer';
+      div.onclick = () => {
+        document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+        div.classList.add('active');
+        document.getElementById('chart-sym-label').textContent = def.label;
+        loadChart(def.histKey, currentTf);
+      };
+    }
+    grid.appendChild(div);
+  });
+}
+
+// ── 펀더멘털 ─────────────────────────────────
+const FUND_HINTS = [
+  ['강한 역풍', '역풍', '중립', '호재', '강한 호재'],
+  ['달러 강세', '달러 상승', '중립', '달러 하락', '강한 달러 약세'],
+  ['리스크 오프↓', '낮은 리스크', '중립', '지정학 긴장', '강한 긴장'],
+  ['순매도', '매도 우세', '중립', '순매입', '대량 매입'],
+];
+const FUND_IDS = ['rate','dxy','geo','cb'];
+let fundScores = {rate:0, dxy:0, geo:0, cb:0};
+
+function updateFund() {
+  let total = 0;
+  FUND_IDS.forEach((id, i) => {
+    const v = parseInt(document.getElementById('f-'+id).value);
+    fundScores[id] = v;
+    document.getElementById('fv-'+id).textContent = (v>0?'+':'')+v;
+    document.getElementById('fh-'+id).textContent = FUND_HINTS[i][v+2];
+    const el = document.getElementById('fv-'+id);
+    el.style.background = v>0 ? 'var(--bull-bg)' : v<0 ? 'var(--bear-bg)' : 'var(--bg2)';
+    el.style.color = v>0 ? 'var(--bull)' : v<0 ? 'var(--bear)' : 'var(--text2)';
+    total += v;
+  });
+  document.getElementById('fund-total').textContent = (total>0?'+':'')+total;
+  const bias = document.getElementById('fund-bias');
+  if (total >= 3) { bias.textContent='롱 편향'; bias.style.background='var(--bull-bg)'; bias.style.color='var(--bull)'; }
+  else if (total <= -3) { bias.textContent='숏 편향'; bias.style.background='var(--bear-bg)'; bias.style.color='var(--bear)'; }
+  else { bias.textContent='중립'; bias.style.background='var(--neut-bg)'; bias.style.color='var(--neut)'; }
+}
+
+function getFundTotal() { return Object.values(fundScores).reduce((a,b)=>a+b,0); }
+function getFundBias() { const t=getFundTotal(); return t>=3?'long':t<=-3?'short':'neut'; }
+
+function goPhase2() {
+  activatePhase('phase2');
+  document.getElementById('ph1-subtitle').textContent = '완료 ✓';
+}
+
+// ── 방향 선택 ────────────────────────────────
+let chosenDir = null;
+
+function setDir(dir) {
+  chosenDir = dir;
+  ['long','neut','short'].forEach(d => {
+    const el = document.getElementById('dir-'+d);
+    el.classList.remove('sel-long','sel-short','sel-neut');
+  });
+  document.getElementById('dir-'+dir).classList.add('sel-'+dir);
+
+  const bias = getFundBias();
+  const warn = document.getElementById('dir-warn');
+  warn.style.display = (
+    (dir==='long'&&bias==='short')||(dir==='short'&&bias==='long')
+  ) ? '' : 'none';
+
+  document.getElementById('ph2-subtitle').textContent =
+    dir==='long'?'롱 (매수) 선택':dir==='short'?'숏 (매도) 선택':'중립 관망';
+
+  if (dir === 'neut') {
+    activatePhase('phase4');
+    renderVerdict(0, 'neut');
+    return;
+  }
+
+  const ph3num = document.getElementById('ph3-num');
+  ph3num.style.background = dir==='long' ? 'var(--q3b)' : 'var(--q3r)';
+  activatePhase('phase3');
+  renderPhase3(dir);
+}
+
+// ── 기술적 분석 선택지 ────────────────────────
+const STEPS = {
+  long: [
+    { id:'ema', label:'EMA 배열', opts:[
+      {label:'캔들>EMA20>EMA50>EMA200 (완전 상승)', score:3, cls:'bull'},
+      {label:'캔들>EMA20>EMA50, EMA50<EMA200 (단기 반등)', score:1, cls:'bull'},
+      {label:'EMA20 위로 막 회복 (상승 전환 시작)', score:2, cls:'bull'},
+      {label:'선들 수렴 중 (큰 움직임 직전)', score:0, cls:'neut'},
+      {label:'선들 뒤엉킴 (방향 불명확)', score:0, cls:'neut'},
+      {label:'캔들<EMA20<EMA50 (단기 하락)', score:-2, cls:'bear'},
+      {label:'EMA200>EMA50>EMA20>캔들 (완전 하락)', score:-3, cls:'bear'},
+    ]},
+    { id:'rsi', label:'RSI 모멘텀', opts:[
+      {label:'RSI 50위에서 40~60 눌림 후 반등', score:2, cls:'bull'},
+      {label:'RSI 50선 아래→위 돌파', score:2, cls:'bull'},
+      {label:'RSI 30 이하 과매도 → 반등 시작', score:1, cls:'bull'},
+      {label:'가격 신저점 but RSI 전저점 상회 (상승 다이버전스)', score:1, cls:'bull'},
+      {label:'RSI 50 아래 방향 불명확', score:-1, cls:'neut'},
+      {label:'RSI 60~70 과열 접근', score:0, cls:'neut'},
+      {label:'가격 신고점 but RSI 전고점 하회 (하락 다이버전스)', score:-2, cls:'bear'},
+    ]},
+    { id:'bb', label:'볼린저밴드 위치', opts:[
+      {label:'중간선(EMA20) 근처 + 상승 추세', score:2, cls:'bull'},
+      {label:'하단 밴드 + 상승 추세 = 강한 매수 자리', score:2, cls:'bull'},
+      {label:'밴드 확장 + 캔들 상단 방향', score:1, cls:'bull'},
+      {label:'밴드 폭 좁아짐 (스퀴즈, 방향 모름)', score:0, cls:'neut'},
+      {label:'상단 밴드 근처 (과열, 진입 보류)', score:-1, cls:'bear'},
+      {label:'하단 밴드 + 하락 추세 = 추가 하락 가능', score:-1, cls:'bear'},
+    ]},
+    { id:'trigger', label:'롱 진입 트리거', opts:[
+      {label:'직전 지지선 반등', score:2, cls:'bull'},
+      {label:'저항선 종가 돌파', score:2, cls:'bull'},
+      {label:'거래량 증가 동반', score:2, cls:'bull'},
+      {label:'EMA 터치 후 반등', score:1, cls:'bull'},
+      {label:'핀바 (긴 아래꼬리, 망치형)', score:1, cls:'bull'},
+      {label:'거래량 급감 후 소폭 반등 (매도세 소진)', score:1, cls:'bull'},
+      {label:'아무 트리거 없음 → 대기', score:0, cls:'neut'},
+      {label:'저항선 도달 후 약세 신호', score:-2, cls:'bear'},
+    ]},
+    { id:'macd', label:'MACD 방향', opts:[
+      {label:'0선 위 + 막대 커지는 중 (상승 모멘텀 강화)', score:2, cls:'bull'},
+      {label:'0선 아래→위 전환 (상승 전환)', score:2, cls:'bull'},
+      {label:'0선 아래 + 막대 작아지는 중 (하락 모멘텀 약화)', score:1, cls:'bull'},
+      {label:'0선 위 + 막대 작아지는 중 (모멘텀 약화)', score:-1, cls:'neut'},
+      {label:'0선 아래 + 막대 커지는 중 (하락 강화)', score:-2, cls:'bear'},
+      {label:'0선 위→아래 전환 (하락 전환)', score:-2, cls:'bear'},
+    ]},
+  ],
+  short: [
+    { id:'ema', label:'EMA 배열', opts:[
+      {label:'EMA200>EMA50>EMA20>캔들 (완전 하락 배열)', score:3, cls:'bear'},
+      {label:'캔들<EMA20<EMA50 (단기 하락)', score:2, cls:'bear'},
+      {label:'EMA20 아래로 막 이탈 (하락 전환 시작)', score:2, cls:'bear'},
+      {label:'선들 수렴 중 (큰 움직임 직전)', score:0, cls:'neut'},
+      {label:'선들 뒤엉킴 (방향 불명확)', score:0, cls:'neut'},
+      {label:'캔들>EMA20>EMA50 (단기 반등)', score:-1, cls:'bull'},
+      {label:'캔들>EMA20>EMA50>EMA200 (완전 상승)', score:-3, cls:'bull'},
+    ]},
+    { id:'rsi', label:'RSI 모멘텀', opts:[
+      {label:'RSI 70 이상 과매수 → 꺾임', score:2, cls:'bear'},
+      {label:'RSI 50선 위→아래 이탈 (하락 전환)', score:2, cls:'bear'},
+      {label:'가격 신고점 but RSI 전고점 하회 (하락 다이버전스)', score:2, cls:'bear'},
+      {label:'RSI 50 아래 유지 중', score:1, cls:'bear'},
+      {label:'RSI 50 아래 방향 불명확', score:0, cls:'neut'},
+      {label:'RSI 30 이하 과매도 (숏 진입 주의)', score:-1, cls:'bull'},
+    ]},
+    { id:'bb', label:'볼린저밴드 위치', opts:[
+      {label:'상단 밴드 + 하락 추세 = 숏 진입 자리', score:2, cls:'bear'},
+      {label:'중간선 저항 후 재하락', score:2, cls:'bear'},
+      {label:'밴드 확장 + 캔들 하단 방향', score:1, cls:'bear'},
+      {label:'밴드 폭 좁아짐 (스퀴즈)', score:0, cls:'neut'},
+      {label:'하단 밴드 근처 (과매도, 숏 주의)', score:-1, cls:'bull'},
+    ]},
+    { id:'trigger', label:'숏 진입 트리거', opts:[
+      {label:'지지선 하향 이탈 + 거래량 폭증', score:3, cls:'bear'},
+      {label:'직전 저항선 이탈 실패 후 하락 재개', score:2, cls:'bear'},
+      {label:'역핀바 (위꼬리 긴 캔들, 매수 압력 흡수)', score:2, cls:'bear'},
+      {label:'EMA 위 반등 후 다시 EMA 아래로 (데드크로스)', score:2, cls:'bear'},
+      {label:'하락 추세 중 RSI 반등 실패 (50 못 넘고 재하락)', score:1, cls:'bear'},
+      {label:'아무 트리거 없음 → 대기', score:0, cls:'neut'},
+      {label:'강한 지지선에서 반등 신호', score:-2, cls:'bull'},
+    ]},
+    { id:'macd', label:'MACD 방향', opts:[
+      {label:'0선 아래 + 막대 커지는 중 (하락 모멘텀 강화)', score:2, cls:'bear'},
+      {label:'0선 위→아래 전환 (하락 전환)', score:2, cls:'bear'},
+      {label:'0선 위 + 막대 작아지는 중 (상승 모멘텀 약화)', score:1, cls:'bear'},
+      {label:'0선 아래 + 막대 작아지는 중 (하락 약화, 반등 주의)', score:0, cls:'neut'},
+      {label:'0선 아래→위 전환 (상승 전환)', score:-2, cls:'bull'},
+      {label:'0선 위 + 막대 커지는 중 (상승 강화)', score:-2, cls:'bull'},
+    ]},
+  ],
+};
+
+let techScores = {};
+
+function renderPhase3(dir) {
+  techScores = {};
+  const steps = STEPS[dir];
+  const body = document.getElementById('phase3-body');
+  body.innerHTML = '';
+  steps.forEach(step => {
+    const div = document.createElement('div');
+    div.className = 'step-block';
+    div.innerHTML = `<div class="step-label">${step.label}
+      <span class="step-score-badge" id="sc-${step.id}">—</span></div>
+      <div class="options-list" id="opts-${step.id}"></div>`;
+    body.appendChild(div);
+    const list = div.querySelector(`#opts-${step.id}`);
+    step.opts.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      const sc = opt.score;
+      const scStr = sc>0?`+${sc}`:sc<0?`${sc}`:'0';
+      const scColor = sc>0?'var(--bull)':sc<0?'var(--bear)':'var(--text3)';
+      btn.innerHTML = `<span class="opt-text">${opt.label}</span>
+        <span class="opt-score" style="color:${scColor}">${scStr}</span>`;
+      btn.onclick = () => {
+        list.querySelectorAll('.opt-btn').forEach(b =>
+          b.classList.remove('sel-bull','sel-bear','sel-neut'));
+        btn.classList.add('sel-'+opt.cls);
+        techScores[step.id] = opt.score;
+        document.getElementById('sc-'+step.id).textContent = scStr;
+        document.getElementById('sc-'+step.id).style.color = scColor;
+        checkPhase3Complete(dir);
+      };
+      list.appendChild(btn);
+    });
+  });
+  document.getElementById('ph3-subtitle').textContent = dir==='long'?'롱 기준 분석':'숏 기준 분석';
+}
+
+function checkPhase3Complete(dir) {
+  const steps = STEPS[dir];
+  if (Object.keys(techScores).length < steps.length) return;
+  const techTotal = Object.values(techScores).reduce((a,b)=>a+b,0);
+  activatePhase('phase4');
+  renderVerdict(techTotal, dir);
+  document.getElementById('ph3-subtitle').textContent = '완료 ✓';
+}
+
+// ── 종합 판단 ─────────────────────────────────
+function renderVerdict(techTotal, dir) {
+  const fundTotal = getFundTotal();
+  const combined = techTotal + fundTotal * 0.8;
+  const body = document.getElementById('phase4-body');
+
+  if (dir === 'neut') {
+    body.innerHTML = `<div class="verdict-card" style="background:var(--neut-bg);border:1px solid var(--neut-border)">
+      <div class="verdict-grade" style="color:var(--neut)">중립 관망</div>
+      <div class="verdict-score" style="color:var(--neut)">펀더멘털: ${fundTotal>0?'+':''}${fundTotal.toFixed(1)}</div>
+      <div class="override-msg">명확한 방향이 정해질 때까지 포지션 보유를 자제하세요.</div>
+    </div>`;
+    document.getElementById('ph4-subtitle').textContent = '관망';
+    return;
+  }
+
+  // 등급 결정
+  const grades = dir==='long' ? [
+    {min:9,  label:'공격적 롱', size:100, color:'var(--bull)', bg:'var(--bull-bg)', border:'var(--bull-border)'},
+    {min:5,  label:'표준 롱',   size:50,  color:'var(--bull)', bg:'var(--bull-bg)', border:'var(--bull-border)'},
+    {min:2,  label:'소량 롱',   size:25,  color:'var(--bull)', bg:'var(--bull-bg)', border:'var(--bull-border)'},
+    {min:0,  label:'롱 대기',   size:0,   color:'var(--neut)', bg:'var(--neut-bg)', border:'var(--neut-border)'},
+    {min:-99,label:'롱 금지',   size:0,   color:'var(--bear)', bg:'var(--bear-bg)', border:'var(--bear-border)'},
+  ] : [
+    {min:9,  label:'공격적 숏', size:100, color:'var(--bear)', bg:'var(--bear-bg)', border:'var(--bear-border)'},
+    {min:5,  label:'표준 숏',   size:50,  color:'var(--bear)', bg:'var(--bear-bg)', border:'var(--bear-border)'},
+    {min:2,  label:'소량 숏',   size:25,  color:'var(--bear)', bg:'var(--bear-bg)', border:'var(--bear-border)'},
+    {min:0,  label:'숏 대기',   size:0,   color:'var(--neut)', bg:'var(--neut-bg)', border:'var(--neut-border)'},
+    {min:-99,label:'숏 금지',   size:0,   color:'var(--bull)', bg:'var(--bull-bg)', border:'var(--bull-border)'},
+  ];
+  const absScore = Math.abs(combined);
+  const grade = grades.find(g => absScore >= g.min) || grades[grades.length-1];
+
+  // 오버라이드 룰
+  let overrideMsg = '';
+  if (dir==='long' && fundTotal <= -3) overrideMsg = '⚠ 펀더멘털 강한 역풍 — 롱 진입 금지';
+  if (dir==='short' && fundTotal >= 3) overrideMsg = '⚠ 펀더멘털 강한 호재 — 숏 진입 경고';
+  if (dir==='long' && techTotal <= -6) overrideMsg = '⚠ 기술적 완전 하락 배열 — 차트 전환 대기';
+
+  document.getElementById('ph4-subtitle').textContent = grade.label;
+
+  body.innerHTML = `<div class="verdict-card" style="background:${grade.bg};border:1px solid ${grade.border}">
+    <div class="verdict-grade" style="color:${grade.color}">${grade.label}</div>
+    <div class="verdict-score" style="color:${grade.color}">
+      종합점수: ${combined>0?'+':''}${combined.toFixed(1)}
+      &nbsp;(기술적 ${techTotal>0?'+':''}${techTotal} + 펀더멘털 ${fundTotal>0?'+':''}${fundTotal}×0.8)
+    </div>
+    <div class="verdict-grid">
+      <div class="verdict-item">
+        <div class="verdict-item-label">권장 비중</div>
+        <div class="verdict-item-val" style="color:${grade.color}">${grade.size}%</div>
+      </div>
+      <div class="verdict-item">
+        <div class="verdict-item-label">방향</div>
+        <div class="verdict-item-val" style="color:${grade.color}">${dir==='long'?'▲ 롱':'▼ 숏'}</div>
+      </div>
+      <div class="verdict-item">
+        <div class="verdict-item-label">1차 목표 (R×1.5)</div>
+        <div class="verdict-item-val">진입가 기준 계산</div>
+      </div>
+      <div class="verdict-item">
+        <div class="verdict-item-label">2차 목표 (R×3.0)</div>
+        <div class="verdict-item-val">손절폭의 3배</div>
+      </div>
+    </div>
+    ${overrideMsg ? `<div class="override-msg" style="background:rgba(200,0,0,0.08);color:var(--bear)">${overrideMsg}</div>` : ''}
+  </div>`;
+}
+
+// ── Phase 제어 ────────────────────────────────
+function activatePhase(id) {
+  const order = ['phase1','phase2','phase3','phase4'];
+  const idx = order.indexOf(id);
+  order.forEach((pid, i) => {
+    const el = document.getElementById(pid);
+    if (i < idx) { el.classList.remove('active'); el.classList.add('done'); }
+    else if (i === idx) { el.classList.add('active'); el.classList.remove('done'); el.scrollIntoView({behavior:'smooth',block:'start'}); }
+    else { el.classList.remove('active','done'); }
+  });
+}
+
+function resetAll() {
+  FUND_IDS.forEach(id => {
+    document.getElementById('f-'+id).value = 0;
+  });
+  updateFund();
+  chosenDir = null; techScores = {};
+  ['long','neut','short'].forEach(d =>
+    document.getElementById('dir-'+d).classList.remove('sel-long','sel-short','sel-neut'));
+  document.getElementById('dir-warn').style.display = 'none';
+  document.getElementById('phase3-body').innerHTML = '';
+  document.getElementById('phase4-body').innerHTML = '';
+  document.getElementById('ph1-subtitle').textContent = '각 영역 -2 ~ +2 선택';
+  document.getElementById('ph2-subtitle').textContent = '롱 / 숏 / 관망';
+  document.getElementById('ph3-subtitle').textContent = '차트 보면서 선택';
+  document.getElementById('ph4-subtitle').textContent = '';
+  ['phase2','phase3','phase4'].forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.remove('active','done');
+  });
+  document.getElementById('phase1').classList.add('active');
+  document.getElementById('phase1').classList.remove('done');
+}
+
+// ── 초기화 ────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  initCharts();
+  loadMarket();
+  loadChart('xauusd', '15m');
+  setInterval(loadMarket, 60000);
+});
+</script>
+</body>
+</html>
