@@ -368,7 +368,7 @@ function calcMACD(data, fast=12, slow=26, signal=9) {
 }
 
 function toTime(isoStr) {
-  const d = new Date(isoStr);
+  const d = new Date(isoStr.replace(/([+-]\d{2}:\d{2})$/, 'Z').replace(/Z$/, 'Z'));
   return Math.floor(d.getTime()/1000);
 }
 
