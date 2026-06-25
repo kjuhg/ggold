@@ -401,6 +401,940 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
   <div class="guide-section-title" style="background:var(--q1)">① 실질금리 (TIPS 10년) — 금의 핵심 드라이버</div>
 
   <div class="guide-box">
+    <div class="guide-box-title">📌 기초 개념 — 실질금리란?</div>
+    <p class="guide-p"><b>명목금리</b>는 우리가 흔히 보는 미국채 10년물 금리(현재 약 4.5%)입니다. 하지만 금 투자자에게 중요한 것은 <b>실질금리</b>입니다. 인플레이션을 제외하고 나서 실제로 얼마를 버느냐의 문제이기 때문입니다.</p>
+    <div class="guide-formula">실질금리 = 명목금리(DGS10) − 기대인플레이션(BEI/T10YIE)</div>
+    <p class="guide-p" style="margin-top:8px;">금은 이자나 배당을 주지 않습니다. 실질금리가 <b>높으면</b> 국채를 사는 게 더 유리하므로 금 수요가 줄고, 실질금리가 <b>낮거나 마이너스</b>이면 금 보유 기회비용이 없어져 금이 매력적인 자산이 됩니다.</p>
+    <table class="guide-table" style="margin-top:8px;">
+      <tr><th>실질금리 수준</th><th>금에 미치는 영향</th><th>역사적 사례</th></tr>
+      <tr class="row-bull"><td>0% 이하 (마이너스)</td><td>강한 상승 압력</td><td>2020~2022 금 사상최고가</td></tr>
+      <tr class="row-bull"><td>0 ~ 0.5%</td><td>상승 압력</td><td>달러 약세 동반 시 더 강함</td></tr>
+      <tr class="row-neut"><td>0.5 ~ 1.5%</td><td>중립</td><td>횡보 구간, 다른 요인이 결정</td></tr>
+      <tr class="row-bear"><td>1.5 ~ 2.5%</td><td>하락 압력</td><td>2022년 금리인상기 금 조정</td></tr>
+      <tr class="row-bear"><td>2.5% 이상</td><td>강한 하락 압력</td><td>높은 기회비용, 금 매도세</td></tr>
+    </table>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-box-title">📊 확인할 지표 3가지와 의미</div>
+    <table class="guide-table">
+      <tr><th>지표명</th><th>FRED 코드</th><th>무엇을 보는가</th><th>현재 의미</th></tr>
+      <tr><td><b>TIPS 10년</b></td><td>DFII10</td><td>실질금리 직접 수치. 가장 중요한 단일 지표</td><td>이 숫자가 내려가면 금 호재</td></tr>
+      <tr><td><b>BEI</b></td><td>T10YIE</td><td>명목금리 - TIPS = 시장의 10년 기대인플레이션</td><td>TIPS와 함께 방향 확인</td></tr>
+      <tr><td><b>5y5y Forward</b></td><td>T5YIFR</td><td>5년 후 5년간 기대인플레이션. 장기 신뢰도 척도</td><td>2.5% 이상이면 장기 인플레이션 우려</td></tr>
+    </table>
+    <div class="ext-links">
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/DFII10" target="_blank">📈 FRED — TIPS 10년 (DFII10)</a>
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/T10YIE" target="_blank">📈 FRED — BEI 기대인플레이션</a>
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/T5YIFR" target="_blank">📈 FRED — 5y5y Forward</a>
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/DGS10" target="_blank">📈 FRED — 미국채 10년 명목금리</a>
+    </div>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-box-title">🔀 의사결정 플로차트 — 단계별 상세 설명</div>
+    <div class="flow-chart">
+
+      <div class="flow-node flow-q-node">
+        Q1. TIPS 10년 금리(DFII10)가 최근 1개월간 올랐나요, 내렸나요?<br>
+        <span style="font-size:10px;color:var(--text3)">FRED에서 1개월 차트 확인 → 우상향이면 상승, 우하향이면 하락</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+
+        <div>
+          <div class="flow-branch-label flow-bear">↑ TIPS 상승 (실질금리 상승 = 금에 역풍)</div>
+          <div class="flow-node" style="font-size:11px;background:#fff8f8;border-color:var(--bear);margin-bottom:8px;">
+            <b>왜 역풍인가?</b><br>
+            실질금리 상승 → 달러 예금/국채 수익률 매력 증가 → 이자 없는 금 보유 기회비용 증가 → 금 매도세
+          </div>
+
+          <div class="flow-node flow-q-node" style="font-size:11px;">
+            Q2a. 같은 기간 BEI(기대인플레이션)도 같이 올랐나요?
+          </div>
+
+          <div style="margin-top:6px;display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+            <div>
+              <div class="flow-branch-label" style="font-size:10px;color:var(--neut);background:var(--neut-bg);padding:2px 6px;border-radius:3px;display:inline-block;margin-bottom:4px;">YES → 리플레이션</div>
+              <div class="flow-node" style="font-size:10px;background:var(--neut-bg);border-color:var(--neut-border);">
+                <b>리플레이션이란?</b><br>경기 회복기에 인플레와 금리가 함께 오르는 현상. 실질금리 상승폭이 제한됨.<br><br>
+                Q3: 단기BEI > 장기BEI?<br>
+                YES → 일시적 현상, 과도반응 → <b style="color:var(--neut)">Ra1: 역풍 제한적 (0~-1)</b><br>
+                NO → 구조적 인플레 → <b style="color:var(--bear)">Ra2: 역풍 심화 (-2)</b>
+              </div>
+            </div>
+            <div>
+              <div class="flow-branch-label" style="font-size:10px;color:var(--bear);background:var(--bear-bg);padding:2px 6px;border-radius:3px;display:inline-block;margin-bottom:4px;">NO → 디스인플레이션</div>
+              <div class="flow-node" style="font-size:10px;background:var(--bear-bg);border-color:var(--bear-border);">
+                <b>디스인플레이션이란?</b><br>물가 상승세가 둔화되면서 실질금리만 오르는 현상. 가장 나쁜 조합.<br><br>
+                연준 정책 여력 확인:<br>
+                → 금리인하 불가 → <b style="color:var(--bear)">Rb1/Rb2: 역풍 지속 (-1~-2)</b>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="flow-branch-label flow-bull">↓ TIPS 하락 (실질금리 하락 = 금에 호재)</div>
+          <div class="flow-node" style="font-size:11px;background:#f0fff8;border-color:var(--bull);margin-bottom:8px;">
+            <b>왜 호재인가?</b><br>
+            실질금리 하락 → 금 보유 기회비용 감소 → 인플레 헤지 수요 증가 → 금 매수세 유입
+          </div>
+
+          <div class="flow-node flow-q-node" style="font-size:11px;">
+            Q2b. BEI(기대인플레이션)가 같이 올랐나요?
+          </div>
+
+          <div style="margin-top:6px;display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+            <div>
+              <div class="flow-branch-label" style="font-size:10px;color:var(--bull);background:var(--bull-bg);padding:2px 6px;border-radius:3px;display:inline-block;margin-bottom:4px;">YES → 스태그플레이션</div>
+              <div class="flow-node" style="font-size:10px;background:var(--bull-bg);border-color:var(--bull-border);">
+                <b>스태그플레이션이란?</b><br>경기 침체 + 물가 상승 동시 발생. 연준이 금리를 못 올림.<br>금의 최고 환경 중 하나.<br><br>
+                ETF 유입 동반 시 → <b style="color:var(--bull)">Rc1/Rc2: ★ 최고 호재 (+2)</b>
+              </div>
+            </div>
+            <div>
+              <div class="flow-branch-label" style="font-size:10px;color:var(--bull);background:var(--bull-bg);padding:2px 6px;border-radius:3px;display:inline-block;margin-bottom:4px;">NO → 성장 둔화·침체 공포</div>
+              <div class="flow-node" style="font-size:10px;background:var(--bull-bg);border-color:var(--bull-border);">
+                <b>성장 둔화란?</b><br>경기가 나빠지면서 명목금리도 하락. BEI도 낮음.<br>연준 금리인하 기대 → 실질금리 더 하락 가능.<br><br>
+                연착륙 vs 경착륙 확인:<br>→ <b style="color:var(--bull)">Rd1/Rd2: 강한 호재 (+1~+2)</b>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-box-title">🎚️ 슬라이더 판단 기준 (체크리스트 Phase 1 반영)</div>
+    <table class="guide-table">
+      <tr><th>점수</th><th>상황</th><th>TIPS</th><th>BEI</th></tr>
+      <tr class="row-bear"><td><b>-2</b></td><td>강한 역풍 — 디스인플레이션 + 실질금리 급등</td><td>↑ 상승</td><td>↓ 하락</td></tr>
+      <tr class="row-bear"><td><b>-1</b></td><td>역풍 — 리플레이션, 구조적 인플레 우려</td><td>↑ 상승</td><td>↑ 동반상승</td></tr>
+      <tr class="row-neut"><td><b>&nbsp;0</b></td><td>중립 — 횡보, 방향 불명확</td><td>→ 횡보</td><td>→ 횡보</td></tr>
+      <tr class="row-bull"><td><b>+1</b></td><td>호재 — 스태그, ETF 유입</td><td>↓ 하락</td><td>↑ 상승</td></tr>
+      <tr class="row-bull"><td><b>+2</b></td><td>강한 호재 — 성장 둔화·침체 공포, 금리인하 기대</td><td>↓ 하락</td><td>↓ 하락</td></tr>
+    </table>
+  </div>
+
+  <div class="guide-box guide-tip">
+    💡 <b>실전 확인법:</b> FRED에서 DFII10 검색 → 1M(1개월) 차트 → 선이 내려가면 호재. 현재 수치가 <b>1.5% 이하</b>면 금에 우호적 환경입니다. BEI(T10YIE)는 2.2~2.5%가 역사적 평균이며, 이보다 높으면 인플레이션 우려, 낮으면 성장둔화 우려입니다.
+  </div>
+</div>
+
+<div class="gtab-panel" id="gtab-g2">
+  <div class="guide-section-title" style="background:var(--q2)">② DXY 달러 인덱스 — 금과 역상관 관계</div>
+
+  <div class="guide-box">
+    <div class="guide-box-title">📌 기초 개념 — DXY란?</div>
+    <p class="guide-p"><b>DXY(달러 인덱스)</b>는 유로(57.6%), 엔(13.6%), 파운드(11.9%), 캐나다달러(9.1%), 크로나(4.2%), 스위스프랑(3.6%) 6개 통화 대비 달러 강세를 나타내는 지수입니다. 기준값은 100이며, 100 이상이면 달러 강세, 이하면 달러 약세입니다.</p>
+    <div class="guide-formula">DXY ↑ (달러 강세) → 금 ↓ &nbsp;|&nbsp; DXY ↓ (달러 약세) → 금 ↑</div>
+    <p class="guide-p" style="margin-top:8px;">금은 달러로 표시되기 때문에 달러가 강해지면 외국인 입장에서 금이 비싸져 수요가 줄고, 달러가 약해지면 금이 저렴해져 수요가 늘어납니다. 역사적 상관계수는 <b>약 -0.7</b>입니다.</p>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-box-title">📊 현재 DXY 상황</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px;">
+      <div style="text-align:center;padding:12px;background:var(--bg2);border-radius:8px;">
+        <div style="font-size:11px;color:var(--text3);">현재 DXY</div>
+        <div style="font-size:24px;font-weight:700;" id="g2-dxy">—</div>
+      </div>
+      <div style="text-align:center;padding:12px;background:var(--bg2);border-radius:8px;">
+        <div style="font-size:11px;color:var(--text3);">등락률</div>
+        <div style="font-size:24px;font-weight:700;" id="g2-dxy-chg">—</div>
+      </div>
+      <div style="text-align:center;padding:12px;background:var(--bg2);border-radius:8px;">
+        <div style="font-size:11px;color:var(--text3);">금 현재가</div>
+        <div style="font-size:24px;font-weight:700;" id="g2-gold">—</div>
+      </div>
+    </div>
+    <div style="font-size:11px;color:var(--text3);padding:6px 10px;background:var(--bg2);border-radius:6px;">
+      💡 DXY 100 기준: 100 이상 = 달러 강세 (금 역풍) / 100 이하 = 달러 약세 (금 호재) / 95 이하 = 강한 달러 약세
+    </div>
+    <div class="ext-links" style="margin-top:8px;">
+      <a class="ext-link ext-link-tv" href="https://www.tradingview.com/chart/?symbol=TVC%3ADXY" target="_blank">📊 TradingView — DXY</a>
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/DTWEXBGS" target="_blank">📈 FRED — 달러 무역가중지수</a>
+      <a class="ext-link ext-link-tv" href="https://www.tradingview.com/chart/?symbol=FX%3AUSDKRW" target="_blank">📊 USD/KRW</a>
+    </div>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-box-title">🔀 의사결정 플로차트 — 단계별 상세 설명</div>
+    <div class="flow-chart">
+
+      <div class="flow-node flow-q-node">
+        Q1. DXY가 20일 이동평균선(MA20) 위에 있나요, 아래에 있나요?<br>
+        <span style="font-size:10px;color:var(--text3)">TradingView → DXY 일봉 → 지표 추가 → MA 20 → 현재 캔들이 선 위/아래 확인</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+        <div>
+          <div class="flow-branch-label flow-bull">↓ MA20 아래 (달러 약세 추세)</div>
+          <div class="flow-node" style="font-size:11px;background:#f0fff8;border-color:var(--bull);margin-bottom:8px;">
+            <b>왜 중요한가?</b><br>
+            20일선 아래 = 단기 추세가 하락. 달러 공급 과잉이나 연준 금리인하 기대가 반영된 상태. 금에 우호적 환경.
+          </div>
+          <div class="flow-node flow-q-node" style="font-size:11px;">Q2a. DXY의 RSI(14)가 50 아래인가요?</div>
+          <div class="flow-node" style="font-size:11px;background:var(--bull-bg);border-color:var(--bull-border);margin-top:6px;">
+            <b>RSI &lt; 50 (약세 모멘텀 지속)</b><br>
+            RSI가 50 아래에 있다는 것은 달러 약세 모멘텀이 살아있다는 의미. 추가 하락 가능성.<br>
+            → 달러 추가 하락 → 금 추가 상승 기대<br>
+            → <b style="color:var(--bull)">강한 호재 (+2점)</b>
+          </div>
+          <div class="flow-node" style="font-size:11px;background:var(--neut-bg);border-color:var(--neut-border);margin-top:6px;">
+            <b>RSI &gt; 50 (단기 반등 가능)</b><br>
+            추세는 약세이지만 RSI가 50 위 = 단기 되돌림 구간. 잠시 달러 반등 후 재하락 가능성.<br>
+            → 추세 약세 유지, 단기 조심<br>
+            → <b style="color:var(--neut)">호재, 단기 주의 (+1점)</b>
+          </div>
+        </div>
+
+        <div>
+          <div class="flow-branch-label flow-bear">↑ MA20 위 (달러 강세 추세)</div>
+          <div class="flow-node" style="font-size:11px;background:#fff8f8;border-color:var(--bear);margin-bottom:8px;">
+            <b>왜 중요한가?</b><br>
+            20일선 위 = 단기 추세 상승. 달러 강세가 지속될 가능성. 금에 역풍. 단, 리스크 성격에 따라 다름.
+          </div>
+          <div class="flow-node flow-q-node" style="font-size:11px;">Q2b. 달러 강세의 원인은 리스크온인가요, 리스크오프인가요?</div>
+          <div class="flow-node" style="font-size:11px;background:var(--bear-bg);border-color:var(--bear-border);margin-top:6px;">
+            <b>리스크온 (위험선호)</b><br>
+            증시 상승 + 달러 강세 = 경기 좋고 달러 수요 높음. 금 같은 안전자산 매력 감소.<br>
+            VIX 하락 중이면 확인.<br>
+            → <b style="color:var(--bear)">강한 역풍 (-2점)</b>
+          </div>
+          <div class="flow-node" style="font-size:11px;background:var(--neut-bg);border-color:var(--neut-border);margin-top:6px;">
+            <b>리스크오프 (위험회피)</b><br>
+            위기 시 달러+금 동반 상승 가능 (2008, 2020). 유동성 위기 초기에는 달러 매수 → 이후 금 매수.<br>
+            VIX 급등 중이면 확인.<br>
+            → <b style="color:var(--neut)">복합적 (0~-1점)</b>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-box-title">🎚️ 슬라이더 판단 기준</div>
+    <table class="guide-table">
+      <tr><th>점수</th><th>상황</th><th>DXY vs MA20</th><th>RSI</th></tr>
+      <tr class="row-bear"><td><b>-2</b></td><td>달러 강세 추세 뚜렷 + 리스크온</td><td>MA20 위</td><td>RSI 상승 중</td></tr>
+      <tr class="row-bear"><td><b>-1</b></td><td>달러 강세이나 모멘텀 약화</td><td>MA20 위</td><td>RSI 하락 중</td></tr>
+      <tr class="row-neut"><td><b>&nbsp;0</b></td><td>횡보 / 방향 불명확 / 리스크오프 복합</td><td>MA20 근처</td><td>RSI 50 근처</td></tr>
+      <tr class="row-bull"><td><b>+1</b></td><td>달러 약세이나 단기 반등 구간</td><td>MA20 아래</td><td>RSI &gt; 50</td></tr>
+      <tr class="row-bull"><td><b>+2</b></td><td>달러 약세 추세 뚜렷</td><td>MA20 아래</td><td>RSI &lt; 50</td></tr>
+    </table>
+  </div>
+
+  <div class="guide-box guide-tip">
+    💡 <b>실전 팁:</b> 대시보드에서 DXY 카드 클릭 → 일봉 전환 → EMA(파란선)가 20일선입니다. 캔들이 선 아래에 있으면 달러 약세 추세. DXY 100 아래이고 RSI 50 이하이면 금에 매우 유리한 조합입니다.
+  </div>
+</div>
+
+<div class="gtab-panel" id="gtab-g3">
+  <div class="guide-section-title" style="background:#5A6A3A">③ 지정학적 리스크 — 안전자산 수요</div>
+
+  <div class="guide-box">
+    <div class="guide-box-title">📌 기초 개념 — 안전자산이란?</div>
+    <p class="guide-p">위기 상황에서 투자자들은 주식 같은 위험자산을 팔고 <b>금, 달러, 미국채, 엔화</b> 같은 안전자산으로 이동합니다. 금은 수천 년간 가치를 인정받은 실물자산으로, 정치적 위험이나 통화 신뢰 위기 시 특히 강합니다.</p>
+    <p class="guide-p"><b>핵심 원칙:</b> 이미 알려진 리스크는 가격에 반영되어 있습니다. "전쟁이 났다"는 뉴스가 나올 때 이미 반영된 경우가 많습니다. <b>시장이 예상 못 한 새로운 충격</b>인지가 가장 중요합니다.</p>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-box-title">📊 VIX 공포지수 — 현재 상황</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+      <div style="text-align:center;padding:14px;background:var(--bg2);border-radius:8px;">
+        <div style="font-size:11px;color:var(--text3);">현재 VIX</div>
+        <div style="font-size:32px;font-weight:700;" id="g3-vix">—</div>
+      </div>
+      <div style="text-align:center;padding:14px;border-radius:8px;" id="g3-vix-level-box" style="background:var(--bg2);">
+        <div style="font-size:11px;color:var(--text3);">시장 상태</div>
+        <div style="font-size:20px;font-weight:700;" id="g3-vix-level">—</div>
+      </div>
+    </div>
+    <table class="guide-table">
+      <tr><th>VIX 수준</th><th>시장 상태</th><th>의미</th><th>금 영향</th></tr>
+      <tr><td>&lt; 15</td><td>🟢 안정</td><td>시장 낙관, 변동성 낮음</td><td>지정학 요인 중립 (0)</td></tr>
+      <tr class="row-neut"><td>15 ~ 20</td><td>🟡 경계</td><td>불확실성 증가, 주의 필요</td><td>소폭 안전자산 수요 (+1)</td></tr>
+      <tr style="background:#FFE0B2;"><td>20 ~ 30</td><td>🟠 공포</td><td>투자자 공포 확산, 변동성 높음</td><td>안전자산 수요 뚜렷 (+1~+2)</td></tr>
+      <tr class="row-bear"><td>30 이상</td><td>🔴 극심한 공포</td><td>시장 패닉, 금융위기 수준</td><td>강력한 금 수요 (+2)</td></tr>
+    </table>
+    <div class="ext-links" style="margin-top:8px;">
+      <a class="ext-link ext-link-tv" href="https://www.tradingview.com/chart/?symbol=CBOE%3AVIX" target="_blank">📊 TradingView — VIX</a>
+      <a class="ext-link ext-link-tv" href="https://www.tradingview.com/chart/?symbol=CBOE%3AMOVE" target="_blank">📊 MOVE 채권변동성</a>
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/VIXCLS" target="_blank">📈 FRED — VIX 역사 데이터</a>
+    </div>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-box-title">🔀 의사결정 플로차트 — 단계별 상세 설명</div>
+    <div class="flow-chart">
+
+      <div class="flow-node flow-q-node">
+        Q1. 지금 시장에서 이슈가 되는 지정학적 사건이 있나요?<br>
+        <span style="font-size:10px;color:var(--text3)">뉴스 헤드라인, Bloomberg, Reuters 확인</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+        <div>
+          <div class="flow-branch-label flow-bear">NO — 특별한 사건 없음</div>
+          <div class="flow-node" style="font-size:11px;background:var(--bg2);border-color:var(--border);">
+            VIX만 확인:<br>
+            VIX &lt; 15 → 지정학 0점<br>
+            VIX 15~20 → 일반적 불확실성 +1점<br>
+            → 다른 요인이 금 방향 결정
+          </div>
+        </div>
+        <div>
+          <div class="flow-branch-label flow-bull">YES — 이슈 있음</div>
+          <div class="flow-node flow-q-node" style="font-size:11px;">Q2. 이미 알려진 사건인가요, 새로운 충격인가요?</div>
+          <div class="flow-node" style="font-size:11px;background:var(--bear-bg);border-color:var(--bear-border);margin-top:6px;">
+            <b>이미 알려진 사건</b><br>
+            예: 러-우 장기전, 미중 무역갈등, 중동 기존 분쟁<br>
+            → 가격 반영 완료 → <b>0점</b>
+          </div>
+          <div class="flow-node flow-q-node" style="font-size:11px;margin-top:6px;">새로운 충격 → Q3. VIX가 급등했나요?</div>
+          <div class="flow-node" style="font-size:11px;background:var(--bull-bg);border-color:var(--bull-border);margin-top:6px;">
+            <b>VIX 급등 (하루 20%+ 상승)</b><br>
+            → 시장 패닉 시작<br>
+            Q4: 금리인하 기대 동반?<br>
+            YES → <b style="color:var(--bull)">★ 최고 호재 (+2)</b><br>
+            NO → <b style="color:var(--bull)">강한 호재 (+1~+2)</b>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-node" style="margin-top:12px;background:#FFF3E0;border-color:#FF9800;font-size:11px;">
+        ⚠️ <b>주의:</b> 위기 초반에는 달러와 금이 함께 오르다가, 이후 달러는 하락하고 금만 지속 상승하는 패턴이 많습니다. (2008년, 2020년 공통 패턴) 초기 급등 이후 조정 구간이 오면 진입 기회입니다.
+      </div>
+    </div>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-box-title">📋 역사적 사례별 금 반응</div>
+    <table class="guide-table">
+      <tr><th>사건</th><th>VIX 피크</th><th>금 반응</th><th>패턴</th></tr>
+      <tr class="row-bull"><td>2020 코로나</td><td>85</td><td>+40% (6개월)</td><td>급락 후 사상최고가</td></tr>
+      <tr class="row-bull"><td>2022 러-우</td><td>38</td><td>+10% (2주)</td><td>이미 반영, 단기 급등 후 조정</td></tr>
+      <tr class="row-bull"><td>2023 이-팔</td><td>23</td><td>+8% (1개월)</td><td>지속 상승</td></tr>
+      <tr class="row-neut"><td>2018 미중 무역전쟁</td><td>36</td><td>+0% (횡보)</td><td>달러 강세 동반, 상쇄</td></tr>
+    </table>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-box-title">🎚️ 슬라이더 판단 기준</div>
+    <table class="guide-table">
+      <tr><th>점수</th><th>상황</th></tr>
+      <tr class="row-bear"><td><b>-2</b></td><td>리스크 해소 + VIX 급락 + 안전자산 청산 (금 매도세)</td></tr>
+      <tr class="row-bear"><td><b>-1</b></td><td>VIX 하락 추세, 지정학 완화, 리스크온 분위기</td></tr>
+      <tr class="row-neut"><td><b>&nbsp;0</b></td><td>VIX 15 이하, 알려진 리스크만, 평온한 시장</td></tr>
+      <tr class="row-bull"><td><b>+1</b></td><td>VIX 15~25, 새로운 긴장 고조, 불확실성 증가</td></tr>
+      <tr class="row-bull"><td><b>+2</b></td><td>VIX 25+, 예상 밖 새 충격, 금리인하 기대 동반</td></tr>
+    </table>
+  </div>
+
+  <div class="guide-box guide-tip">
+    💡 <b>실전 팁:</b> VIX는 대시보드 상단 카드에서 실시간 확인 가능합니다. VIX 20이 핵심 경계선입니다. 20 이상이면 시장이 공포 상태이고 금 수요가 증가합니다. 단, VIX가 이미 높은 상태에서 내려오고 있다면 안전자산 해소 구간이므로 주의하세요.
+  </div>
+</div>
+
+<div class="gtab-panel" id="gtab-g4">
+  <div class="guide-section-title" style="background:var(--q4)">④ 중앙은행 수급 — 구조적 수요 기반</div>
+
+  <div class="guide-box">
+    <div class="guide-box-title">📌 기초 개념 — 중앙은행은 왜 금을 사는가?</div>
+    <p class="guide-p">전 세계 중앙은행들이 금을 매입하는 이유는 크게 세 가지입니다.</p>
+    <table class="guide-table">
+      <tr><th>이유</th><th>설명</th><th>주요 국가</th></tr>
+      <tr><td><b>① 탈달러화</b></td><td>외환보유고에서 달러 의존도를 줄이고 금으로 대체</td><td>중국, 러시아, 인도</td></tr>
+      <tr><td><b>② 지정학 헤지</b></td><td>제재 위험 대비, 달러 동결 불가능한 금 선호</td><td>러시아, 이란, 터키</td></tr>
+      <tr><td><b>③ 인플레 헤지</b></td><td>장기적 가치저장 수단으로 포트폴리오 안정화</td><td>폴란드, 체코, 헝가리</td></tr>
+    </table>
+    <div class="guide-formula">중앙은행 순매입 증가 → 구조적 하단 지지 형성 → 하락 시 매수 기회</div>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-box-title">📊 2026년 현재 동향</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;">
+      <div style="text-align:center;padding:10px;background:var(--bull-bg);border-radius:8px;border:1px solid var(--bull-border);">
+        <div style="font-size:10px;color:var(--text3);">이번 달 순매입</div>
+        <div style="font-size:22px;font-weight:700;color:var(--bull);">+19톤</div>
+      </div>
+      <div style="text-align:center;padding:10px;background:var(--bg2);border-radius:8px;">
+        <div style="font-size:10px;color:var(--text3);">36개월 평균</div>
+        <div style="font-size:22px;font-weight:700;">+29톤/월</div>
+      </div>
+      <div style="text-align:center;padding:10px;background:var(--neut-bg);border-radius:8px;">
+        <div style="font-size:10px;color:var(--text3);">평균 대비</div>
+        <div style="font-size:22px;font-weight:700;color:var(--neut);">-34%</div>
+      </div>
+    </div>
+    <table class="guide-table">
+      <tr><th>국가</th><th>매입량</th><th>특이사항</th></tr>
+      <tr class="row-bull"><td>🇵🇱 폴란드</td><td>+14톤</td><td>NATO 동유럽 안보 불안 헤지</td></tr>
+      <tr class="row-bull"><td>🇨🇳 중국</td><td>+8톤</td><td>18개월 연속 매입, 탈달러화 전략</td></tr>
+      <tr class="row-bull"><td>🇨🇿 체코</td><td>+2톤</td><td>유럽 중앙은행 매입 추세 동참</td></tr>
+    </table>
+    <div class="ext-links" style="margin-top:8px;">
+      <a class="ext-link ext-link-wgc" href="https://www.gold.org/goldhub/data/gold-supply-and-demand-statistics" target="_blank">🥇 WGC — 중앙은행 수급 통계</a>
+      <a class="ext-link ext-link-wgc" href="https://www.gold.org/goldhub/research/central-bank-gold-reserves" target="_blank">🥇 WGC — 중앙은행 보유량</a>
+    </div>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-box-title">🔀 의사결정 플로차트 — 단계별 상세 설명</div>
+    <div class="flow-chart">
+
+      <div class="flow-node flow-q-node">
+        Q1. 이번 달 전 세계 중앙은행이 금을 순매입했나요, 순매도했나요?<br>
+        <span style="font-size:10px;color:var(--text3)">gold.org → Research → Central Bank Statistics (월 1회 업데이트, 약 1개월 지연)</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+        <div>
+          <div class="flow-branch-label flow-bear">순매도 발생</div>
+          <div class="flow-node" style="font-size:11px;background:#fff8f8;border-color:var(--bear);margin-bottom:8px;">
+            <b>순매도란?</b><br>
+            매도량 > 매입량. 중앙은행이 보유 금을 줄이는 것. 구조적 수요 기반이 흔들리는 신호.
+          </div>
+          <div class="flow-node flow-q-node" style="font-size:11px;">Q2: ETF 수요도 동반 감소하나요?</div>
+          <div class="flow-node" style="font-size:11px;background:var(--bear-bg);border-color:var(--bear-border);margin-top:6px;">
+            <b>ETF도 유출</b><br>
+            기관+중앙은행 동반 매도 = 수요 붕괴 신호<br>
+            → <b style="color:var(--bear)">강한 역풍 (-2점)</b>
+          </div>
+          <div class="flow-node" style="font-size:11px;background:var(--neut-bg);border-color:var(--neut-border);margin-top:6px;">
+            <b>ETF는 유입 또는 중립</b><br>
+            중앙은행만 소규모 조정 = 일시적 가능성<br>
+            → <b style="color:var(--neut)">역풍 제한적 (-1점)</b>
+          </div>
+        </div>
+        <div>
+          <div class="flow-branch-label flow-bull">순매입 지속</div>
+          <div class="flow-node" style="font-size:11px;background:#f0fff8;border-color:var(--bull);margin-bottom:8px;">
+            <b>순매입이란?</b><br>
+            매입량 > 매도량. 구조적 수요 유지. 하락 시 저점 지지 역할을 해줌.
+          </div>
+          <div class="flow-node flow-q-node" style="font-size:11px;">Q2: 36개월 평균(+29톤) 대비 많나요?</div>
+          <div class="flow-node" style="font-size:11px;background:var(--bull-bg);border-color:var(--bull-border);margin-top:6px;">
+            <b>평균 이상 매입</b><br>
+            구조적 수요 증가 신호. ETF 유입까지 동반 시 최강 조합.<br>
+            → <b style="color:var(--bull)">강한 호재 (+2점)</b>
+          </div>
+          <div class="flow-node" style="font-size:11px;background:var(--neut-bg);border-color:var(--neut-border);margin-top:6px;">
+            <b>평균 이하 매입 (현재: +19톤)</b><br>
+            수요는 유지 중이지만 둔화. 하락 지지는 있으나 상승 동력 약함.<br>
+            → <b style="color:var(--neut)">소호재 (+1점)</b>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-box-title">🎚️ 슬라이더 판단 기준</div>
+    <table class="guide-table">
+      <tr><th>점수</th><th>상황</th><th>중앙은행</th><th>ETF</th></tr>
+      <tr class="row-bear"><td><b>-2</b></td><td>구조적 수요 붕괴</td><td>순매도 대규모</td><td>동반 유출</td></tr>
+      <tr class="row-bear"><td><b>-1</b></td><td>수요 약화 신호</td><td>순매도 소규모 or 급감</td><td>중립</td></tr>
+      <tr class="row-neut"><td><b>&nbsp;0</b></td><td>현상 유지 (평균 수준)</td><td>+20~30톤</td><td>중립</td></tr>
+      <tr class="row-bull"><td><b>+1</b></td><td>수요 유지 (현재 상황)</td><td>+10~20톤</td><td>중립~소폭 유입</td></tr>
+      <tr class="row-bull"><td><b>+2</b></td><td>구조적 수요 급증</td><td>+40톤 이상</td><td>동반 대규모 유입</td></tr>
+    </table>
+  </div>
+
+  <div class="guide-box guide-tip">
+    💡 <b>실전 팁:</b> 데이터가 약 1개월 지연되므로 매월 초 gold.org에서 확인하세요. 단기 매매보다는 중장기 추세 판단에 활용합니다. 현재(2026년 6월) +19톤은 평균보다 낮지만 순매입은 지속 중이므로 <b>슬라이더 +1</b>이 적절합니다.
+  </div>
+</div>
+
+<div class="gtab-panel" id="gtab-g5">
+  <div class="guide-section-title" style="background:#4A4A4A">⑤ 종합 판단 기준 — 점수 해석과 실전 활용</div>
+
+  <div class="guide-box">
+    <div class="guide-box-title">📊 전체 점수 체계</div>
+    <table class="guide-table">
+      <tr><th>구분</th><th>항목</th><th>범위</th><th>반영 비중</th></tr>
+      <tr><td rowspan="4"><b>펀더멘털</b><br>(Phase 1)</td><td>① 실질금리</td><td>-2 ~ +2</td><td rowspan="4">×0.8 (단기 타이밍보다 중요도 낮춤)</td></tr>
+      <tr><td>② DXY 달러</td><td>-2 ~ +2</td></tr>
+      <tr><td>③ 지정학</td><td>-2 ~ +2</td></tr>
+      <tr><td>④ 중앙은행</td><td>-2 ~ +2</td></tr>
+      <tr><td rowspan="5"><b>기술적</b><br>(Phase 3)</td><td>EMA 배열</td><td>-3 ~ +3</td><td rowspan="5">×1.0</td></tr>
+      <tr><td>RSI 모멘텀</td><td>-2 ~ +2</td></tr>
+      <tr><td>볼린저밴드</td><td>-1 ~ +2</td></tr>
+      <tr><td>진입 트리거</td><td>-2 ~ +3</td></tr>
+      <tr><td>MACD</td><td>-2 ~ +2</td></tr>
+    </table>
+    <div class="guide-formula">종합점수 = 기술적 합계 + 펀더멘털 합계 × 0.8</div>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-box-title">📈 진입 등급 기준</div>
+    <table class="guide-table">
+      <tr><th>등급</th><th>종합점수</th><th>권장 비중</th><th>필요 조건</th></tr>
+      <tr class="row-bull"><td><b>공격적 진입</b></td><td>9점 이상</td><td>100%</td><td>펀더멘털 +3 이상 + 기술적 완전 배열</td></tr>
+      <tr class="row-bull"><td><b>표준 진입</b></td><td>5 ~ 8점</td><td>50%</td><td>방향 명확 + 트리거 확인</td></tr>
+      <tr class="row-bull"><td><b>소량 진입</b></td><td>2 ~ 4점</td><td>25%</td><td>일부 조건 충족, 리스크 관리 필수</td></tr>
+      <tr class="row-neut"><td><b>관망</b></td><td>0 ~ 1점</td><td>0%</td><td>조건 불충분, 다음 기회 대기</td></tr>
+      <tr class="row-bear"><td><b>진입 금지</b></td><td>음수</td><td>0%</td><td>방향 반대, 또는 오버라이드 룰 발동</td></tr>
+    </table>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-box-title">⚠️ 오버라이드 룰 — 무조건 우선 적용</div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <div style="padding:10px 14px;background:var(--bear-bg);border-left:4px solid var(--bear);border-radius:0 6px 6px 0;font-size:12px;">
+        <b>🚫 롱 진입 금지 조건 1:</b> 펀더멘털 합계 ≤ -3점<br>
+        <span style="color:var(--text3)">달러 강세 + 실질금리 상승 + 지정학 완화 등 역풍이 집중된 상태</span>
+      </div>
+      <div style="padding:10px 14px;background:var(--bear-bg);border-left:4px solid var(--bear);border-radius:0 6px 6px 0;font-size:12px;">
+        <b>🚫 롱 진입 금지 조건 2:</b> 기술적 합계 ≤ -6점<br>
+        <span style="color:var(--text3)">EMA 완전 하락 배열 + MACD 하락 강화 = 차트 전환 전까지 대기</span>
+      </div>
+      <div style="padding:10px 14px;background:var(--bull-bg);border-left:4px solid var(--bull);border-radius:0 6px 6px 0;font-size:12px;">
+        <b>🚫 숏 진입 금지 조건:</b> 펀더멘털 합계 ≥ +3점<br>
+        <span style="color:var(--text3)">달러 약세 + 실질금리 하락 + 지정학 긴장 = 구조적 상승 환경에서 역방향 금지</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-box-title">📋 2026-06-23 실제 분석 예시</div>
+    <table class="guide-table">
+      <tr><th>항목</th><th>수치/상황</th><th>판단</th><th>점수</th></tr>
+      <tr><td><b>금 현재가</b></td><td>$4,127.35 (15분봉)</td><td>—</td><td>—</td></tr>
+      <tr class="row-bear"><td>EMA 배열</td><td>EMA200(4166)>EMA50(4152)>EMA20(4148)>캔들(4127)</td><td>완전 하락 배열</td><td>-3</td></tr>
+      <tr class="row-bear"><td>RSI(14)</td><td>32.18 (과매도 근접)</td><td>다이버전스 없음, 30 근접</td><td>-1</td></tr>
+      <tr class="row-bear"><td>볼린저밴드</td><td>BB 중간선 4191 >> 현재가</td><td>하단 밴드 + 하락 추세</td><td>-1</td></tr>
+      <tr class="row-bear"><td>진입 트리거</td><td>지지선 $4,111 미도달</td><td>약세 신호만 해당</td><td>-2</td></tr>
+      <tr class="row-bear"><td>MACD</td><td>히스토그램 -13.06</td><td>0선 아래, 막대 확대 중</td><td>-2</td></tr>
+      <tr style="font-weight:700;" class="row-bear"><td>기술적 합계</td><td colspan="2">매수 진입 금지 구간 (오버라이드 룰 발동)</td><td>-9</td></tr>
+    </table>
+    <div style="margin-top:10px;padding:10px;background:var(--bull-bg);border-radius:6px;font-size:11px;color:var(--bull);">
+      <b>⏰ 반전 대기 신호 (이것들이 나오면 재분석):</b><br>
+      ① EMA20이 위로 꺾이기 시작 + 캔들이 EMA20 위로 복귀<br>
+      ② RSI 30이하에서 반등 시작 + 40 이상 회복<br>
+      ③ MACD 히스토그램 막대가 작아지기 시작 (하락 모멘텀 약화)<br>
+      ④ $4,111 지지선에서 핀바(긴 아래꼬리) 출현 + 거래량 증가
+    </div>
+  </div>
+
+  <div class="guide-box">
+    <div class="guide-box-title">🔗 전체 지표 바로가기</div>
+    <div class="ext-links">
+      <a class="ext-link ext-link-tv" href="https://www.tradingview.com/chart/?symbol=TVC%3AGOLD" target="_blank">📊 XAU/USD 금 현물</a>
+      <a class="ext-link ext-link-tv" href="https://www.tradingview.com/chart/?symbol=TVC%3ASILVER" target="_blank">📊 XAG/USD 은 현물</a>
+      <a class="ext-link ext-link-tv" href="https://www.tradingview.com/chart/?symbol=TVC%3ADXY" target="_blank">📊 DXY 달러인덱스</a>
+      <a class="ext-link ext-link-tv" href="https://www.tradingview.com/chart/?symbol=CBOE%3AVIX" target="_blank">📊 VIX 공포지수</a>
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/DFII10" target="_blank">📈 TIPS 10년 실질금리</a>
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/T10YIE" target="_blank">📈 BEI 기대인플레이션</a>
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/T5YIFR" target="_blank">📈 5y5y Forward</a>
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/DGS10" target="_blank">📈 미국채 10년 명목금리</a>
+      <a class="ext-link ext-link-wgc" href="https://www.gold.org/goldhub/data/gold-supply-and-demand-statistics" target="_blank">🥇 WGC 중앙은행 수급</a>
+    </div>
+  </div>
+</div><!-- /gtab-g5 -->lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GGOLD — 금 선물 대시보드</title>
+<script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+<style>
+:root {
+  --gold: #C4962A; --gold-bg: #FDF6E3;
+  --bull: #0F6E56; --bull-bg: #D5F0E5; --bull-border: #0D7A52;
+  --bear: #993C1D; --bear-bg: #FADFDC; --bear-border: #C0392B;
+  --neut: #7a5800; --neut-bg: #FDF0C0; --neut-border: #B8860B;
+  --bg: #F7F5EF; --bg2: #EDEAE0; --border: #CECCA0;
+  --text: #1a1a1a; --text2: #555; --text3: #888;
+  --q1: #1A3A5C; --q2: #2C5F8A; --q3b: #1B6B45; --q3r: #7A2C1A; --q4: #5A4A9A;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, 'Segoe UI', sans-serif; font-size: 14px; }
+.wrap { max-width: 900px; margin: 0 auto; padding: 16px 32px; }
+.tab-nav { position: sticky; top: 0; z-index: 100; background: var(--bg);
+  border-bottom: 2px solid var(--gold); padding: 0 32px; margin: 0 -32px 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+
+/* 헤더 */
+.header { display: flex; justify-content: space-between; align-items: center; padding: 12px 0 14px; border-bottom: 1.5px solid var(--gold); margin-bottom: 16px; }
+.header-title { font-size: 18px; font-weight: 700; color: var(--text); letter-spacing: 0.05em; }
+.header-title span { color: var(--gold); }
+.header-time { font-size: 11px; color: var(--text3); text-align: right; line-height: 1.6; }
+.header-time b { color: var(--text2); }
+
+/* 지표 카드 */
+.cards-section { margin-bottom: 20px; }
+.section-title { font-size: 11px; font-weight: 600; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
+.card { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; cursor: pointer; transition: border-color 0.15s; }
+.card:hover { border-color: var(--gold); }
+.card.active { border-color: var(--gold); border-width: 2px; background: var(--gold-bg); }
+.card-label { font-size: 10px; color: var(--text3); margin-bottom: 3px; }
+.card-price { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.card-change { font-size: 11px; }
+.up { color: var(--bull); } .dn { color: var(--bear); } .nt { color: var(--text3); }
+.card-sym { font-size: 9px; color: var(--text3); margin-top: 2px; }
+
+/* 차트 영역 */
+.chart-section { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 14px; margin-bottom: 20px; }
+.chart-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
+.chart-sym-label { font-size: 14px; font-weight: 600; color: var(--text); }
+.chart-ohlc { font-size: 11px; color: var(--text2); margin-left: 8px; }
+.ctrl-group { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.tf-btn, .ind-btn { font-size: 11px; padding: 3px 10px; border: 1px solid var(--border); border-radius: 4px; background: #fff; color: var(--text2); cursor: pointer; transition: all 0.15s; }
+.tf-btn.active, .ind-btn.active { background: var(--q1); color: #fff; border-color: var(--q1); }
+.ind-btn.active { background: var(--q2); border-color: var(--q2); }
+#main-chart { width: 100%; height: 320px; }
+#rsi-chart  { width: 100%; height: 100px; margin-top: 4px; border-top: 1px solid var(--bg2); }
+#macd-chart { width: 100%; height: 100px; margin-top: 4px; border-top: 1px solid var(--bg2); }
+.chart-legend { font-size: 10px; color: var(--text3); margin-top: 6px; display: flex; gap: 12px; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 4px; }
+.legend-dot { width: 10px; height: 3px; border-radius: 2px; }
+
+/* 체크리스트 */
+.checklist-section { margin-bottom: 20px; }
+.phase-block { background: #fff; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 12px; opacity: 0.45; pointer-events: none; transition: opacity 0.2s; }
+.phase-block.active { opacity: 1; pointer-events: all; }
+.phase-block.done  { opacity: 1; pointer-events: none; }
+.phase-header { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--bg2); }
+.phase-num { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0; }
+.phase-title { font-size: 13px; font-weight: 600; }
+.phase-subtitle { font-size: 11px; color: var(--text3); margin-left: auto; }
+.phase-body { padding: 14px 16px; }
+
+/* 펀더멘털 슬라이더 */
+.fund-row { display: grid; grid-template-columns: 120px 1fr 60px 50px; align-items: center; gap: 10px; margin-bottom: 14px; }
+.fund-label { font-size: 12px; font-weight: 500; }
+.fund-desc { font-size: 10px; color: var(--text3); margin-top: 2px; }
+input[type=range] { width: 100%; accent-color: var(--q1); }
+.fund-val { font-size: 13px; font-weight: 700; text-align: center; padding: 2px 6px; border-radius: 4px; background: var(--bg2); }
+.fund-hint { font-size: 10px; color: var(--text3); text-align: center; }
+.fund-total-row { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; padding-top: 10px; border-top: 1px solid var(--bg2); }
+.fund-total-label { font-size: 12px; color: var(--text2); }
+.fund-total-val { font-size: 20px; font-weight: 700; }
+.fund-bias { font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
+
+/* 방향 선택 */
+.dir-btns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.dir-btn { padding: 14px 8px; border: 2px solid var(--border); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.15s; }
+.dir-btn:hover { border-color: var(--text2); }
+.dir-btn.sel-long  { border-color: var(--bull-border); background: var(--bull-bg); }
+.dir-btn.sel-short { border-color: var(--bear-border); background: var(--bear-bg); }
+.dir-btn.sel-neut  { border-color: var(--neut-border); background: var(--neut-bg); }
+.dir-icon { font-size: 20px; margin-bottom: 4px; }
+.dir-title { font-size: 13px; font-weight: 600; }
+.dir-sub { font-size: 10px; color: var(--text3); margin-top: 2px; }
+.dir-warn { font-size: 11px; color: var(--bear); margin-top: 8px; padding: 6px 10px; background: var(--bear-bg); border-radius: 6px; display: none; }
+
+/* 기술적 분석 선택지 */
+.step-block { margin-bottom: 16px; }
+.step-label { font-size: 11px; font-weight: 600; color: var(--text3); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; display: flex; justify-content: space-between; }
+.step-score-badge { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 10px; background: var(--bg2); }
+.options-list { display: flex; flex-direction: column; gap: 5px; }
+.opt-btn { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; cursor: pointer; background: #fff; transition: all 0.12s; text-align: left; width: 100%; }
+.opt-btn:hover { border-color: var(--text2); background: var(--bg2); }
+.opt-btn.sel-bull { border-color: var(--bull-border); background: var(--bull-bg); }
+.opt-btn.sel-bear { border-color: var(--bear-border); background: var(--bear-bg); }
+.opt-btn.sel-neut { border-color: var(--neut-border); background: var(--neut-bg); }
+.opt-text { font-size: 12px; }
+.opt-score { font-size: 11px; font-weight: 700; min-width: 30px; text-align: right; }
+
+/* 종합 판단 */
+.verdict-card { border-radius: 10px; padding: 18px 20px; margin-bottom: 12px; }
+.verdict-grade { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+.verdict-score { font-size: 13px; margin-bottom: 14px; }
+.verdict-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.verdict-item { background: rgba(255,255,255,0.6); border-radius: 6px; padding: 8px 12px; }
+.verdict-item-label { font-size: 10px; opacity: 0.75; margin-bottom: 3px; }
+.verdict-item-val { font-size: 15px; font-weight: 700; }
+.override-msg { font-size: 12px; padding: 8px 12px; border-radius: 6px; background: rgba(0,0,0,0.06); margin-top: 8px; }
+.reset-btn { width: 100%; padding: 12px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; cursor: pointer; color: var(--text2); }
+.reset-btn:hover { background: var(--border); }
+
+/* 탭 */
+.tab-nav { display:flex; gap:0; }
+.tab-btn { padding:10px 20px; font-size:13px; font-weight:600; border:none; background:transparent;
+  color:var(--text3); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-2px; transition:all 0.15s; }
+.tab-btn.active { color:var(--gold); border-bottom-color:var(--gold); }
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
+
+/* 가이드 탭 */
+.guide-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
+@media(max-width:600px){ .guide-grid{grid-template-columns:1fr;} }
+.guide-card { background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+.guide-card-header { padding:12px 16px; font-size:13px; font-weight:700; color:#fff; display:flex; align-items:center; gap:8px; }
+.guide-card-body { padding:14px 16px; }
+.flow-step { display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; }
+.flow-q { width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:10px; font-weight:700; color:#fff; flex-shrink:0; margin-top:1px; }
+.flow-text { font-size:12px; line-height:1.6; color:var(--text); }
+.flow-branch { margin-left:30px; margin-bottom:6px; }
+.branch-item { display:flex; gap:6px; margin-bottom:4px; font-size:11px; }
+.branch-arrow { color:var(--text3); flex-shrink:0; }
+.branch-bull { color:var(--bull); font-weight:600; }
+.branch-bear { color:var(--bear); font-weight:600; }
+.branch-neut { color:var(--neut); font-weight:600; }
+.conclusion-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:10px; }
+.conc-item { padding:6px 8px; border-radius:6px; font-size:11px; }
+.conc-bull { background:var(--bull-bg); color:var(--bull); }
+.conc-bear { background:var(--bear-bg); color:var(--bear); }
+.conc-neut { background:var(--neut-bg); color:var(--neut); }
+.vix-table { width:100%; border-collapse:collapse; margin-top:8px; font-size:11px; }
+.vix-table td { padding:5px 8px; border-bottom:1px solid var(--bg2); }
+.vix-table tr:last-child td { border-bottom:none; }
+.slider-guide { margin-top:10px; }
+.slider-row { display:flex; justify-content:space-between; font-size:11px; padding:4px 0;
+  border-bottom:1px solid var(--bg2); }
+.slider-row:last-child { border-bottom:none; }
+.sg-val { font-weight:700; min-width:28px; text-align:center; padding:1px 5px; border-radius:4px; }
+
+/* 가이드 탭 상세 스타일 */
+.gtab-panel { display:none; }
+.gtab-panel.active { display:block; }
+.gtab-btn.active { color:var(--gold) !important; border-bottom-color:var(--gold) !important; }
+.guide-section-title { color:#fff; padding:12px 16px; font-size:14px; font-weight:700;
+  border-radius:8px 8px 0 0; margin-bottom:0; }
+.guide-box { background:#fff; border:1px solid var(--border); border-top:none; padding:16px;
+  margin-bottom:12px; }
+.guide-box:first-of-type, .guide-section-title + .guide-box { border-top:1px solid var(--border); border-radius:0 0 0 0; }
+.guide-box-title { font-size:13px; font-weight:700; color:var(--text); margin-bottom:10px;
+  padding-bottom:6px; border-bottom:1px solid var(--bg2); }
+.guide-p { font-size:12px; line-height:1.8; color:var(--text); margin-bottom:8px; }
+.guide-formula { font-size:12px; font-weight:600; padding:8px 12px;
+  background:var(--bg2); border-radius:6px; color:var(--q1); margin-top:8px; }
+.guide-table { width:100%; border-collapse:collapse; font-size:11px; }
+.guide-table th { background:var(--bg2); padding:6px 8px; text-align:left;
+  font-weight:600; border-bottom:1px solid var(--border); }
+.guide-table td { padding:6px 8px; border-bottom:1px solid var(--bg2); vertical-align:top; }
+.guide-table tr:last-child td { border-bottom:none; }
+.row-bull { background:var(--bull-bg); color:var(--bull); }
+.row-bear { background:var(--bear-bg); color:var(--bear); }
+.row-neut { background:var(--neut-bg); color:var(--neut); }
+.flow-chart { background:var(--bg2); border-radius:8px; padding:14px; }
+.flow-node { border:1px solid var(--border); border-radius:6px; padding:8px 10px;
+  background:#fff; font-size:12px; line-height:1.6; margin-bottom:4px; }
+.flow-q-node { border-color:var(--q1); border-width:1.5px; font-weight:600; }
+.flow-branch-label { font-size:11px; font-weight:700; margin:6px 0 4px;
+  padding:3px 8px; border-radius:4px; display:inline-block; }
+.flow-bull { color:var(--bull); background:var(--bull-bg); }
+.flow-bear { color:var(--bear); background:var(--bear-bg); }
+.guide-tip { background:var(--gold-bg) !important; border-color:var(--gold) !important;
+  font-size:12px; line-height:1.7; color:var(--text); }
+
+
+.ext-links { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+.ext-link { display:inline-flex; align-items:center; gap:4px; padding:5px 10px;
+  font-size:11px; font-weight:600; border:1px solid var(--border); border-radius:5px;
+  background:#fff; color:var(--q1); text-decoration:none; transition:all 0.15s; }
+.ext-link:hover { background:var(--q1); color:#fff; border-color:var(--q1); }
+.ext-link-fred { border-color:#c0392b; color:#c0392b; }
+.ext-link-fred:hover { background:#c0392b; color:#fff; border-color:#c0392b; }
+.ext-link-tv { border-color:#2962FF; color:#2962FF; }
+.ext-link-tv:hover { background:#2962FF; color:#fff; border-color:#2962FF; }
+.ext-link-wgc { border-color:var(--gold); color:var(--gold); }
+.ext-link-wgc:hover { background:var(--gold); color:#fff; border-color:var(--gold); }
+
+
+.gtab-nav { display:flex; gap:0; border-bottom:2px solid var(--border);
+  margin-bottom:20px; overflow-x:auto; }
+.gtab-btn { padding:9px 16px; font-size:12px; font-weight:600; border:none;
+  background:transparent; color:var(--text3); cursor:pointer;
+  border-bottom:2px solid transparent; margin-bottom:-2px;
+  white-space:nowrap; transition:all 0.15s; }
+.gtab-btn:hover { color:var(--text); }
+.gtab-btn.active { color:var(--gold); border-bottom-color:var(--gold); }
+
+</style>
+</head>
+<body>
+
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('dashboard',this)">📊 대시보드</button>
+  <button class="tab-btn" onclick="switchTab('guide',this)">📖 펀더멘털 가이드</button>
+</div>
+<div id="tab-dashboard" class="tab-panel active">
+<div class="wrap" style="padding-top:0">
+
+<!-- 헤더 -->
+<div class="header">
+  <div class="header-title">GG<span>OLD</span> &nbsp;●&nbsp; 금 선물 매매 판단</div>
+  <div class="header-time">
+    <b id="update-time">로딩 중...</b><br>
+    자동 갱신: 15분
+  </div>
+</div>
+
+<!-- 지표 카드 -->
+<div class="cards-section">
+  <div class="section-title">실시간 지표</div>
+  <div class="cards-grid" id="cards-grid"></div>
+</div>
+
+<!-- 차트 -->
+<div class="chart-section">
+  <div class="chart-controls">
+    <div>
+      <span class="chart-sym-label" id="chart-sym-label">XAU/USD</span>
+      <span class="chart-ohlc" id="chart-ohlc"></span>
+    </div>
+    <div class="ctrl-group">
+      <div style="display:flex;gap:4px;">
+        <button class="tf-btn active" onclick="setTf('15m',this)">15분</button>
+        <button class="tf-btn" onclick="setTf('1d',this)">일봉</button>
+      </div>
+      <div style="display:flex;gap:4px;">
+        <button class="ind-btn active" id="btn-ema" onclick="toggleInd('ema',this)">EMA</button>
+        <button class="ind-btn active" id="btn-bb"  onclick="toggleInd('bb',this)">BB</button>
+        <button class="ind-btn active" id="btn-rsi" onclick="toggleInd('rsi',this)">RSI</button>
+        <button class="ind-btn active" id="btn-macd" onclick="toggleInd('macd',this)">MACD</button>
+      </div>
+    </div>
+  </div>
+  <div id="main-chart"></div>
+  <div id="rsi-chart"></div>
+  <div id="macd-chart"></div>
+  <div class="chart-legend">
+    <span class="legend-item"><span class="legend-dot" style="background:#2196F3"></span>EMA20</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#FF9800"></span>EMA50</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#E53935"></span>EMA200</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#9C27B0;opacity:0.5"></span>BB</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#00ACC1"></span>RSI(14)</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#7B1FA2"></span>MACD</span>
+  </div>
+</div>
+<!-- 체크리스트 -->
+<div class="checklist-section">
+  <div class="section-title">매매 판단 체크리스트</div>
+
+  <!-- Phase 1 -->
+  <div class="phase-block active" id="phase1">
+    <div class="phase-header">
+      <div class="phase-num" style="background:var(--q1)">1</div>
+      <div>
+        <div class="phase-title">펀더멘털 편향</div>
+      </div>
+      <div class="phase-subtitle" id="ph1-subtitle">각 영역 -2 ~ +2 선택</div>
+    </div>
+    <div class="phase-body">
+      <div class="fund-row">
+        <div><div class="fund-label">실질금리</div><div class="fund-desc">TIPS 10년 방향</div></div>
+        <input type="range" min="-2" max="2" step="1" value="0" id="f-rate" oninput="updateFund()">
+        <div class="fund-val" id="fv-rate">0</div>
+        <div class="fund-hint" id="fh-rate">중립</div>
+      </div>
+      <div class="fund-row">
+        <div><div class="fund-label">DXY 달러</div><div class="fund-desc">달러 강약</div></div>
+        <input type="range" min="-2" max="2" step="1" value="0" id="f-dxy" oninput="updateFund()">
+        <div class="fund-val" id="fv-dxy">0</div>
+        <div class="fund-hint" id="fh-dxy">중립</div>
+      </div>
+      <div class="fund-row">
+        <div><div class="fund-label">지정학</div><div class="fund-desc">VIX · 분쟁 리스크</div></div>
+        <input type="range" min="-2" max="2" step="1" value="0" id="f-geo" oninput="updateFund()">
+        <div class="fund-val" id="fv-geo">0</div>
+        <div class="fund-hint" id="fh-geo">중립</div>
+      </div>
+      <div class="fund-row">
+        <div><div class="fund-label">중앙은행</div><div class="fund-desc">순매입/매도</div></div>
+        <input type="range" min="-2" max="2" step="1" value="0" id="f-cb" oninput="updateFund()">
+        <div class="fund-val" id="fv-cb">0</div>
+        <div class="fund-hint" id="fh-cb">중립</div>
+      </div>
+      <div class="fund-total-row">
+        <span class="fund-total-label">합산 점수</span>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="fund-total-val" id="fund-total">0</span>
+          <span class="fund-bias" id="fund-bias" style="background:var(--neut-bg);color:var(--neut)">중립</span>
+        </div>
+      </div>
+      <div style="margin-top:12px;text-align:right;">
+        <button class="opt-btn" style="display:inline-block;width:auto;padding:8px 20px;" onclick="goPhase2()">다음 →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phase 2 -->
+  <div class="phase-block" id="phase2">
+    <div class="phase-header">
+      <div class="phase-num" style="background:var(--q2)">2</div>
+      <div><div class="phase-title">방향 선택</div></div>
+      <div class="phase-subtitle" id="ph2-subtitle">롱 / 숏 / 관망</div>
+    </div>
+    <div class="phase-body">
+      <div class="dir-btns">
+        <div class="dir-btn" id="dir-long" onclick="setDir('long')">
+          <div class="dir-icon">▲</div>
+          <div class="dir-title" style="color:var(--bull)">롱 (매수)</div>
+          <div class="dir-sub">상승 진입 탐색</div>
+        </div>
+        <div class="dir-btn" id="dir-neut" onclick="setDir('neut')">
+          <div class="dir-icon">—</div>
+          <div class="dir-title" style="color:var(--neut)">중립 관망</div>
+          <div class="dir-sub">대기</div>
+        </div>
+        <div class="dir-btn" id="dir-short" onclick="setDir('short')">
+          <div class="dir-icon">▼</div>
+          <div class="dir-title" style="color:var(--bear)">숏 (매도)</div>
+          <div class="dir-sub">하락 진입 탐색</div>
+        </div>
+      </div>
+      <div class="dir-warn" id="dir-warn">⚠ 펀더멘털 편향과 반대 방향입니다. 신중하게 판단하세요.</div>
+    </div>
+  </div>
+
+  <!-- Phase 3 -->
+  <div class="phase-block" id="phase3">
+    <div class="phase-header">
+      <div class="phase-num" style="background:var(--q3b)" id="ph3-num">3</div>
+      <div><div class="phase-title">기술적 분석</div></div>
+      <div class="phase-subtitle" id="ph3-subtitle">차트 보면서 선택</div>
+    </div>
+    <div class="phase-body" id="phase3-body">
+      <!-- JS로 동적 렌더 -->
+    </div>
+  </div>
+
+  <!-- Phase 4 -->
+  <div class="phase-block" id="phase4">
+    <div class="phase-header">
+      <div class="phase-num" style="background:var(--q4)">4</div>
+      <div><div class="phase-title">종합 판단</div></div>
+      <div class="phase-subtitle" id="ph4-subtitle"></div>
+    </div>
+    <div class="phase-body" id="phase4-body"></div>
+  </div>
+
+  <button class="reset-btn" onclick="resetAll()">↺ 처음부터 다시</button>
+</div>
+
+
+</div><!-- /wrap-dashboard -->
+</div><!-- /tab-dashboard -->
+
+<div id="tab-guide" class="tab-panel">
+<div class="wrap" style="padding-top:0">
+
+<div style="margin-bottom:16px;">
+  <div class="section-title">펀더멘털 분석 가이드</div>
+  <div style="font-size:12px;color:var(--text3);">각 항목을 순서대로 분석하고 슬라이더에 반영하세요. 탭을 클릭해 항목별 상세 가이드를 확인하세요.</div>
+</div>
+
+<!-- 가이드 내부 탭 -->
+<div class="gtab-nav" id="gtab-nav">
+  <button class="gtab-btn active" onclick="switchGTabAndFill('g1',this)">① 실질금리</button>
+  <button class="gtab-btn" onclick="switchGTabAndFill('g2',this)">② DXY 달러</button>
+  <button class="gtab-btn" onclick="switchGTabAndFill('g3',this)">③ 지정학 리스크</button>
+  <button class="gtab-btn" onclick="switchGTabAndFill('g4',this)">④ 중앙은행 수급</button>
+  <button class="gtab-btn" onclick="switchGTabAndFill('g5',this)">⑤ 종합 판단 기준</button>
+</div>
+
+<!-- ① 실질금리 -->
+<div class="gtab-panel active" id="gtab-g1">
+  <div class="guide-section-title" style="background:var(--q1)">① 실질금리 (TIPS 10년) — 금의 핵심 드라이버</div>
+
+  <div class="guide-box">
     <div class="guide-box-title">📌 왜 실질금리가 중요한가?</div>
     <p class="guide-p">금은 이자를 주지 않는 자산입니다. 따라서 <b>실질금리(명목금리 - 기대인플레이션)</b>가 높을수록 금을 보유하는 기회비용이 커져 금값이 하락하고, 실질금리가 낮거나 음수(마이너스)일수록 금이 매력적인 자산이 됩니다.</p>
     <div class="guide-formula">실질금리 = 명목금리(10년물 국채) − 기대인플레이션(BEI)</div>
@@ -1425,49 +2359,49 @@ function switchTab(id, btn) {
 }
 let _guideCache = null;
 
+function setEl(id, text, color) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = text;
+  if (color) el.style.color = color;
+}
+
 function updateGuideValues() {
-  const fill = (data) => {
-    const dxy  = data.current?.dxy?.price;
-    const dxyC = data.current?.dxy?.change_pct;
-    const vix  = data.current?.vix?.price;
-    const gold = data.current?.xauusd?.price || data.current?.gold?.price;
+  const doFill = (data) => {
+    const cur = data.current || {};
 
-    // ② DXY 탭
-    const elDxy    = document.getElementById('g2-dxy');
-    const elDxyChg = document.getElementById('g2-dxy-chg');
-    const elGold   = document.getElementById('g2-gold');
-    if (elDxy && dxy)    elDxy.textContent = dxy.toFixed(2);
-    if (elDxyChg && dxyC !== null && dxyC !== undefined) {
-      elDxyChg.textContent = (dxyC > 0 ? '+' : '') + dxyC.toFixed(3) + '%';
-      elDxyChg.style.color = dxyC > 0 ? 'var(--bear)' : dxyC < 0 ? 'var(--bull)' : 'var(--text)';
+    // ② DXY
+    const dxy  = cur.dxy?.price;
+    const dxyC = cur.dxy?.change_pct;
+    const gold = cur.xauusd?.price || cur.gold?.price;
+    if (dxy  != null) setEl('g2-dxy',  dxy.toFixed(2));
+    if (gold != null) setEl('g2-gold', gold.toLocaleString('en',{maximumFractionDigits:2}));
+    if (dxyC != null) {
+      const sign = dxyC > 0 ? '+' : '';
+      setEl('g2-dxy-chg', sign + dxyC.toFixed(3) + '%',
+        dxyC > 0 ? 'var(--bear)' : dxyC < 0 ? 'var(--bull)' : 'var(--text)');
     }
-    if (elGold && gold)  elGold.textContent = gold.toLocaleString('en', {maximumFractionDigits:2});
 
-    // ③ 지정학 탭
-    const elVix    = document.getElementById('g3-vix');
-    const elVixLvl = document.getElementById('g3-vix-level');
-    const elVixBox = document.getElementById('g3-vix-level-box');
-    if (elVix && vix) {
-      elVix.textContent = vix.toFixed(2);
-      if (elVixLvl && elVixBox) {
-        let lvl, bg, color;
-        if      (vix < 15) { lvl='안정';       bg='var(--bull-bg)';  color='var(--bull)'; }
-        else if (vix < 20) { lvl='경계';       bg='var(--neut-bg)';  color='var(--neut)'; }
-        else if (vix < 30) { lvl='공포';       bg='#FFE0B2';         color='#E65100'; }
-        else               { lvl='극심한 공포'; bg='var(--bear-bg)'; color='var(--bear)'; }
-        elVixLvl.textContent    = lvl;
-        elVixLvl.style.color    = color;
-        elVixBox.style.background = bg;
-      }
+    // ③ VIX
+    const vix = cur.vix?.price;
+    if (vix != null) {
+      setEl('g3-vix', vix.toFixed(2));
+      let lvl, bg, color;
+      if      (vix < 15) { lvl='안정';        bg='var(--bull-bg)'; color='var(--bull)'; }
+      else if (vix < 20) { lvl='경계';        bg='var(--neut-bg)'; color='var(--neut)'; }
+      else if (vix < 30) { lvl='공포';        bg='#FFE0B2';        color='#E65100';     }
+      else               { lvl='극심한 공포'; bg='var(--bear-bg)'; color='var(--bear)'; }
+      setEl('g3-vix-level', lvl, color);
+      const box = document.getElementById('g3-vix-level-box');
+      if (box) box.style.background = bg;
     }
   };
 
-  if (_guideCache) { fill(_guideCache); return; }
-
+  if (_guideCache) { doFill(_guideCache); return; }
   fetch(BASE + '/market.json?_=' + Date.now())
     .then(r => r.json())
-    .then(data => { _guideCache = data; fill(data); })
-    .catch(() => {});
+    .then(d => { _guideCache = d; doFill(d); })
+    .catch(e => console.warn('guide fetch error', e));
 }
 
 function switchGTabAndFill(id, btn) {
