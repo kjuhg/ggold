@@ -1110,15 +1110,14 @@ function initCharts() {
 async function loadChart(key, tf) {
   currentKey = key;
   currentTf  = tf;
-  const url = `${BASE}/history/${key}_${tf}.json`;
-  let data = allHistory[`${key}_${tf}`];
-  if (!data) {
-    try {
-      const r = await fetch(url);
-      data = await r.json();
-      allHistory[`${key}_${tf}`] = data;
-    } catch(e) { console.warn('차트 로드 실패', url); return; }
-  }
+  // 항상 최신 데이터 fetch (캐시버스터 + no-cache)
+  const url = `${BASE}/history/${key}_${tf}.json?_=${Date.now()}`;
+  let data;
+  try {
+    const r = await fetch(url, {cache: 'no-store'});
+    data = await r.json();
+    allHistory[`${key}_${tf}`] = data;
+  } catch(e) { console.warn('차트 로드 실패', url); return; }
   if (!data || data.length < 2) return;
 
   const candles = data.map(d => ({
@@ -1609,6 +1608,8 @@ function initApp() {
   loadMarket();
   loadChart('xauusd', '15m');
   setInterval(loadMarket, 60000);
+  // 15분마다 차트 데이터도 자동 갱신
+  setInterval(() => loadChart(currentKey, currentTf), 15 * 60 * 1000);
 }
 </script>
 
