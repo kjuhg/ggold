@@ -389,11 +389,11 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
 
 <!-- 가이드 내부 탭 -->
 <div class="gtab-nav" id="gtab-nav">
-  <button class="gtab-btn active" onclick="switchGTab('g1',this)">① 실질금리</button>
-  <button class="gtab-btn" onclick="switchGTab('g2',this)">② DXY 달러</button>
-  <button class="gtab-btn" onclick="switchGTab('g3',this)">③ 지정학 리스크</button>
-  <button class="gtab-btn" onclick="switchGTab('g4',this)">④ 중앙은행 수급</button>
-  <button class="gtab-btn" onclick="switchGTab('g5',this)">⑤ 종합 판단 기준</button>
+  <button class="gtab-btn active" onclick="switchGTabAndFill('g1',this)">① 실질금리</button>
+  <button class="gtab-btn" onclick="switchGTabAndFill('g2',this)">② DXY 달러</button>
+  <button class="gtab-btn" onclick="switchGTabAndFill('g3',this)">③ 지정학 리스크</button>
+  <button class="gtab-btn" onclick="switchGTabAndFill('g4',this)">④ 중앙은행 수급</button>
+  <button class="gtab-btn" onclick="switchGTabAndFill('g5',this)">⑤ 종합 판단 기준</button>
 </div>
 
 <!-- ① 실질금리 -->
@@ -1421,45 +1421,59 @@ function switchTab(id, btn) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-'+id).classList.add('active');
   btn.classList.add('active');
-  if (id === 'guide') updateGuideValues();
+  if (id === 'guide') setTimeout(updateGuideValues, 0);
 }
-function updateGuideValues() {
-  fetch(BASE+'/market.json?_='+Date.now())
-    .then(r=>r.json()).then(data=>{
-      const dxy = data.current?.dxy?.price;
-      const dxyC = data.current?.dxy?.change_pct;
-      const vix = data.current?.vix?.price;
-      const gold = data.current?.xauusd?.price || data.current?.gold?.price;
+let _guideCache = null;
 
-      if (document.getElementById('guide-dxy')) {
-        if (dxy) document.getElementById('guide-dxy').textContent = dxy.toFixed(2);
-        if (dxyC !== null && document.getElementById('g2-dxy')) {
-          document.getElementById('g2-dxy').textContent = dxy ? dxy.toFixed(2) : '—';
-          const chgEl = document.getElementById('g2-dxy-chg');
-          if (chgEl) {
-            chgEl.textContent = dxyC !== null ? (dxyC > 0 ? '+' : '') + dxyC.toFixed(3) + '%' : '—';
-            chgEl.style.color = dxyC > 0 ? 'var(--bear)' : dxyC < 0 ? 'var(--bull)' : 'var(--text)';
-          }
-        }
-        if (gold && document.getElementById('g2-gold'))
-          document.getElementById('g2-gold').textContent = gold.toLocaleString('en',{maximumFractionDigits:2});
-        if (vix) {
-          if (document.getElementById('g3-vix')) document.getElementById('g3-vix').textContent = vix.toFixed(2);
-          const lvlEl = document.getElementById('g3-vix-level');
-          const lvlBox = document.getElementById('g3-vix-level-box');
-          if (lvlEl && lvlBox) {
-            let lvl, bg, color;
-            if (vix < 15)      { lvl='안정'; bg='var(--bull-bg)'; color='var(--bull)'; }
-            else if (vix < 20) { lvl='경계'; bg='var(--neut-bg)'; color='var(--neut)'; }
-            else if (vix < 30) { lvl='공포'; bg='#FFE0B2'; color='#E65100'; }
-            else               { lvl='극심한 공포'; bg='var(--bear-bg)'; color='var(--bear)'; }
-            lvlEl.textContent = lvl;
-            lvlEl.style.color = color;
-            lvlBox.style.background = bg;
-          }
-        }
+function updateGuideValues() {
+  const fill = (data) => {
+    const dxy  = data.current?.dxy?.price;
+    const dxyC = data.current?.dxy?.change_pct;
+    const vix  = data.current?.vix?.price;
+    const gold = data.current?.xauusd?.price || data.current?.gold?.price;
+
+    // ② DXY 탭
+    const elDxy    = document.getElementById('g2-dxy');
+    const elDxyChg = document.getElementById('g2-dxy-chg');
+    const elGold   = document.getElementById('g2-gold');
+    if (elDxy && dxy)    elDxy.textContent = dxy.toFixed(2);
+    if (elDxyChg && dxyC !== null && dxyC !== undefined) {
+      elDxyChg.textContent = (dxyC > 0 ? '+' : '') + dxyC.toFixed(3) + '%';
+      elDxyChg.style.color = dxyC > 0 ? 'var(--bear)' : dxyC < 0 ? 'var(--bull)' : 'var(--text)';
+    }
+    if (elGold && gold)  elGold.textContent = gold.toLocaleString('en', {maximumFractionDigits:2});
+
+    // ③ 지정학 탭
+    const elVix    = document.getElementById('g3-vix');
+    const elVixLvl = document.getElementById('g3-vix-level');
+    const elVixBox = document.getElementById('g3-vix-level-box');
+    if (elVix && vix) {
+      elVix.textContent = vix.toFixed(2);
+      if (elVixLvl && elVixBox) {
+        let lvl, bg, color;
+        if      (vix < 15) { lvl='안정';       bg='var(--bull-bg)';  color='var(--bull)'; }
+        else if (vix < 20) { lvl='경계';       bg='var(--neut-bg)';  color='var(--neut)'; }
+        else if (vix < 30) { lvl='공포';       bg='#FFE0B2';         color='#E65100'; }
+        else               { lvl='극심한 공포'; bg='var(--bear-bg)'; color='var(--bear)'; }
+        elVixLvl.textContent    = lvl;
+        elVixLvl.style.color    = color;
+        elVixBox.style.background = bg;
       }
-    }).catch(()=>{});
+    }
+  };
+
+  if (_guideCache) { fill(_guideCache); return; }
+
+  fetch(BASE + '/market.json?_=' + Date.now())
+    .then(r => r.json())
+    .then(data => { _guideCache = data; fill(data); })
+    .catch(() => {});
+}
+
+function switchGTabAndFill(id, btn) {
+  switchGTab(id, btn);
+  // 내부 탭 전환 후 DOM이 표시된 다음 tick에 값 채우기
+  setTimeout(updateGuideValues, 0);
 }
 
 window.addEventListener('load', () => {
