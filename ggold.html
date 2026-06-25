@@ -189,6 +189,19 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
 .guide-tip { background:var(--gold-bg) !important; border-color:var(--gold) !important;
   font-size:12px; line-height:1.7; color:var(--text); }
 
+
+.ext-links { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+.ext-link { display:inline-flex; align-items:center; gap:4px; padding:5px 10px;
+  font-size:11px; font-weight:600; border:1px solid var(--border); border-radius:5px;
+  background:#fff; color:var(--q1); text-decoration:none; transition:all 0.15s; }
+.ext-link:hover { background:var(--q1); color:#fff; border-color:var(--q1); }
+.ext-link-fred { border-color:#c0392b; color:#c0392b; }
+.ext-link-fred:hover { background:#c0392b; color:#fff; border-color:#c0392b; }
+.ext-link-tv { border-color:#2962FF; color:#2962FF; }
+.ext-link-tv:hover { background:#2962FF; color:#fff; border-color:#2962FF; }
+.ext-link-wgc { border-color:var(--gold); color:var(--gold); }
+.ext-link-wgc:hover { background:var(--gold); color:#fff; border-color:var(--gold); }
+
 </style>
 </head>
 <body>
@@ -391,6 +404,12 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
       <tr><td><b>BEI (손익분기점)</b></td><td>T10YIE</td><td>시장의 10년 기대인플레이션</td><td>FRED</td></tr>
       <tr><td><b>5y5y Forward</b></td><td>T5YIFR</td><td>5년 후 5년간 기대인플레이션 (장기 신뢰도)</td><td>FRED</td></tr>
     </table>
+    <div class="ext-links">
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/DFII10" target="_blank">📈 FRED — TIPS 10년 (DFII10)</a>
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/T10YIE" target="_blank">📈 FRED — BEI 기대인플레이션 (T10YIE)</a>
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/T5YIFR" target="_blank">📈 FRED — 5y5y Forward (T5YIFR)</a>
+      <a class="ext-link ext-link-tv" href="https://www.tradingview.com/chart/?symbol=TVC%3AUSGG10YR" target="_blank">📊 TradingView — 미국채 10년</a>
+    </div>
   </div>
 
   <div class="guide-box">
@@ -520,6 +539,14 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
     </table>
   </div>
 
+  <div class="guide-box">
+    <div class="guide-box-title">🔗 바로가기 링크</div>
+    <div class="ext-links">
+      <a class="ext-link ext-link-tv" href="https://www.tradingview.com/chart/?symbol=TVC%3ADXY" target="_blank">📊 TradingView — DXY 달러인덱스</a>
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/DTWEXBGS" target="_blank">📈 FRED — 달러 광의무역가중지수</a>
+      <a class="ext-link ext-link-tv" href="https://www.tradingview.com/chart/?symbol=FX%3AUSDKRW" target="_blank">📊 TradingView — USD/KRW</a>
+    </div>
+  </div>
   <div class="guide-box guide-tip">
     💡 <b>실전 팁:</b> 대시보드 차트에서 DXY 카드를 클릭하면 DXY 차트를 볼 수 있습니다. 일봉으로 전환 후 EMA 20(파란선) 위/아래 위치를 확인하세요. DXY가 101 아래면 역사적으로 달러 약세 구간입니다.
   </div>
@@ -596,6 +623,15 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
     </table>
   </div>
 
+  <div class="guide-box">
+    <div class="guide-box-title">🔗 바로가기 링크</div>
+    <div class="ext-links">
+      <a class="ext-link ext-link-tv" href="https://www.tradingview.com/chart/?symbol=CBOE%3AVIX" target="_blank">📊 TradingView — VIX 공포지수</a>
+      <a class="ext-link ext-link-tv" href="https://www.tradingview.com/chart/?symbol=CBOE%3AMOVE" target="_blank">📊 TradingView — MOVE 채권변동성</a>
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/VIXCLS" target="_blank">📈 FRED — VIX 역사 데이터</a>
+      <a class="ext-link ext-link-tv" href="https://www.tradingview.com/chart/?symbol=TVC%3AGOLD" target="_blank">📊 TradingView — XAU/USD 금 현물</a>
+    </div>
+  </div>
   <div class="guide-box guide-tip">
     💡 <b>실전 팁:</b> VIX는 대시보드 카드에서 실시간으로 확인 가능합니다. MOVE 지수(채권 변동성)도 함께 보면 좋지만, 간단하게는 VIX만으로 충분합니다. 핵심은 "이게 새로운 뉴스인가?"를 먼저 판단하는 것입니다.
   </div>
@@ -676,6 +712,15 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
     </table>
   </div>
 
+  <div class="guide-box">
+    <div class="guide-box-title">🔗 바로가기 링크</div>
+    <div class="ext-links">
+      <a class="ext-link ext-link-wgc" href="https://www.gold.org/goldhub/data/gold-supply-and-demand-statistics" target="_blank">🥇 WGC — 중앙은행 수급 통계</a>
+      <a class="ext-link ext-link-wgc" href="https://www.gold.org/goldhub/research/central-bank-gold-reserves" target="_blank">🥇 WGC — 중앙은행 보유량</a>
+      <a class="ext-link ext-link-tv" href="https://www.tradingview.com/chart/?symbol=TVC%3AGOLD" target="_blank">📊 TradingView — XAU/USD</a>
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/GFDEGDQ188S" target="_blank">📈 FRED — 미국 금 보유량</a>
+    </div>
+  </div>
   <div class="guide-box guide-tip">
     💡 <b>확인 방법:</b> gold.org 접속 → 상단 Research → Central Bank Statistics 클릭. 매월 초 전월 데이터가 업데이트됩니다. 현재 2026년 기준 +19톤/월로 36개월 평균(+29톤)보다 낮으므로 슬라이더는 <b>+1 (소호재)</b>이 적절합니다.
   </div>
@@ -1411,7 +1456,7 @@ function updateGuideValues() {
     }).catch(()=>{});
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
   initCharts();
   loadMarket();
   loadChart('xauusd', '15m');
