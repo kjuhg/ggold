@@ -444,6 +444,19 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
   <div class="guide-cols">
   <div class="guide-col-left">
   <div class="guide-box">
+    <div class="guide-box-title">📌 왜 실질금리가 중요한가?</div>
+    <p class="guide-p">금은 이자를 주지 않는 자산입니다. <b>실질금리(명목금리 - 기대인플레이션)</b>가 높을수록 금 보유 기회비용이 커져 금값이 하락하고, 낮거나 음수이면 금이 매력적입니다.</p>
+    <div class="guide-formula">실질금리 = 명목금리(DGS10) − 기대인플레이션(BEI/T10YIE)</div>
+    <table class="guide-table">
+      <tr><th>실질금리 수준</th><th>금 영향</th><th>역사적 사례</th></tr>
+      <tr class="row-bull"><td>0% 이하</td><td>강한 상승 압력</td><td>2020~2022 금 사상최고가</td></tr>
+      <tr class="row-bull"><td>0~0.5%</td><td>상승 압력</td><td>달러 약세 동반 시 더 강함</td></tr>
+      <tr class="row-neut"><td>0.5~1.5%</td><td>중립</td><td>횡보 구간</td></tr>
+      <tr class="row-bear"><td>1.5~2.5%</td><td>하락 압력</td><td>2022년 금리인상기 조정</td></tr>
+      <tr class="row-bear"><td>2.5% 이상</td><td>강한 하락 압력</td><td>높은 기회비용</td></tr>
+    </table>
+  </div>
+  <div class="guide-box">
     <div class="guide-box-title">🎚️ 슬라이더 판단 기준</div>
     <table class="guide-table">
       <tr><th>점수</th><th>상황</th><th>TIPS</th><th>BEI</th></tr>
@@ -464,36 +477,8 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
       <a class="ext-link ext-link-tv" href="https://kr.investing.com/rates-bonds/u.s.-10-year-bond-yield" target="_blank">📊 Investing.com — 미국채 10년</a>
     </div>
   </div>
-  <div class="guide-box guide-tip">
-    <div class="guide-box-title">💡 실전 팁 — 실질금리 확인 루틴</div>
-    <div style="font-size:12px;line-height:1.8;">
-      <b>① FRED → DFII10 → 1개월 차트</b><br>
-      선이 내려가면 금 호재. 가장 먼저 봐야 할 단일 지표입니다.<br><br>
-      <b>② 수치 해석 기준</b><br>
-      • 0% 이하: 금 역대 강세 구간 (매수 편향)<br>
-      • 0~1%: 우호적, 다른 지표 조합<br>
-      • 1~2%: 중립, 기술적 분석 비중 높임<br>
-      • 2% 이상: 역풍, 롱 포지션 축소 검토<br><br>
-      <b>③ BEI 함께 보는 법</b><br>
-      TIPS 하락 + BEI 하락 동시 = 침체 공포 → 금에 가장 강한 조합.<br>
-      BEI 2.2~2.5%가 평균. 이보다 높으면 인플레, 낮으면 성장둔화 우려.
-    </div>
-  </div>
   </div><!-- /col-left -->
   <div class="guide-col-right">
-  <div class="guide-box">
-    <div class="guide-box-title">📌 왜 실질금리가 중요한가?</div>
-    <p class="guide-p">금은 이자를 주지 않는 자산입니다. <b>실질금리(명목금리 - 기대인플레이션)</b>가 높을수록 금 보유 기회비용이 커져 금값이 하락하고, 낮거나 음수이면 금이 매력적입니다.</p>
-    <div class="guide-formula">실질금리 = 명목금리(DGS10) − 기대인플레이션(BEI/T10YIE)</div>
-    <table class="guide-table">
-      <tr><th>실질금리 수준</th><th>금 영향</th><th>역사적 사례</th></tr>
-      <tr class="row-bull"><td>0% 이하</td><td>강한 상승 압력</td><td>2020~2022 금 사상최고가</td></tr>
-      <tr class="row-bull"><td>0~0.5%</td><td>상승 압력</td><td>달러 약세 동반 시 더 강함</td></tr>
-      <tr class="row-neut"><td>0.5~1.5%</td><td>중립</td><td>횡보 구간</td></tr>
-      <tr class="row-bear"><td>1.5~2.5%</td><td>하락 압력</td><td>2022년 금리인상기 조정</td></tr>
-      <tr class="row-bear"><td>2.5% 이상</td><td>강한 하락 압력</td><td>높은 기회비용</td></tr>
-    </table>
-  </div>
   <div class="guide-box">
     <div class="guide-box-title">🔀 의사결정 플로차트</div>
     <div class="flow-chart">
@@ -518,6 +503,21 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
       </div>
     </div>
   </div>
+  <div class="guide-box guide-tip">
+    <div class="guide-box-title">💡 실전 팁 — 실질금리 확인 루틴</div>
+    <div style="font-size:12px;line-height:1.8;">
+      <b>① FRED → DFII10 → 1개월 차트</b><br>
+      선이 내려가면 금 호재. 가장 먼저 봐야 할 단일 지표입니다.<br><br>
+      <b>② 수치 해석 기준</b><br>
+      • 0% 이하: 금 역대 강세 구간 (매수 편향)<br>
+      • 0~1%: 우호적, 다른 지표 조합<br>
+      • 1~2%: 중립, 기술적 분석 비중 높임<br>
+      • 2% 이상: 역풍, 롱 포지션 축소 검토<br><br>
+      <b>③ BEI 함께 보는 법</b><br>
+      TIPS 하락 + BEI 하락 동시 = 침체 공포 → 금에 가장 강한 조합.<br>
+      BEI 2.2~2.5%가 평균. 이보다 높으면 인플레, 낮으면 성장둔화 우려.
+    </div>
+  </div>
   </div><!-- /col-right -->
   </div><!-- /guide-cols -->
 </div>
@@ -525,6 +525,19 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
   <div class="guide-section-title" style="background:var(--q2)">② DXY 달러 인덱스 — 금과 역상관 관계</div>
   <div class="guide-cols">
   <div class="guide-col-left">
+  <div class="guide-box">
+    <div class="guide-box-title">📌 왜 달러 강약이 중요한가?</div>
+    <p class="guide-p">금은 달러로 표시되므로 달러 강세 시 외국인 입장에서 금이 비싸져 수요가 줄고, 달러 약세 시 금이 저렴해져 수요가 늘어납니다. 역사적 상관계수는 <b>약 -0.7</b>입니다.</p>
+    <div class="guide-formula">DXY ↑ (달러 강세) → 금 ↓ &nbsp;|&nbsp; DXY ↓ (달러 약세) → 금 ↑</div>
+  </div>
+  <div class="guide-box">
+    <div class="guide-box-title">📊 현재 DXY 상황</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px;">
+      <div style="text-align:center;padding:10px;background:var(--bg2);border-radius:8px;"><div style="font-size:11px;color:var(--text3);">현재 DXY</div><div style="font-size:22px;font-weight:700;" id="g2-dxy">—</div></div>
+      <div style="text-align:center;padding:10px;background:var(--bg2);border-radius:8px;"><div style="font-size:11px;color:var(--text3);">등락률</div><div style="font-size:22px;font-weight:700;" id="g2-dxy-chg">—</div></div>
+      <div style="text-align:center;padding:10px;background:var(--bg2);border-radius:8px;"><div style="font-size:11px;color:var(--text3);">금 현재가</div><div style="font-size:22px;font-weight:700;" id="g2-gold">—</div></div>
+    </div>
+  </div>
   <div class="guide-box">
     <div class="guide-box-title">🎚️ 슬라이더 판단 기준</div>
     <table class="guide-table">
@@ -544,35 +557,8 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
       <a class="ext-link ext-link-tv" href="https://kr.investing.com/currencies/usd-krw" target="_blank">📊 Investing.com — USD/KRW</a>
     </div>
   </div>
-  <div class="guide-box guide-tip">
-    <div class="guide-box-title">💡 실전 팁 — DXY 확인 루틴</div>
-    <div style="font-size:12px;line-height:1.8;">
-      <b>① 대시보드 DXY 카드 → 일봉 → EMA 파란선(20일) 확인</b><br>
-      캔들이 선 아래 = 달러 약세 추세.<br><br>
-      <b>② DXY 수치 기준</b><br>
-      • 95 이하: 강한 달러 약세 → 금 강세<br>
-      • 95~100: 달러 약세 → 금 우호적<br>
-      • 100~105: 중립<br>
-      • 105 이상: 달러 강세 → 금 역풍<br><br>
-      <b>③ 역상관이 깨지는 경우</b><br>
-      위기 초기(2008, 2020) 달러+금 동반 상승 → VIX 지정학 요인 우선 적용.
-    </div>
-  </div>
   </div><!-- /col-left -->
   <div class="guide-col-right">
-  <div class="guide-box">
-    <div class="guide-box-title">📌 왜 달러 강약이 중요한가?</div>
-    <p class="guide-p">금은 달러로 표시되므로 달러 강세 시 외국인 입장에서 금이 비싸져 수요가 줄고, 달러 약세 시 금이 저렴해져 수요가 늘어납니다. 역사적 상관계수는 <b>약 -0.7</b>입니다.</p>
-    <div class="guide-formula">DXY ↑ (달러 강세) → 금 ↓ &nbsp;|&nbsp; DXY ↓ (달러 약세) → 금 ↑</div>
-  </div>
-  <div class="guide-box">
-    <div class="guide-box-title">📊 현재 DXY 상황</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px;">
-      <div style="text-align:center;padding:10px;background:var(--bg2);border-radius:8px;"><div style="font-size:11px;color:var(--text3);">현재 DXY</div><div style="font-size:22px;font-weight:700;" id="g2-dxy">—</div></div>
-      <div style="text-align:center;padding:10px;background:var(--bg2);border-radius:8px;"><div style="font-size:11px;color:var(--text3);">등락률</div><div style="font-size:22px;font-weight:700;" id="g2-dxy-chg">—</div></div>
-      <div style="text-align:center;padding:10px;background:var(--bg2);border-radius:8px;"><div style="font-size:11px;color:var(--text3);">금 현재가</div><div style="font-size:22px;font-weight:700;" id="g2-gold">—</div></div>
-    </div>
-  </div>
   <div class="guide-box">
     <div class="guide-box-title">🔀 의사결정 플로차트</div>
     <div class="flow-chart">
@@ -595,6 +581,20 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
       </div>
     </div>
   </div>
+  <div class="guide-box guide-tip">
+    <div class="guide-box-title">💡 실전 팁 — DXY 확인 루틴</div>
+    <div style="font-size:12px;line-height:1.8;">
+      <b>① 대시보드 DXY 카드 → 일봉 → EMA 파란선(20일) 확인</b><br>
+      캔들이 선 아래 = 달러 약세 추세.<br><br>
+      <b>② DXY 수치 기준</b><br>
+      • 95 이하: 강한 달러 약세 → 금 강세<br>
+      • 95~100: 달러 약세 → 금 우호적<br>
+      • 100~105: 중립<br>
+      • 105 이상: 달러 강세 → 금 역풍<br><br>
+      <b>③ 역상관이 깨지는 경우</b><br>
+      위기 초기(2008, 2020) 달러+금 동반 상승 → VIX 지정학 요인 우선 적용.
+    </div>
+  </div>
   </div><!-- /col-right -->
   </div><!-- /guide-cols -->
 </div>
@@ -602,6 +602,20 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
   <div class="guide-section-title" style="background:#5A6A3A">③ 지정학적 리스크 — 안전자산 수요</div>
   <div class="guide-cols">
   <div class="guide-col-left">
+  <div class="guide-box">
+    <div class="guide-box-title">📊 VIX 공포지수 — 현재 상황</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+      <div style="text-align:center;padding:12px;background:var(--bg2);border-radius:8px;"><div style="font-size:11px;color:var(--text3);">현재 VIX</div><div style="font-size:28px;font-weight:700;" id="g3-vix">—</div></div>
+      <div style="text-align:center;padding:12px;border-radius:8px;" id="g3-vix-level-box"><div style="font-size:11px;color:var(--text3);">시장 상태</div><div style="font-size:18px;font-weight:700;" id="g3-vix-level">—</div></div>
+    </div>
+    <table class="guide-table">
+      <tr><th>VIX 수준</th><th>시장 상태</th><th>금 영향</th></tr>
+      <tr><td>&lt; 15</td><td>🟢 안정</td><td>지정학 중립 (0)</td></tr>
+      <tr class="row-neut"><td>15~20</td><td>🟡 경계</td><td>소폭 안전자산 수요 (+1)</td></tr>
+      <tr><td>20~30</td><td>🟠 공포</td><td>안전자산 수요 뚜렷 (+1~+2)</td></tr>
+      <tr class="row-bear"><td>30 이상</td><td>🔴 극심한 공포</td><td>강력한 금 수요 (+2)</td></tr>
+    </table>
+  </div>
   <div class="guide-box">
     <div class="guide-box-title">🎚️ 슬라이더 판단 기준</div>
     <table class="guide-table">
@@ -621,36 +635,8 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
       <a class="ext-link ext-link-tv" href="https://kr.investing.com/rates-bonds/u.s.-10-year-bond-yield" target="_blank">📊 Investing.com — 미국채 10년</a>
     </div>
   </div>
-  <div class="guide-box guide-tip">
-    <div class="guide-box-title">💡 실전 팁 — VIX 확인 루틴</div>
-    <div style="font-size:12px;line-height:1.8;">
-      <b>① 대시보드 VIX 카드로 즉시 확인</b><br>
-      20이 핵심 경계선. 20 위 = 공포, 아래 = 안정.<br><br>
-      <b>② 수치보다 방향이 중요</b><br>
-      • VIX 25에서 하락 중 → 안전자산 해소 → 금 매도 압력<br>
-      • VIX 18에서 급등 시작 → 공포 확산 → 금 매수 압력<br><br>
-      <b>③ 위기 시 금 진입 타이밍 패턴</b><br>
-      1단계: 충격 발생 → 금 급등 (첫날) — 추격 금지<br>
-      2단계: 유동성 위기 → 달러+금 일시 조정 — 진입 기회<br>
-      3단계: 안전자산 수요 → 금 재상승
-    </div>
-  </div>
   </div><!-- /col-left -->
   <div class="guide-col-right">
-  <div class="guide-box">
-    <div class="guide-box-title">📊 VIX 공포지수 — 현재 상황</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
-      <div style="text-align:center;padding:12px;background:var(--bg2);border-radius:8px;"><div style="font-size:11px;color:var(--text3);">현재 VIX</div><div style="font-size:28px;font-weight:700;" id="g3-vix">—</div></div>
-      <div style="text-align:center;padding:12px;border-radius:8px;" id="g3-vix-level-box"><div style="font-size:11px;color:var(--text3);">시장 상태</div><div style="font-size:18px;font-weight:700;" id="g3-vix-level">—</div></div>
-    </div>
-    <table class="guide-table">
-      <tr><th>VIX 수준</th><th>시장 상태</th><th>금 영향</th></tr>
-      <tr><td>&lt; 15</td><td>🟢 안정</td><td>지정학 중립 (0)</td></tr>
-      <tr class="row-neut"><td>15~20</td><td>🟡 경계</td><td>소폭 안전자산 수요 (+1)</td></tr>
-      <tr><td>20~30</td><td>🟠 공포</td><td>안전자산 수요 뚜렷 (+1~+2)</td></tr>
-      <tr class="row-bear"><td>30 이상</td><td>🔴 극심한 공포</td><td>강력한 금 수요 (+2)</td></tr>
-    </table>
-  </div>
   <div class="guide-box">
     <div class="guide-box-title">🔀 의사결정 플로차트</div>
     <div class="flow-chart">
@@ -671,6 +657,20 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
       <div class="flow-node" style="margin-top:8px;background:#FFF3E0;border-color:#FF9800;font-size:11px;">⚠️ 위기 초반 추격 금지. 2단계 조정 구간이 진입 기회.</div>
     </div>
   </div>
+  <div class="guide-box guide-tip">
+    <div class="guide-box-title">💡 실전 팁 — VIX 확인 루틴</div>
+    <div style="font-size:12px;line-height:1.8;">
+      <b>① 대시보드 VIX 카드로 즉시 확인</b><br>
+      20이 핵심 경계선. 20 위 = 공포, 아래 = 안정.<br><br>
+      <b>② 수치보다 방향이 중요</b><br>
+      • VIX 25에서 하락 중 → 안전자산 해소 → 금 매도 압력<br>
+      • VIX 18에서 급등 시작 → 공포 확산 → 금 매수 압력<br><br>
+      <b>③ 위기 시 금 진입 타이밍 패턴</b><br>
+      1단계: 충격 발생 → 금 급등 (첫날) — 추격 금지<br>
+      2단계: 유동성 위기 → 달러+금 일시 조정 — 진입 기회<br>
+      3단계: 안전자산 수요 → 금 재상승
+    </div>
+  </div>
   </div><!-- /col-right -->
   </div><!-- /guide-cols -->
 </div>
@@ -678,40 +678,6 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
   <div class="guide-section-title" style="background:var(--q4)">④ 중앙은행 수급 — 구조적 수요 기반</div>
   <div class="guide-cols">
   <div class="guide-col-left">
-  <div class="guide-box">
-    <div class="guide-box-title">🎚️ 슬라이더 판단 기준</div>
-    <table class="guide-table">
-      <tr><th>점수</th><th>상황</th><th>중앙은행</th><th>ETF</th></tr>
-      <tr class="row-bear"><td>-2</td><td>구조적 수요 붕괴</td><td>순매도 대규모</td><td>동반 유출</td></tr>
-      <tr class="row-bear"><td>-1</td><td>수요 약화 신호</td><td>순매도 소규모 or 급감</td><td>중립</td></tr>
-      <tr class="row-neut"><td>0</td><td>현상 유지 (평균 수준)</td><td>+20~30톤</td><td>중립</td></tr>
-      <tr class="row-bull"><td>+1</td><td>수요 유지 (현재 +19톤)</td><td>+10~20톤</td><td>중립~소폭 유입</td></tr>
-      <tr class="row-bull"><td>+2</td><td>구조적 수요 급증</td><td>+40톤 이상</td><td>동반 대규모 유입</td></tr>
-    </table>
-  </div>
-  <div class="guide-box">
-    <div class="guide-box-title">🔗 바로가기 링크</div>
-    <div class="ext-links">
-      <a class="ext-link ext-link-wgc" href="https://www.gold.org/goldhub/data/gold-supply-and-demand-statistics" target="_blank">🥇 WGC — 중앙은행 수급 통계</a>
-      <a class="ext-link ext-link-wgc" href="https://www.gold.org/goldhub/research/central-bank-gold-reserves" target="_blank">🥇 WGC — 중앙은행 보유량</a>
-      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/GFDEGDQ188S" target="_blank">📈 FRED — 미국 금 보유량</a>
-    </div>
-  </div>
-  <div class="guide-box guide-tip">
-    <div class="guide-box-title">💡 실전 팁 — 중앙은행 수급 확인 루틴</div>
-    <div style="font-size:12px;line-height:1.8;">
-      <b>① 확인 주기: 매월 초 1회</b><br>
-      gold.org → Research → Central Bank Statistics<br>
-      4~6주 지연 데이터. 중장기 추세 판단에 활용.<br><br>
-      <b>② 핵심 수치 3가지</b><br>
-      이번 달 순매입량 / 36개월 평균(+29톤) / 평균 대비<br><br>
-      <b>③ 현재 상황 (2026년 6월)</b><br>
-      +19톤, 평균 -34% → 둔화 중이나 순매입 지속<br>
-      → 슬라이더 +1 적용.
-    </div>
-  </div>
-  </div><!-- /col-left -->
-  <div class="guide-col-right">
   <div class="guide-box">
     <div class="guide-box-title">📌 왜 중앙은행 수급이 중요한가?</div>
     <table class="guide-table">
@@ -737,6 +703,27 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
     </table>
   </div>
   <div class="guide-box">
+    <div class="guide-box-title">🎚️ 슬라이더 판단 기준</div>
+    <table class="guide-table">
+      <tr><th>점수</th><th>상황</th><th>중앙은행</th><th>ETF</th></tr>
+      <tr class="row-bear"><td>-2</td><td>구조적 수요 붕괴</td><td>순매도 대규모</td><td>동반 유출</td></tr>
+      <tr class="row-bear"><td>-1</td><td>수요 약화 신호</td><td>순매도 소규모 or 급감</td><td>중립</td></tr>
+      <tr class="row-neut"><td>0</td><td>현상 유지 (평균 수준)</td><td>+20~30톤</td><td>중립</td></tr>
+      <tr class="row-bull"><td>+1</td><td>수요 유지 (현재 +19톤)</td><td>+10~20톤</td><td>중립~소폭 유입</td></tr>
+      <tr class="row-bull"><td>+2</td><td>구조적 수요 급증</td><td>+40톤 이상</td><td>동반 대규모 유입</td></tr>
+    </table>
+  </div>
+  <div class="guide-box">
+    <div class="guide-box-title">🔗 바로가기 링크</div>
+    <div class="ext-links">
+      <a class="ext-link ext-link-wgc" href="https://www.gold.org/goldhub/data/gold-supply-and-demand-statistics" target="_blank">🥇 WGC — 중앙은행 수급 통계</a>
+      <a class="ext-link ext-link-wgc" href="https://www.gold.org/goldhub/research/central-bank-gold-reserves" target="_blank">🥇 WGC — 중앙은행 보유량</a>
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/GFDEGDQ188S" target="_blank">📈 FRED — 미국 금 보유량</a>
+    </div>
+  </div>
+  </div><!-- /col-left -->
+  <div class="guide-col-right">
+  <div class="guide-box">
     <div class="guide-box-title">🔀 의사결정 플로차트</div>
     <div class="flow-chart">
       <div class="flow-node flow-q-node">Q1. 전 세계 중앙은행이 금을 순매입/순매도?<br>
@@ -758,6 +745,19 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
       </div>
     </div>
   </div>
+  <div class="guide-box guide-tip">
+    <div class="guide-box-title">💡 실전 팁 — 중앙은행 수급 확인 루틴</div>
+    <div style="font-size:12px;line-height:1.8;">
+      <b>① 확인 주기: 매월 초 1회</b><br>
+      gold.org → Research → Central Bank Statistics<br>
+      4~6주 지연 데이터. 중장기 추세 판단에 활용.<br><br>
+      <b>② 핵심 수치 3가지</b><br>
+      이번 달 순매입량 / 36개월 평균(+29톤) / 평균 대비<br><br>
+      <b>③ 현재 상황 (2026년 6월)</b><br>
+      +19톤, 평균 -34% → 둔화 중이나 순매입 지속<br>
+      → 슬라이더 +1 적용.
+    </div>
+  </div>
   </div><!-- /col-right -->
   </div><!-- /guide-cols -->
 </div>
@@ -765,49 +765,6 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
   <div class="guide-section-title" style="background:#4A4A4A">⑤ 종합 판단 기준 — 점수 해석과 실전 활용</div>
   <div class="guide-cols">
   <div class="guide-col-left">
-  <div class="guide-box">
-    <div class="guide-box-title">⚠️ 오버라이드 룰 — 무조건 우선 적용</div>
-    <div style="display:flex;flex-direction:column;gap:6px;">
-      <div style="padding:8px 12px;background:var(--bear-bg);border-left:4px solid var(--bear);border-radius:0 6px 6px 0;font-size:12px;"><b>🚫 롱 진입 금지 ①:</b> 펀더멘털 합계 ≤ -3점</div>
-      <div style="padding:8px 12px;background:var(--bear-bg);border-left:4px solid var(--bear);border-radius:0 6px 6px 0;font-size:12px;"><b>🚫 롱 진입 금지 ②:</b> 기술적 합계 ≤ -6점 (EMA 완전 하락 배열)</div>
-      <div style="padding:8px 12px;background:var(--bull-bg);border-left:4px solid var(--bull);border-radius:0 6px 6px 0;font-size:12px;"><b>🚫 숏 진입 금지:</b> 펀더멘털 합계 ≥ +3점</div>
-    </div>
-  </div>
-  <div class="guide-box">
-    <div class="guide-box-title">📋 2026-06-23 실제 분석 예시</div>
-    <table class="guide-table">
-      <tr><th>항목</th><th>수치/상황</th><th>판단</th><th>점수</th></tr>
-      <tr><td>금 현재가</td><td>$4,127.35</td><td>—</td><td>—</td></tr>
-      <tr class="row-bear"><td>EMA 배열</td><td>EMA200>EMA50>EMA20>캔들</td><td>완전 하락 배열</td><td>-3</td></tr>
-      <tr class="row-bear"><td>RSI(14)</td><td>32.18 (과매도 근접)</td><td>다이버전스 없음</td><td>-1</td></tr>
-      <tr class="row-bear"><td>볼린저밴드</td><td>BB 중간선(4191) >> 현재가</td><td>하단+하락 추세</td><td>-1</td></tr>
-      <tr class="row-bear"><td>진입 트리거</td><td>지지선 $4,111 미도달</td><td>약세 신호</td><td>-2</td></tr>
-      <tr class="row-bear"><td>MACD</td><td>히스토그램 -13.06</td><td>0선 아래 확대</td><td>-2</td></tr>
-      <tr class="row-bear"><td>기술적 합계</td><td>오버라이드 룰 발동</td><td>매수 진입 금지</td><td>-9</td></tr>
-    </table>
-    <div style="margin-top:8px;padding:8px;background:var(--bull-bg);border-radius:6px;font-size:11px;color:var(--bull);">
-      <b>반전 대기 신호:</b><br>
-      ① EMA20 위로 꺾임 + 캔들 복귀<br>
-      ② RSI 30→40 이상 회복<br>
-      ③ MACD 막대 축소 시작<br>
-      ④ $4,111 지지선 핀바 출현
-    </div>
-  </div>
-  <div class="guide-box">
-    <div class="guide-box-title">🔗 전체 지표 바로가기</div>
-    <div class="ext-links">
-      <a class="ext-link ext-link-tv" href="https://kr.investing.com/commodities/gold" target="_blank">📊 XAU/USD 금 현물</a>
-      <a class="ext-link ext-link-tv" href="https://kr.investing.com/commodities/silver" target="_blank">📊 XAG/USD 은 현물</a>
-      <a class="ext-link ext-link-tv" href="https://kr.investing.com/indices/usdollar" target="_blank">📊 DXY 달러인덱스</a>
-      <a class="ext-link ext-link-tv" href="https://kr.investing.com/indices/volatility-s-p-500" target="_blank">📊 VIX 공포지수</a>
-      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/DFII10" target="_blank">📈 TIPS 10년</a>
-      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/T10YIE" target="_blank">📈 BEI 기대인플레이션</a>
-      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/T5YIFR" target="_blank">📈 5y5y Forward</a>
-      <a class="ext-link ext-link-wgc" href="https://www.gold.org/goldhub/data/gold-supply-and-demand-statistics" target="_blank">🥇 WGC 중앙은행 수급</a>
-    </div>
-  </div>
-  </div><!-- /col-left -->
-  <div class="guide-col-right">
   <div class="guide-box">
     <div class="guide-box-title">📊 점수 체계 구조</div>
     <table class="guide-table">
@@ -839,6 +796,49 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
       <tr class="row-neut"><td><b>대기</b></td><td>0 ~ 1점</td><td>0%</td><td>조건 불충분</td></tr>
       <tr class="row-bull"><td><b>숏 금지</b></td><td>음수 (양수 점수)</td><td>0%</td><td>또는 펀더멘털 ≥ +3이면 무조건 금지</td></tr>
     </table>
+  </div>
+  <div class="guide-box">
+    <div class="guide-box-title">🔗 전체 지표 바로가기</div>
+    <div class="ext-links">
+      <a class="ext-link ext-link-tv" href="https://kr.investing.com/commodities/gold" target="_blank">📊 XAU/USD 금 현물</a>
+      <a class="ext-link ext-link-tv" href="https://kr.investing.com/commodities/silver" target="_blank">📊 XAG/USD 은 현물</a>
+      <a class="ext-link ext-link-tv" href="https://kr.investing.com/indices/usdollar" target="_blank">📊 DXY 달러인덱스</a>
+      <a class="ext-link ext-link-tv" href="https://kr.investing.com/indices/volatility-s-p-500" target="_blank">📊 VIX 공포지수</a>
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/DFII10" target="_blank">📈 TIPS 10년</a>
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/T10YIE" target="_blank">📈 BEI 기대인플레이션</a>
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/T5YIFR" target="_blank">📈 5y5y Forward</a>
+      <a class="ext-link ext-link-wgc" href="https://www.gold.org/goldhub/data/gold-supply-and-demand-statistics" target="_blank">🥇 WGC 중앙은행 수급</a>
+    </div>
+  </div>
+  </div><!-- /col-left -->
+  <div class="guide-col-right">
+  <div class="guide-box">
+    <div class="guide-box-title">⚠️ 오버라이드 룰 — 무조건 우선 적용</div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <div style="padding:8px 12px;background:var(--bear-bg);border-left:4px solid var(--bear);border-radius:0 6px 6px 0;font-size:12px;"><b>🚫 롱 진입 금지 ①:</b> 펀더멘털 합계 ≤ -3점</div>
+      <div style="padding:8px 12px;background:var(--bear-bg);border-left:4px solid var(--bear);border-radius:0 6px 6px 0;font-size:12px;"><b>🚫 롱 진입 금지 ②:</b> 기술적 합계 ≤ -6점 (EMA 완전 하락 배열)</div>
+      <div style="padding:8px 12px;background:var(--bull-bg);border-left:4px solid var(--bull);border-radius:0 6px 6px 0;font-size:12px;"><b>🚫 숏 진입 금지:</b> 펀더멘털 합계 ≥ +3점</div>
+    </div>
+  </div>
+  <div class="guide-box">
+    <div class="guide-box-title">📋 2026-06-23 실제 분석 예시</div>
+    <table class="guide-table">
+      <tr><th>항목</th><th>수치/상황</th><th>판단</th><th>점수</th></tr>
+      <tr><td>금 현재가</td><td>$4,127.35</td><td>—</td><td>—</td></tr>
+      <tr class="row-bear"><td>EMA 배열</td><td>EMA200>EMA50>EMA20>캔들</td><td>완전 하락 배열</td><td>-3</td></tr>
+      <tr class="row-bear"><td>RSI(14)</td><td>32.18 (과매도 근접)</td><td>다이버전스 없음</td><td>-1</td></tr>
+      <tr class="row-bear"><td>볼린저밴드</td><td>BB 중간선(4191) >> 현재가</td><td>하단+하락 추세</td><td>-1</td></tr>
+      <tr class="row-bear"><td>진입 트리거</td><td>지지선 $4,111 미도달</td><td>약세 신호</td><td>-2</td></tr>
+      <tr class="row-bear"><td>MACD</td><td>히스토그램 -13.06</td><td>0선 아래 확대</td><td>-2</td></tr>
+      <tr class="row-bear"><td>기술적 합계</td><td>오버라이드 룰 발동</td><td>매수 진입 금지</td><td>-9</td></tr>
+    </table>
+    <div style="margin-top:8px;padding:8px;background:var(--bull-bg);border-radius:6px;font-size:11px;color:var(--bull);">
+      <b>반전 대기 신호:</b><br>
+      ① EMA20 위로 꺾임 + 캔들 복귀<br>
+      ② RSI 30→40 이상 회복<br>
+      ③ MACD 막대 축소 시작<br>
+      ④ $4,111 지지선 핀바 출현
+    </div>
   </div>
   </div><!-- /col-right -->
   </div><!-- /guide-cols -->
