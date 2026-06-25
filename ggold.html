@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOC
+      <div class="flow-node" style="background:#F8F4E8;border-color:#C4962A;font-size:11px;margin:8px 0;"><b>📏 판단 기준</b><br><span style="color:#0F6E56">▼ MA20 아래: 현재가 &lt; MA20 → 달러 약세</span><br><span style="color:#993C1D">▲ MA20 위: 현재가 &gt; MA20 → 달러 강세</span><br><span style="color:#7a5800">→ 횡보 (차이 ±0.3 이내): 슬라이더 0점</span><br><span style="font-size:10px;color:#888">예) DXY 101.2, MA20 101.5 → 아래 → 약세</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;">width=device-width, initial-scale=1.0">
 <title>GGOLD — 금 선물 대시보드</title>
 <script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
 <style>
@@ -253,6 +251,10 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
   .tab-btn { padding: 7px 8px; font-size: 11px; }
 }
 
+
+/* 판단기준 박스 */
+.flow-node[style*="F8F4E8"] { margin-top: 8px; margin-bottom: 8px; }
+
 </style>
 </head>
 <body>
@@ -470,6 +472,7 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
     <div class="guide-box-title">🔀 의사결정 플로차트</div>
     <div class="flow-chart">
       <div class="flow-node flow-q-node">Q1: TIPS 10년 금리가 최근 1개월간 올랐나요, 내렸나요?</div>
+      <div class="flow-node" style="background:#F8F4E8;border-color:#C4962A;font-size:11px;margin:8px 0;"><b>📏 판단 기준 (1개월 변화량)</b><br><span style="color:#0F6E56">▼ 하락: 전월 대비 -0.1%p 이상 → 호재</span><br><span style="color:#993C1D">▲ 상승: 전월 대비 +0.1%p 이상 → 역풍</span><br><span style="color:#7a5800">→ 횡보 (±0.1%p 이내): 슬라이더 0점, 다른 지표 집중</span><br><span style="font-size:10px;color:#888">예) 1.8%→1.65% = -0.15%p → 하락 판정</span></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;">
         <div>
           <div class="flow-branch-label flow-bear">↑ 상승 (금에 역풍)</div>
@@ -678,7 +681,8 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
   <div class="guide-box">
     <div class="guide-box-title">🔀 의사결정 플로차트</div>
     <div class="flow-chart">
-      <div class="flow-node flow-q-node">Q1: 이번 사건이 시장이 전혀 예상 못 한 새로운 충격인가요?</div>
+      <div class="flow-node flow-q-node">Q1: 지정학 이슈가 있나요? 있다면 새로운 충격인가요?<br><span style="font-size:10px;color:var(--text3)">뉴스 + VIX 수준 동시 확인</span></div>
+      <div class="flow-node" style="background:#F8F4E8;border-color:#C4962A;font-size:11px;margin:8px 0;"><b>📏 VIX로 판단하는 기준</b><br><span style="color:#0F6E56">▲ VIX 급등 (+10% 이상/일): 새로운 충격 → Q2 진행</span><br><span style="color:#993C1D">▼ VIX 하락 중: 안전자산 해소 → 슬라이더 -1 ~ -2</span><br><span style="color:#7a5800">→ 횡보 (±5% 이내): VIX 수치로만 판단</span><br><span style="font-size:10px;color:#888">VIX &lt;15 → 0점 / 15~20 → +1 / 20~30 → +2 / 30+ → +2<br>횡보 예) VIX 17→18 (+6%) = 일반 변동 → 뉴스 여부만 확인</span></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;">
         <div>
           <div class="flow-branch-label flow-bear">NO — 이미 알려진 리스크</div>
@@ -786,6 +790,7 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
     <div class="guide-box-title">🔀 의사결정 플로차트</div>
     <div class="flow-chart">
       <div class="flow-node flow-q-node">Q1: 이번 달 전 세계 중앙은행이 금을 순매입했나요, 순매도했나요?<br><span style="font-size:10px;color:var(--text3);">출처: gold.org → Research → Central Bank Statistics (월 1회 업데이트)</span></div>
+      <div class="flow-node" style="background:#F8F4E8;border-color:#C4962A;font-size:11px;margin:8px 0;"><b>📏 판단 기준 (톤/월)</b><br><span style="color:#0F6E56">순매입 +30톤 이상: +2점 (평균 초과)</span><br><span style="color:#0F6E56">순매입 +10~29톤: +1점 (평균 이하, 현재 +19톤)</span><br><span style="color:#7a5800">순매입 0~9톤: 0점 (미미)</span><br><span style="color:#993C1D">순매도 -1~-9톤: -1점 / -10톤 이하: -2점</span><br><span style="color:#7a5800">→ 횡보 없음: 매입/매도 여부로 명확히 구분됨</span><br><span style="font-size:10px;color:#888">데이터 없는 달: 전월 수치 그대로 유지</span></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;">
         <div>
           <div class="flow-branch-label flow-bear">순매도</div>
