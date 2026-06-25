@@ -114,10 +114,54 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
 .override-msg { font-size: 12px; padding: 8px 12px; border-radius: 6px; background: rgba(0,0,0,0.06); margin-top: 8px; }
 .reset-btn { width: 100%; padding: 12px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; cursor: pointer; color: var(--text2); }
 .reset-btn:hover { background: var(--border); }
+
+/* 탭 */
+.tab-nav { display:flex; gap:0; border-bottom:2px solid var(--gold); margin-bottom:20px; }
+.tab-btn { padding:10px 20px; font-size:13px; font-weight:600; border:none; background:transparent;
+  color:var(--text3); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-2px; transition:all 0.15s; }
+.tab-btn.active { color:var(--gold); border-bottom-color:var(--gold); }
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
+
+/* 가이드 탭 */
+.guide-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
+@media(max-width:600px){ .guide-grid{grid-template-columns:1fr;} }
+.guide-card { background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+.guide-card-header { padding:12px 16px; font-size:13px; font-weight:700; color:#fff; display:flex; align-items:center; gap:8px; }
+.guide-card-body { padding:14px 16px; }
+.flow-step { display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; }
+.flow-q { width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:10px; font-weight:700; color:#fff; flex-shrink:0; margin-top:1px; }
+.flow-text { font-size:12px; line-height:1.6; color:var(--text); }
+.flow-branch { margin-left:30px; margin-bottom:6px; }
+.branch-item { display:flex; gap:6px; margin-bottom:4px; font-size:11px; }
+.branch-arrow { color:var(--text3); flex-shrink:0; }
+.branch-bull { color:var(--bull); font-weight:600; }
+.branch-bear { color:var(--bear); font-weight:600; }
+.branch-neut { color:var(--neut); font-weight:600; }
+.conclusion-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:10px; }
+.conc-item { padding:6px 8px; border-radius:6px; font-size:11px; }
+.conc-bull { background:var(--bull-bg); color:var(--bull); }
+.conc-bear { background:var(--bear-bg); color:var(--bear); }
+.conc-neut { background:var(--neut-bg); color:var(--neut); }
+.vix-table { width:100%; border-collapse:collapse; margin-top:8px; font-size:11px; }
+.vix-table td { padding:5px 8px; border-bottom:1px solid var(--bg2); }
+.vix-table tr:last-child td { border-bottom:none; }
+.slider-guide { margin-top:10px; }
+.slider-row { display:flex; justify-content:space-between; font-size:11px; padding:4px 0;
+  border-bottom:1px solid var(--bg2); }
+.slider-row:last-child { border-bottom:none; }
+.sg-val { font-weight:700; min-width:28px; text-align:center; padding:1px 5px; border-radius:4px; }
 </style>
 </head>
 <body>
-<div class="wrap">
+
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('dashboard',this)">📊 대시보드</button>
+  <button class="tab-btn" onclick="switchTab('guide',this)">📖 펀더멘털 가이드</button>
+</div>
+<div id="tab-dashboard" class="tab-panel active">
+
 
 <!-- 헤더 -->
 <div class="header">
@@ -271,6 +315,183 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
   <button class="reset-btn" onclick="resetAll()">↺ 처음부터 다시</button>
 </div>
 
+
+</div><!-- /tab-dashboard -->
+
+<div id="tab-guide" class="tab-panel">
+<div class="wrap" style="padding-top:0">
+
+  <div class="guide-grid">
+
+    <!-- 실질금리 -->
+    <div class="guide-card">
+      <div class="guide-card-header" style="background:var(--q1)">
+        <span>①</span> 실질금리 (TIPS 10년)
+      </div>
+      <div class="guide-card-body">
+        <div style="font-size:11px;color:var(--text3);margin-bottom:10px;">출처: DFII10 · T10YIE · T5YIFR</div>
+        <div class="flow-step">
+          <div class="flow-q" style="background:var(--q1)">Q1</div>
+          <div class="flow-text">TIPS 10년 금리가 최근 1개월간 <b>올랐나요 / 내렸나요?</b></div>
+        </div>
+        <div class="flow-branch">
+          <div class="branch-item"><span class="branch-arrow">↑ 상승</span><span>→ BEI도 올랐나?</span></div>
+          <div style="margin-left:16px;font-size:11px;margin-bottom:4px;">
+            <span class="branch-bull">YES (리플레이션)</span> → 단기BEI>장기BEI: 일시적 / 반대: 구조적<br>
+            <span class="branch-bear">NO (디스인플레이션)</span> → 연준 독립성 압박 여부 확인
+          </div>
+          <div class="branch-item"><span class="branch-arrow">↓ 하락</span><span>→ BEI 올랐나?</span></div>
+          <div style="margin-left:16px;font-size:11px;">
+            <span class="branch-bull">YES (스태그플레이션)</span> → ETF 유입 확인<br>
+            <span class="branch-bull">NO (성장둔화)</span> → 침체공포 vs 연착륙
+          </div>
+        </div>
+        <div class="conclusion-grid">
+          <div class="conc-bear">Ra1 역풍 제한적 (관망)</div>
+          <div class="conc-bear">Ra2 역풍 심화 (롱 축소)</div>
+          <div class="conc-bull">Rc1 ★ 최고 호재 (강한 매수)</div>
+          <div class="conc-bull">Rd1 호재 강화 (정책 무력화)</div>
+        </div>
+        <div class="slider-guide">
+          <div style="font-size:11px;font-weight:600;color:var(--text3);margin:10px 0 6px;">슬라이더 기준</div>
+          <div class="slider-row"><span><span class="sg-val" style="background:var(--bear-bg);color:var(--bear)">-2</span></span><span>TIPS 상승 + BEI 하락 (강한 역풍)</span></div>
+          <div class="slider-row"><span><span class="sg-val" style="background:var(--bear-bg);color:var(--bear)">-1</span></span><span>TIPS 상승 + BEI 상승 (역풍, 리플레이션)</span></div>
+          <div class="slider-row"><span><span class="sg-val" style="background:var(--bg2);color:var(--text2)"> 0</span></span><span>방향 불명확 / 횡보</span></div>
+          <div class="slider-row"><span><span class="sg-val" style="background:var(--bull-bg);color:var(--bull)">+1</span></span><span>TIPS 하락 + 스태그 (ETF 유입)</span></div>
+          <div class="slider-row"><span><span class="sg-val" style="background:var(--bull-bg);color:var(--bull)">+2</span></span><span>TIPS 하락 + BEI 하락 (성장둔화·강한 호재)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DXY -->
+    <div class="guide-card">
+      <div class="guide-card-header" style="background:var(--q2)">
+        <span>②</span> DXY 달러 인덱스
+      </div>
+      <div class="guide-card-body">
+        <div style="font-size:11px;color:var(--text3);margin-bottom:10px;">출처: DXY 일봉 + 20일 이동평균선</div>
+        <div class="flow-step">
+          <div class="flow-q" style="background:var(--q2)">Q1</div>
+          <div class="flow-text">DXY가 20일 이동평균선 <b>아래인가요 / 위인가요?</b></div>
+        </div>
+        <div class="flow-branch">
+          <div class="branch-item"><span class="branch-arrow">↓ 아래</span><span>→ RSI 확인</span></div>
+          <div style="margin-left:16px;font-size:11px;margin-bottom:4px;">
+            <span class="branch-bull">RSI &lt; 50</span> → 약세 모멘텀 지속 → 금 호재<br>
+            <span class="branch-neut">RSI &gt; 50</span> → 일시 되돌림 → 호재 지속 가능성
+          </div>
+          <div class="branch-item"><span class="branch-arrow">↑ 위</span><span>→ 리스크 성격 확인</span></div>
+          <div style="margin-left:16px;font-size:11px;">
+            <span class="branch-bear">리스크온</span> → 캐리 언와인드, 금 역풍<br>
+            <span class="branch-bull">리스크오프</span> → 유동성 위기 vs 신뢰 위기
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--text3);margin-top:10px;padding:8px;background:var(--bg2);border-radius:6px;">
+          💡 핵심: 현재 DXY 수치(<span id="guide-dxy">로딩중</span>)를 20일선과 비교하세요
+        </div>
+        <div class="slider-guide">
+          <div style="font-size:11px;font-weight:600;color:var(--text3);margin:10px 0 6px;">슬라이더 기준</div>
+          <div class="slider-row"><span><span class="sg-val" style="background:var(--bear-bg);color:var(--bear)">-2</span></span><span>DXY 강세 상승 추세 (강한 역풍)</span></div>
+          <div class="slider-row"><span><span class="sg-val" style="background:var(--bear-bg);color:var(--bear)">-1</span></span><span>DXY 20일선 위, RSI 하락 중</span></div>
+          <div class="slider-row"><span><span class="sg-val" style="background:var(--bg2);color:var(--text2)"> 0</span></span><span>DXY 횡보 / 방향 불명확</span></div>
+          <div class="slider-row"><span><span class="sg-val" style="background:var(--bull-bg);color:var(--bull)">+1</span></span><span>DXY 20일선 아래, RSI &gt; 50 (일시 반등)</span></div>
+          <div class="slider-row"><span><span class="sg-val" style="background:var(--bull-bg);color:var(--bull)">+2</span></span><span>DXY 약세 하락 추세, RSI &lt; 50 (강한 호재)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 지정학 -->
+    <div class="guide-card">
+      <div class="guide-card-header" style="background:#5A6A3A">
+        <span>③</span> 지정학적 리스크
+      </div>
+      <div class="guide-card-body">
+        <div style="font-size:11px;color:var(--text3);margin-bottom:10px;">출처: VIX (CBOE) · MOVE 지수</div>
+        <div class="flow-step">
+          <div class="flow-q" style="background:#5A6A3A">Q1</div>
+          <div class="flow-text">이번 사건이 시장이 <b>전혀 예상 못 한 새로운 충격</b>인가요?</div>
+        </div>
+        <div class="flow-branch">
+          <div class="branch-item"><span class="branch-bear">NO</span><span>→ 이미 가격 반영 → 분석 종료 (0점)</span></div>
+          <div class="branch-item"><span class="branch-bull">YES</span><span>→ VIX 레벨 확인 →</span></div>
+        </div>
+        <table class="vix-table">
+          <tr style="background:var(--bg2);font-weight:600;">
+            <td>VIX 수준</td><td>현재 수치</td><td>금 영향</td><td>점수</td>
+          </tr>
+          <tr><td>&lt; 15</td><td>안정</td><td>중립</td><td class="conc-neut" style="text-align:center">0</td></tr>
+          <tr><td>15~20</td><td>경계</td><td>소폭 호재</td><td class="conc-bull" style="text-align:center">+1</td></tr>
+          <tr><td>20~30</td><td>공포</td><td>호재</td><td class="conc-bull" style="text-align:center">+1~2</td></tr>
+          <tr><td>30+</td><td>극심</td><td>강한 호재</td><td class="conc-bull" style="text-align:center">+2</td></tr>
+        </table>
+        <div style="font-size:11px;color:var(--text3);margin-top:10px;padding:8px;background:var(--bg2);border-radius:6px;">
+          💡 현재 VIX: <span id="guide-vix">로딩중</span> &nbsp;|&nbsp; ★ 최고 호재: 구조적 변화 + 금리인하 동반 (2020 패턴)
+        </div>
+        <div class="slider-guide">
+          <div style="font-size:11px;font-weight:600;color:var(--text3);margin:10px 0 6px;">슬라이더 기준</div>
+          <div class="slider-row"><span><span class="sg-val" style="background:var(--bear-bg);color:var(--bear)">-2</span></span><span>리스크 오프 해소, 안전자산 매도</span></div>
+          <div class="slider-row"><span><span class="sg-val" style="background:var(--bg2);color:var(--text2)"> 0</span></span><span>VIX 15 이하, 지정학 이슈 없음</span></div>
+          <div class="slider-row"><span><span class="sg-val" style="background:var(--bull-bg);color:var(--bull)">+1</span></span><span>VIX 15~25, 알려진 긴장 고조</span></div>
+          <div class="slider-row"><span><span class="sg-val" style="background:var(--bull-bg);color:var(--bull)">+2</span></span><span>VIX 25+, 예상 밖 새로운 충격</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 중앙은행 -->
+    <div class="guide-card">
+      <div class="guide-card-header" style="background:var(--q4)">
+        <span>④</span> 중앙은행 수급
+      </div>
+      <div class="guide-card-body">
+        <div style="font-size:11px;color:var(--text3);margin-bottom:10px;">출처: gold.org → Research → Central Bank Statistics (월 1회)</div>
+        <div class="flow-step">
+          <div class="flow-q" style="background:var(--q4)">Q1</div>
+          <div class="flow-text">전 세계 중앙은행이 금을 <b>순매입 / 순매도</b> 했나요?</div>
+        </div>
+        <div class="flow-branch">
+          <div class="branch-item"><span class="branch-bear">순매도</span><span>→ 역풍, 규모 확인</span></div>
+          <div class="branch-item"><span class="branch-bull">순매입</span><span>→ 36개월 평균 대비 많고 적음</span></div>
+          <div style="margin-left:16px;font-size:11px;margin-bottom:4px;">
+            <span class="branch-bull">평균 이상</span> → 구조적 수요 증가 신호<br>
+            <span class="branch-neut">평균 이하</span> → 수요 유지 (중립~소호재)
+          </div>
+        </div>
+        <div style="font-size:11px;padding:8px;background:var(--bull-bg);border-radius:6px;margin-top:8px;color:var(--bull)">
+          📊 2026년 현재: <b>+19톤/월 순매입</b><br>
+          36개월 평균: +29톤/월<br>
+          주요 매입국: 중국 +8톤, 폴란드 +14톤, 체코 +2톤
+        </div>
+        <div class="slider-guide">
+          <div style="font-size:11px;font-weight:600;color:var(--text3);margin:10px 0 6px;">슬라이더 기준</div>
+          <div class="slider-row"><span><span class="sg-val" style="background:var(--bear-bg);color:var(--bear)">-2</span></span><span>순매도 + ETF 동반 유출</span></div>
+          <div class="slider-row"><span><span class="sg-val" style="background:var(--bear-bg);color:var(--bear)">-1</span></span><span>순매도 소규모 or 매입 급감</span></div>
+          <div class="slider-row"><span><span class="sg-val" style="background:var(--bg2);color:var(--text2)"> 0</span></span><span>평균 수준 매입 유지</span></div>
+          <div class="slider-row"><span><span class="sg-val" style="background:var(--bull-bg);color:var(--bull)">+1</span></span><span>평균 이상 순매입</span></div>
+          <div class="slider-row"><span><span class="sg-val" style="background:var(--bull-bg);color:var(--bull)">+2</span></span><span>대량 순매입 + ETF 동반 유입 ★</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /guide-grid -->
+
+  <!-- 합산 기준 -->
+  <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:20px;">
+    <div class="section-title" style="margin-bottom:12px;">펀더멘털 합산 점수 해석 (-8 ~ +8)</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;">
+      <div class="conc-bull" style="padding:8px 10px;border-radius:6px;">+6 ~ +8: 강한 롱 편향</div>
+      <div class="conc-bull" style="padding:8px 10px;border-radius:6px;">+3 ~ +5: 롱 편향</div>
+      <div class="conc-neut" style="padding:8px 10px;border-radius:6px;">-2 ~ +2: 중립 (기술적 위주)</div>
+      <div class="conc-bear" style="padding:8px 10px;border-radius:6px;">-3 ~ -5: 숏 편향</div>
+      <div class="conc-bear" style="padding:8px 10px;border-radius:6px;">-6 ~ -8: 강한 숏 편향</div>
+    </div>
+    <div style="font-size:11px;color:var(--text3);margin-top:10px;">
+      ⚠ 펀더멘털 ≥ +3 이면 숏 진입 금지 &nbsp;|&nbsp; 펀더멘털 ≤ -3 이면 롱 진입 금지
+    </div>
+  </div>
+
+</div>
+</div><!-- /tab-guide -->
+
 </div><!-- /wrap -->
 <script>
 const BASE = 'https://kjuhg.github.io/ggold/data';
@@ -284,7 +505,7 @@ const CARD_DEFS = [
   {key:'vix',    label:'VIX 공포지수',   histKey:'vix'},
   {key:'wti',    label:'WTI 원유',       histKey:'wti'},
   {key:'sp500',  label:'S&P 500',        histKey:'sp500'},
-  {key:'usdkrw', label:'USD/KRW',        histKey:null},
+  {key:'usdkrw', label:'USD/KRW',        histKey:'usdkrw'},
 ];
 
 // ── 차트 상태 ──────────────────────────────────
@@ -863,6 +1084,24 @@ function resetAll() {
 }
 
 // ── 초기화 ────────────────────────────────────
+
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  if (id === 'guide') updateGuideValues();
+}
+function updateGuideValues() {
+  fetch(BASE+'/market.json?_='+Date.now())
+    .then(r=>r.json()).then(data=>{
+      const dxy = data.current?.dxy?.price;
+      const vix = data.current?.vix?.price;
+      if (dxy) document.getElementById('guide-dxy').textContent = dxy.toFixed(2);
+      if (vix) document.getElementById('guide-vix').textContent = vix.toFixed(2);
+    }).catch(()=>{});
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   initCharts();
   loadMarket();
