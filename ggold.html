@@ -272,7 +272,7 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
   <div class="header-title">GG<span>OLD</span> &nbsp;●&nbsp; 금 선물 매매 판단</div>
   <div class="header-time">
     <b id="update-time">로딩 중...</b><br>
-    자동 갱신: 15분
+    데이터 갱신: 15분 (KST)
   </div>
 </div>
 
@@ -474,7 +474,18 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
 </div>
 
 <!-- ② DXY -->
-  </div><!-- /col-left -->
+  
+  <div class="guide-box">
+    <div class="guide-box-title">🔗 바로가기 링크</div>
+    <div class="ext-links">
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/DFII10" target="_blank">📈 FRED — TIPS 10년 (DFII10)</a>
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/T10YIE" target="_blank">📈 FRED — BEI 기대인플레이션</a>
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/T5YIFR" target="_blank">📈 FRED — 5y5y Forward</a>
+      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/DGS10" target="_blank">📈 FRED — 미국채 10년 명목금리</a>
+      <a class="ext-link ext-link-tv" href="https://kr.investing.com/rates-bonds/u.s.-10-year-bond-yield" target="_blank">📊 Investing.com — 미국채 10년</a>
+    </div>
+  </div>
+</div><!-- /col-left -->
   <div class="guide-col-right">
 
   <div class="guide-box">
@@ -493,16 +504,7 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
     </table>
   </div>
 
-  <div class="guide-box">
-    <div class="guide-box-title">🔗 바로가기 링크</div>
-    <div class="ext-links">
-      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/DFII10" target="_blank">📈 FRED — TIPS 10년 (DFII10)</a>
-      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/T10YIE" target="_blank">📈 FRED — BEI 기대인플레이션</a>
-      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/T5YIFR" target="_blank">📈 FRED — 5y5y Forward</a>
-      <a class="ext-link ext-link-fred" href="https://fred.stlouisfed.org/series/DGS10" target="_blank">📈 FRED — 미국채 10년 명목금리</a>
-      <a class="ext-link ext-link-tv" href="https://kr.investing.com/rates-bonds/u.s.-10-year-bond-yield" target="_blank">📊 Investing.com — 미국채 10년</a>
-    </div>
-  </div>
+
 
   <div class="guide-box">
     <div class="guide-box-title">🔀 의사결정 플로차트</div>
@@ -1028,8 +1030,25 @@ function initCharts() {
     layout:{ background:{type:'Solid',color:'#ffffff'}, textColor:'#555' },
     grid:{ vertLines:{color:'#f0ede6'}, horzLines:{color:'#f0ede6'} },
     crosshair:{ mode:1 },
-    timeScale:{ timeVisible:true, secondsVisible:false, borderColor:'#CECCA0' },
+    timeScale:{
+      timeVisible:true, secondsVisible:false, borderColor:'#CECCA0',
+      tickMarkFormatter: (time) => {
+        // UTC → KST (+9시간) 변환해서 표시
+        const d = new Date((time + 9*3600) * 1000);
+        const mo = String(d.getUTCMonth()+1).padStart(2,'0');
+        const dd = String(d.getUTCDate()).padStart(2,'0');
+        const hh = String(d.getUTCHours()).padStart(2,'0');
+        const mm = String(d.getUTCMinutes()).padStart(2,'0');
+        return `${mo}/${dd} ${hh}:${mm}`;
+      }
+    },
     rightPriceScale:{ borderColor:'#CECCA0' },
+    localization:{
+      timeFormatter: (time) => {
+        const d = new Date((time + 9*3600) * 1000);
+        return d.toUTCString().replace(' GMT','').slice(5,22) + ' KST';
+      }
+    },
   };
 
   mainChart = LightweightCharts.createChart(document.getElementById('main-chart'), {...opts, height:320});
@@ -1165,9 +1184,12 @@ async function loadMarket() {
     const r = await fetch(`${BASE}/market.json?_=${Date.now()}`);
     const data = await r.json();
     renderCards(data.current);
+    // 데이터 수집 시간 (UTC→KST)
     const t = new Date(data.updated_at);
-    document.getElementById('update-time').textContent =
-      t.toLocaleString('ko-KR', {timeZone:'Asia/Seoul', hour12:false}).replace('T',' ');
+    const nowKST = new Date().toLocaleString('ko-KR', {timeZone:'Asia/Seoul', hour12:false,
+      year:'numeric', month:'2-digit', day:'2-digit',
+      hour:'2-digit', minute:'2-digit', second:'2-digit'});
+    document.getElementById('update-time').textContent = nowKST;
   } catch(e) { document.getElementById('update-time').textContent = '로드 실패'; }
 }
 
