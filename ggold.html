@@ -202,6 +202,16 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
 .ext-link-wgc { border-color:var(--gold); color:var(--gold); }
 .ext-link-wgc:hover { background:var(--gold); color:#fff; border-color:var(--gold); }
 
+
+.gtab-nav { display:flex; gap:0; border-bottom:2px solid var(--border);
+  margin-bottom:20px; overflow-x:auto; }
+.gtab-btn { padding:9px 16px; font-size:12px; font-weight:600; border:none;
+  background:transparent; color:var(--text3); cursor:pointer;
+  border-bottom:2px solid transparent; margin-bottom:-2px;
+  white-space:nowrap; transition:all 0.15s; }
+.gtab-btn:hover { color:var(--text); }
+.gtab-btn.active { color:var(--gold); border-bottom-color:var(--gold); }
+
 </style>
 </head>
 <body>
@@ -378,12 +388,12 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
 </div>
 
 <!-- 가이드 내부 탭 -->
-<div style="display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:20px;overflow-x:auto;" id="gtab-nav">
-  <button class="gtab-btn active" onclick="switchGTab('g1',this)" style="padding:9px 16px;font-size:12px;font-weight:600;border:none;background:transparent;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;">① 실질금리</button>
-  <button class="gtab-btn" onclick="switchGTab('g2',this)" style="padding:9px 16px;font-size:12px;font-weight:600;border:none;background:transparent;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;">② DXY 달러</button>
-  <button class="gtab-btn" onclick="switchGTab('g3',this)" style="padding:9px 16px;font-size:12px;font-weight:600;border:none;background:transparent;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;">③ 지정학 리스크</button>
-  <button class="gtab-btn" onclick="switchGTab('g4',this)" style="padding:9px 16px;font-size:12px;font-weight:600;border:none;background:transparent;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;">④ 중앙은행 수급</button>
-  <button class="gtab-btn" onclick="switchGTab('g5',this)" style="padding:9px 16px;font-size:12px;font-weight:600;border:none;background:transparent;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;">⑤ 종합 판단 기준</button>
+<div class="gtab-nav" id="gtab-nav">
+  <button class="gtab-btn active" onclick="switchGTab('g1',this)">① 실질금리</button>
+  <button class="gtab-btn" onclick="switchGTab('g2',this)">② DXY 달러</button>
+  <button class="gtab-btn" onclick="switchGTab('g3',this)">③ 지정학 리스크</button>
+  <button class="gtab-btn" onclick="switchGTab('g4',this)">④ 중앙은행 수급</button>
+  <button class="gtab-btn" onclick="switchGTab('g5',this)">⑤ 종합 판단 기준</button>
 </div>
 
 <!-- ① 실질금리 -->
@@ -1401,13 +1411,9 @@ function resetAll() {
 
 function switchGTab(id, btn) {
   document.querySelectorAll('.gtab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.gtab-btn').forEach(b => {
-    b.style.color = 'var(--text3)';
-    b.style.borderBottomColor = 'transparent';
-  });
+  document.querySelectorAll('.gtab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('gtab-'+id).classList.add('active');
-  btn.style.color = 'var(--gold)';
-  btn.style.borderBottomColor = 'var(--gold)';
+  btn.classList.add('active');
 }
 
 function switchTab(id, btn) {
