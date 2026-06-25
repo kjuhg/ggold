@@ -17,7 +17,7 @@
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: var(--bg); color: var(--text); font-family: -apple-system, 'Segoe UI', sans-serif; font-size: 14px; }
-.wrap { max-width: 900px; margin: 0 auto; padding: 16px 32px; }
+.wrap { max-width: 960px; margin: 0 auto; padding: 16px; }
 .tab-nav { position: sticky; top: 0; z-index: 100; background: var(--bg);
   border-bottom: 2px solid var(--gold); padding: 0 32px;
   margin-bottom: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
@@ -213,6 +213,15 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
 .gtab-btn.active { color:var(--gold); border-bottom-color:var(--gold); }
 
 .page-container { max-width: 964px; margin: 0 auto; position: relative; }
+
+/* 가이드 2컬럼 레이아웃 */
+.guide-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
+.guide-col-left  { display: flex; flex-direction: column; gap: 12px; }
+.guide-col-right { display: flex; flex-direction: column; gap: 12px; }
+@media (max-width: 700px) { .guide-cols { grid-template-columns: 1fr; } }
+/* 가이드 박스 margin 제거 (컬럼 gap으로 대체) */
+.guide-cols .guide-box { margin-bottom: 0; }
+
 </style>
 </head>
 <body>
@@ -401,6 +410,9 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
 <div class="gtab-panel active" id="gtab-g1">
   <div class="guide-section-title" style="background:var(--q1)">① 실질금리 (TIPS 10년) — 금의 핵심 드라이버</div>
 
+  <div class="guide-cols">
+  <div class="guide-col-left">
+
   <div class="guide-box">
     <div class="guide-box-title">📌 왜 실질금리가 중요한가?</div>
     <p class="guide-p">금은 이자를 주지 않는 자산입니다. 따라서 <b>실질금리(명목금리 - 기대인플레이션)</b>가 높을수록 금을 보유하는 기회비용이 커져 금값이 하락하고, 실질금리가 낮거나 음수(마이너스)일수록 금이 매력적인 자산이 됩니다.</p>
@@ -464,6 +476,8 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
     </div>
   </div>
 
+    </div><!-- /col-left -->
+  <div class="guide-col-right">
   <div class="guide-box">
     <div class="guide-box-title">🎚️ 슬라이더 판단 기준</div>
     <table class="guide-table">
@@ -492,8 +506,13 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
 </div>
 
 <!-- ② DXY -->
+  </div><!-- /col-right -->
+  </div><!-- /guide-cols -->
 <div class="gtab-panel" id="gtab-g2">
   <div class="guide-section-title" style="background:var(--q2)">② DXY 달러 인덱스 — 금과 역상관 관계</div>
+
+  <div class="guide-cols">
+  <div class="guide-col-left">
 
   <div class="guide-box">
     <div class="guide-box-title">📌 왜 달러 강약이 중요한가?</div>
@@ -548,7 +567,9 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
     </div>
   </div>
 
-  <div class="guide-box">
+    </div><!-- /guide-col-left -->
+  <div class="guide-col-right">
+<div class="guide-box">
     <div class="guide-box-title">🎚️ 슬라이더 판단 기준</div>
     <table class="guide-table">
       <tr><th>점수</th><th>상황</th></tr>
@@ -586,9 +607,16 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
   </div>
 </div>
 
-<!-- ③ 지정학 -->
+<!-- ③ 지정
+  </div><!-- /guide-col-right -->
+  </div><!-- /guide-cols -->
+</div>
+학 -->
 <div class="gtab-panel" id="gtab-g3">
   <div class="guide-section-title" style="background:#5A6A3A">③ 지정학적 리스크 — 안전자산 수요</div>
+
+  <div class="guide-cols">
+  <div class="guide-col-left">
 
   <div class="guide-box">
     <div class="guide-box-title">📌 왜 지정학이 중요한가?</div>
@@ -645,6 +673,8 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
     </div>
   </div>
 
+    </div><!-- /col-left -->
+  <div class="guide-col-right">
   <div class="guide-box">
     <div class="guide-box-title">🎚️ 슬라이더 판단 기준</div>
     <table class="guide-table">
@@ -684,8 +714,13 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
 </div>
 
 <!-- ④ 중앙은행 -->
+  </div><!-- /col-right -->
+  </div><!-- /guide-cols -->
 <div class="gtab-panel" id="gtab-g4">
   <div class="guide-section-title" style="background:var(--q4)">④ 중앙은행 수급 — 구조적 수요 기반</div>
+
+  <div class="guide-cols">
+  <div class="guide-col-left">
 
   <div class="guide-box">
     <div class="guide-box-title">📌 왜 중앙은행 수급이 중요한가?</div>
@@ -746,7 +781,9 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
     </div>
   </div>
 
-  <div class="guide-box">
+    </div><!-- /guide-col-left -->
+  <div class="guide-col-right">
+<div class="guide-box">
     <div class="guide-box-title">🎚️ 슬라이더 판단 기준</div>
     <table class="guide-table">
       <tr><th>점수</th><th>상황</th></tr>
@@ -784,9 +821,16 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
   </div>
 </div>
 
-<!-- ⑤ 종합 판단 -->
+<!-- ⑤ 종합 판
+  </div><!-- /guide-col-right -->
+  </div><!-- /guide-cols -->
+</div>
+단 -->
 <div class="gtab-panel" id="gtab-g5">
   <div class="guide-section-title" style="background:#4A4A4A">⑤ 종합 판단 기준 — 점수 해석과 실전 활용</div>
+
+  <div class="guide-cols">
+  <div class="guide-col-left">
 
   <div class="guide-box">
     <div class="guide-box-title">📊 점수 체계 구조</div>
@@ -823,6 +867,8 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
     </table>
   </div>
 
+    </div><!-- /col-left -->
+  <div class="guide-col-right">
   <div class="guide-box">
     <div class="guide-box-title">⚠️ 오버라이드 룰 (무조건 적용)</div>
     <div style="display:flex;flex-direction:column;gap:6px;">
@@ -1529,6 +1575,6 @@ window.addEventListener('load', () => {
   setInterval(loadMarket, 60000);
 });
 </script>
-</div><!-- /page-container -->
+
 </body>
 </html>
