@@ -1,8 +1,9 @@
-<!DOC
-      <div class="flow-node" style="background:#F8F4E8;border-color:#C4962A;font-size:11px;margin:8px 0;"><b>📏 판단 기준</b><br><span style="color:#0F6E56">▼ MA20 아래: 현재가 &lt; MA20 → 달러 약세</span><br><span style="color:#993C1D">▲ MA20 위: 현재가 &gt; MA20 → 달러 강세</span><br><span style="color:#7a5800">→ 횡보 (차이 ±0.3 이내): 슬라이더 0점</span><br><span style="font-size:10px;color:#888">예) DXY 101.2, MA20 101.5 → 아래 → 약세</span></div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;">width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GGOLD — 금 선물 대시보드</title>
-<script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
 <style>
 :root {
   --gold: #C4962A; --gold-bg: #FDF6E3;
@@ -575,7 +576,8 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
   <div class="guide-box">
     <div class="guide-box-title">🔀 의사결정 플로차트</div>
     <div class="flow-chart">
-      <div class="flow-node flow-q-node">Q1: DXY가 20일 이동평균선 아래인가요, 위인가요?<br><span style="font-size:10px;color:var(--text3)">(TradingView에서 DXY 일봉 + MA20 추가)</span></div>
+      <div class="flow-node flow-q-node">Q1: DXY가 20일 이동평균선(MA20) 위/아래?<br><span style="font-size:10px;color:var(--text3)">Investing.com → DXY → 기술적 분석 → MA20 확인</span></div>
+      <div class="flow-node" style="background:#F8F4E8;border-color:#C4962A;font-size:11px;margin:8px 0;"><b>📏 판단 기준</b><br><span style="color:#0F6E56">▼ MA20 아래: 현재가 &lt; MA20 → 달러 약세</span><br><span style="color:#993C1D">▲ MA20 위: 현재가 &gt; MA20 → 달러 강세</span><br><span style="color:#7a5800">→ 횡보 (차이 ±0.3 이내): 슬라이더 0점</span><br><span style="font-size:10px;color:#888">예) DXY 101.2, MA20 101.5 → 아래 → 약세</span></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;">
         <div>
           <div class="flow-branch-label flow-bull">↓ 20일선 아래 (달러 약세 추세)</div>
@@ -942,6 +944,17 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
 
 </div><!-- /wrap -->
 </div><!-- /tab-guide -->
+
+<script>
+// LightweightCharts를 동적으로 로드한 뒤 앱 초기화
+(function() {
+  var s = document.createElement('script');
+  s.src = 'https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js';
+  s.onload = function() { initApp(); };
+  s.onerror = function() { console.error('LightweightCharts 로드 실패'); };
+  document.head.appendChild(s);
+})();
+</script>
 
 <script>
 const BASE = 'https://kjuhg.github.io/ggold/data';
@@ -1602,12 +1615,12 @@ function switchGTabAndFill(id, btn) {
   setTimeout(updateGuideValues, 0);
 }
 
-window.addEventListener('load', () => {
+function initApp() {
   initCharts();
   loadMarket();
   loadChart('xauusd', '15m');
   setInterval(loadMarket, 60000);
-});
+}
 </script>
 
 </body>
