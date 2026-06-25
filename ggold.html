@@ -19,8 +19,8 @@
 body { background: var(--bg); color: var(--text); font-family: -apple-system, 'Segoe UI', sans-serif; font-size: 14px; }
 .wrap { max-width: 900px; margin: 0 auto; padding: 16px 32px; }
 .tab-nav { position: sticky; top: 0; z-index: 100; background: var(--bg);
-  border-bottom: 2px solid var(--gold); padding: 0 32px; margin: 0 -32px 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  border-bottom: 2px solid var(--gold); padding: 0 32px;
+  margin-bottom: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
 
 /* 헤더 */
 .header { display: flex; justify-content: space-between; align-items: center; padding: 12px 0 14px; border-bottom: 1.5px solid var(--gold); margin-bottom: 16px; }
@@ -212,10 +212,11 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
 .gtab-btn:hover { color:var(--text); }
 .gtab-btn.active { color:var(--gold); border-bottom-color:var(--gold); }
 
+.page-container { max-width: 964px; margin: 0 auto; position: relative; }
 </style>
 </head>
 <body>
-
+<div class="page-container">
 <div class="tab-nav">
   <button class="tab-btn active" onclick="switchTab('dashboard',this)">📊 대시보드</button>
   <button class="tab-btn" onclick="switchTab('guide',this)">📖 펀더멘털 가이드</button>
@@ -374,10 +375,6 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
 
   <button class="reset-btn" onclick="resetAll()">↺ 처음부터 다시</button>
 </div>
-
-
-</div><!-- /wrap-dashboard -->
-</div><!-- /tab-dashboard -->
 
 
 </div><!-- /wrap-dashboard -->
@@ -866,8 +863,6 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
 </div><!-- /wrap -->
 </div><!-- /tab-guide -->
 
-
-</div><!-- /wrap -->
 <script>
 const BASE = 'https://kjuhg.github.io/ggold/data';
 
@@ -1534,5 +1529,6 @@ window.addEventListener('load', () => {
   setInterval(loadMarket, 60000);
 });
 </script>
+</div><!-- /page-container -->
 </body>
 </html>
