@@ -17,9 +17,9 @@
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: var(--bg); color: var(--text); font-family: -apple-system, 'Segoe UI', sans-serif; font-size: 14px; }
-.wrap { max-width: 960px; margin: 0 auto; padding: 16px; }
+.wrap { max-width: 1000px; margin: 0 auto; padding: 16px 8px; }
 .tab-nav { position: sticky; top: 0; z-index: 100; background: var(--bg);
-  border-bottom: 2px solid var(--gold); padding: 0 32px;
+  border-bottom: 2px solid var(--gold); padding: 0 8px;
   margin-bottom: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
 
 /* 헤더 */
@@ -215,12 +215,43 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
 .page-container { max-width: 964px; margin: 0 auto; position: relative; }
 
 /* 가이드 2컬럼 레이아웃 */
-.guide-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
+.guide-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-items: start; }
 .guide-col-left  { display: flex; flex-direction: column; gap: 12px; }
 .guide-col-right { display: flex; flex-direction: column; gap: 12px; }
-@media (max-width: 700px) { .guide-cols { grid-template-columns: 1fr; } }
+@media (max-width: 768px) { .guide-cols { grid-template-columns: 1fr; } }
 /* 가이드 박스 margin 제거 (컬럼 gap으로 대체) */
 .guide-cols .guide-box { margin-bottom: 0; }
+
+
+/* 모바일 반응형 */
+@media (max-width: 600px) {
+  body { font-size: 13px; }
+  .wrap { padding: 8px 6px; }
+  .tab-nav { padding: 0 4px; }
+  .tab-btn { padding: 8px 10px; font-size: 12px; }
+  .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .card-price { font-size: 14px; }
+  .chart-controls { flex-direction: column; align-items: flex-start; }
+  #main-chart { height: 240px; }
+  #rsi-chart, #macd-chart { height: 80px; }
+  .phase-header { flex-wrap: wrap; }
+  .fund-row { grid-template-columns: 100px 1fr 50px 44px; gap: 6px; }
+  .dir-btns { grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+  .verdict-grid { grid-template-columns: 1fr 1fr; }
+  .guide-cols { grid-template-columns: 1fr; }
+  .guide-box { padding: 10px 10px; }
+  .flow-chart { padding: 10px; }
+  .gtab-btn { padding: 7px 10px; font-size: 11px; }
+  .ext-links { gap: 4px; }
+  .ext-link { font-size: 10px; padding: 4px 7px; }
+  .guide-table { font-size: 10px; }
+  .guide-table th, .guide-table td { padding: 4px 5px; }
+}
+@media (max-width: 400px) {
+  .cards-grid { grid-template-columns: repeat(2, 1fr); }
+  .dir-btns { grid-template-columns: 1fr; }
+  .tab-btn { padding: 7px 8px; font-size: 11px; }
+}
 
 </style>
 </head>
@@ -607,11 +638,10 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
   </div>
 </div>
 
-<!-- ③ 지정
+
   </div><!-- /guide-col-right -->
   </div><!-- /guide-cols -->
 </div>
-학 -->
 <div class="gtab-panel" id="gtab-g3">
   <div class="guide-section-title" style="background:#5A6A3A">③ 지정학적 리스크 — 안전자산 수요</div>
 
@@ -821,11 +851,10 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
   </div>
 </div>
 
-<!-- ⑤ 종합 판
+
   </div><!-- /guide-col-right -->
   </div><!-- /guide-cols -->
 </div>
-단 -->
 <div class="gtab-panel" id="gtab-g5">
   <div class="guide-section-title" style="background:#4A4A4A">⑤ 종합 판단 기준 — 점수 해석과 실전 활용</div>
 
