@@ -1168,6 +1168,38 @@ async function loadChart(key, tf) {
   macdSeries.setData(macd.hist);
   macdSignalSeries.setData(macd.sigLine);
 
+  // 현재가로 마지막 봉 실시간 보완 (5분봉·15분봉만)
+  if (tf !== '1d' && key === currentKey) {
+    try {
+      const mkt = await fetch(`${BASE}/market.json?_=${Date.now()}`, {cache:'no-store'});
+      const mktData = await mkt.json();
+      // xauusd 기준
+      const livePrice = mktData.current?.xauusd?.price || mktData.current?.gold?.price;
+      if (livePrice && data.length > 0) {
+        const lastBar = data[data.length - 1];
+        const lastTime = toTime(lastBar.t);
+        // 현재 시각 기준 봉 시작 시간 계산
+        const nowSec = Math.floor(Date.now() / 1000);
+        const tfSec  = tf === '5m' ? 300 : 900;
+        const curBarTime = Math.floor(nowSec / tfSec) * tfSec;
+        const liveBar = {
+          time:  curBarTime,
+          open:  lastBar.c,   // 이전 봉 종가를 시가로
+          high:  Math.max(lastBar.c, livePrice),
+          low:   Math.min(lastBar.c, livePrice),
+          close: livePrice,
+        };
+        // 마지막 봉이 현재 봉과 다르면 추가
+        if (curBarTime > lastTime) {
+          mainSeries.update(liveBar);
+        } else {
+          // 같은 봉이면 업데이트
+          mainSeries.update({...liveBar, time: lastTime});
+        }
+      }
+    } catch(e) {}
+  }
+
   applyIndVisibility();
 
   const zoomKey = `${key}_${tf}`;
