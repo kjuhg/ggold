@@ -1156,12 +1156,7 @@ async function loadChart(key, tf) {
   // RSI
   if (data.length > 20) rsiSeries.setData(calcRSI(data));
 
-  // RSI 30/70 기준선
-  const rsiTimes = calcRSI(data);
-  if (rsiTimes.length) {
-    const t0 = rsiTimes[0].time, t1 = rsiTimes[rsiTimes.length-1].time;
-    rsiChart.series?.forEach?.(s => {}); // 기존 라인 제거 불필요 (init 시 추가)
-  }
+  // RSI 30/70 기준선은 initCharts에서 고정선으로 처리
 
   // MACD
   const macd = calcMACD(data);
@@ -1173,8 +1168,8 @@ async function loadChart(key, tf) {
     try {
       const mkt = await fetch(`${BASE}/market.json?_=${Date.now()}`, {cache:'no-store'});
       const mktData = await mkt.json();
-      // xauusd 기준
-      const livePrice = mktData.current?.xauusd?.price || mktData.current?.gold?.price;
+      // 현재 차트 종목의 현재가 가져오기
+      const livePrice = mktData.current?.[key]?.price;
       if (livePrice && data.length > 0) {
         const lastBar = data[data.length - 1];
         const lastTime = toTime(lastBar.t);
@@ -1207,11 +1202,11 @@ async function loadChart(key, tf) {
     // 이전 줌 범위 복원
     mainChart.timeScale().setVisibleLogicalRange(savedZoom[zoomKey]);
   } else {
-    // 처음 로드시에만 전체 보기
+    // 처음 로드시에만 전체 보기 (isFirstLoad를 먼저 설정해서 zoom 저장 방지)
+    isFirstLoad[zoomKey] = true;
     mainChart.timeScale().fitContent();
     rsiChart.timeScale().fitContent();
     macdChart.timeScale().fitContent();
-    isFirstLoad[zoomKey] = true;
   }
 }
 

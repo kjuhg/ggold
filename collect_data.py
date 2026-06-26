@@ -38,7 +38,7 @@ TICKERS = {
 }
 
 # 차트용 히스토리 수집 종목
-CHART_KEYS = ["xauusd", "xagusd", "dxy", "tnx", "vix", "sp500", "wti"]
+CHART_KEYS = ["xauusd", "xagusd", "dxy", "tnx", "vix", "sp500", "wti", "usdkrw"]
 
 
 def fix_columns(df):
