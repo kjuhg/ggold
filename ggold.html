@@ -31,7 +31,7 @@ body { background: var(--bg); color: var(--text); font-family: -apple-system, 'S
 /* 지표 카드 */
 .cards-section { margin-bottom: 20px; }
 .section-title { font-size: 11px; font-weight: 600; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
-.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; }
 .card { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; cursor: pointer; transition: border-color 0.15s; }
 .card:hover { border-color: var(--gold); }
 .card.active { border-color: var(--gold); border-width: 2px; background: var(--gold-bg); }
@@ -228,7 +228,7 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
   .wrap { padding: 8px 6px; }
   .tab-nav { padding: 0 4px; }
   .tab-btn { padding: 8px 10px; font-size: 12px; }
-  .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .cards-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 6px; }
   .card-price { font-size: 14px; }
   .chart-controls { flex-direction: column; align-items: flex-start; }
   #main-chart { height: 240px; }
@@ -247,7 +247,7 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
   .guide-table th, .guide-table td { padding: 4px 5px; }
 }
 @media (max-width: 400px) {
-  .cards-grid { grid-template-columns: repeat(2, 1fr); }
+  .cards-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
   .dir-btns { grid-template-columns: 1fr; }
   .tab-btn { padding: 7px 8px; font-size: 11px; }
 }
@@ -258,7 +258,7 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
 
 
 /* 대시보드 상단 2컬럼 레이아웃 */
-.dashboard-top { display: grid; grid-template-columns: 1fr 380px; gap: 12px; margin-bottom: 20px; }
+.dashboard-top { display: grid; grid-template-columns: 280px 1fr; gap: 12px; margin-bottom: 0; align-items: stretch; }
 @media(max-width:768px){ .dashboard-top { grid-template-columns: 1fr; } }
 
 /* 경제지표 캘린더 */
@@ -333,7 +333,7 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
 
 /* 멀티 타임프레임 요약 */
 .mtf-section { background:#fff; border:1px solid var(--border); border-radius:10px;
-  padding:12px 14px; margin-bottom:12px; }
+  padding:12px 14px; margin-bottom:12px; margin-top:0; }
 .mtf-title { font-size:11px; font-weight:700; color:var(--text); margin-bottom:8px;
   display:flex; justify-content:space-between; align-items:center; }
 .mtf-grid { display:grid; grid-template-columns:90px repeat(3,1fr); gap:0;
@@ -372,27 +372,21 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
   </div>
 </div>
 
-<!-- 대시보드 상단: 지표카드 + 캘린더 -->
+<!-- 대시보드 상단: 캘린더(좌) + MTF(우) -->
 <div class="dashboard-top">
-  <div class="cards-section" style="margin-bottom:0;">
-    <div class="section-title">실시간 지표</div>
-    <div class="cards-grid" id="cards-grid"></div>
-  </div>
   <div class="calendar-section">
     <div class="calendar-title">
       <span>📅 경제지표 캘린더</span>
       <span style="font-size:10px;color:var(--text3);" id="cal-date">오늘</span>
     </div>
     <div id="cal-list" style="max-height:180px;overflow-y:auto;"><div class="cal-empty">로딩 중...</div></div>
-    <div style="font-size:10px;color:var(--text3);margin-top:8px;text-align:right;">
+    <div style="font-size:10px;color:var(--text3);margin-top:8px;display:flex;justify-content:space-between;align-items:center;">
+      <span>🔴 상 &nbsp;🟠 중 &nbsp;🟢 하</span>
       <a href="https://kr.investing.com/economic-calendar/" target="_blank"
          style="color:var(--gold);">전체 캘린더 →</a>
     </div>
   </div>
-</div>
-
-<!-- 멀티 타임프레임 요약 -->
-<div class="mtf-section">
+  <div class="mtf-section" style="margin-bottom:0;height:100%;box-sizing:border-box;">
   <div class="mtf-title">
     <span>📊 멀티 타임프레임 요약</span>
     <button onclick="calcMTF()" style="font-size:10px;padding:3px 10px;border:1px solid var(--border);border-radius:4px;background:var(--bg2);cursor:pointer;">새로고침</button>
@@ -436,6 +430,13 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
   <div id="mtf-signal" style="margin-top:8px;font-size:11px;text-align:center;color:var(--text3);">
     새로고침 버튼을 눌러 분석을 시작하세요
   </div>
+</div>
+</div>
+
+<!-- 실시간 지표 카드 한 줄 -->
+<div class="cards-section" style="margin:12px 0 12px;">
+  <div class="section-title">실시간 지표</div>
+  <div class="cards-grid" id="cards-grid"></div>
 </div>
 
 <!-- 차트 영역 탭 -->
@@ -2223,19 +2224,20 @@ function renderCalendar() {
   const days = ['일','월','화','수','목','금','토'];
   dateEl.textContent = `${todayM+1}/${todayD}(${days[kst.getUTCDay()]}) KST`;
 
-  const events = buildMonthEvents(todayY, todayM);
+  // 이번 달 + 다음 달 이벤트 생성
+  const thisMonth = buildMonthEvents(todayY, todayM);
+  const nextDate  = new Date(todayY, todayM + 1, 1);
+  const nextMonth = buildMonthEvents(nextDate.getFullYear(), nextDate.getMonth());
 
-  // 오늘 포함 이후 이벤트 먼저, 지난 이벤트는 아래
-  const future = events.filter(e => {
+  // 오늘 이후만 표시 (지난 날짜 제외)
+  const allEvents = [...thisMonth, ...nextMonth];
+  const sorted = allEvents.filter(e => {
     const ed = e.date;
-    return ed.getFullYear() > todayY ||
-      (ed.getMonth() === todayM && ed.getDate() >= todayD);
+    const eY = ed.getFullYear(), eM = ed.getMonth(), eD = ed.getDate();
+    return (eY > todayY) ||
+           (eY === todayY && eM > todayM) ||
+           (eY === todayY && eM === todayM && eD >= todayD);
   });
-  const past = events.filter(e => {
-    const ed = e.date;
-    return ed.getMonth() === todayM && ed.getDate() < todayD;
-  });
-  const sorted = [...future, ...past];
 
   const impactIcon = { high:'🔴', medium:'🟠', low:'🟢' };
 
