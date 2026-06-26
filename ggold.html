@@ -291,7 +291,8 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
     </div>
     <div class="ctrl-group">
       <div style="display:flex;gap:4px;">
-        <button class="tf-btn active" onclick="setTf('15m',this)">15분</button>
+        <button class="tf-btn active" onclick="setTf('5m',this)">5분</button>
+        <button class="tf-btn" onclick="setTf('15m',this)">15분</button>
         <button class="tf-btn" onclick="setTf('1d',this)">일봉</button>
       </div>
       <div style="display:flex;gap:4px;">
@@ -1049,17 +1050,85 @@ function initCharts() {
 }
 
 // ── 차트 데이터 로드 ─────────────────────────
+// 5분봉 → N분봉 리샘플링
+function resample5m(data5m, minutes) {
+  if (minutes === 5) return data5m;
+  const out = [];
+  let bucket = [];
+  let bucketBase = null;
+
+  for (const bar of data5m) {
+    const t = new Date(bar.t).getTime();
+    const barMin = Math.floor(t / (minutes * 60000)) * (minutes * 60000);
+    if (bucketBase === null) bucketBase = barMin;
+    if (barMin !== bucketBase && bucket.length > 0) {
+      out.push({
+        t: new Date(bucketBase).toISOString(),
+        o: bucket[0].o,
+        h: Math.max(...bucket.map(b => b.h)),
+        l: Math.min(...bucket.map(b => b.l)),
+        c: bucket[bucket.length-1].c,
+      });
+      bucket = [];
+      bucketBase = barMin;
+    }
+    bucket.push(bar);
+  }
+  if (bucket.length > 0) {
+    out.push({
+      t: new Date(bucketBase).toISOString(),
+      o: bucket[0].o,
+      h: Math.max(...bucket.map(b => b.h)),
+      l: Math.min(...bucket.map(b => b.l)),
+      c: bucket[bucket.length-1].c,
+    });
+  }
+  return out;
+}
+
+// 5분봉 → 일봉 리샘플링 (날짜 기준)
+function resampleDaily(data5m) {
+  const out = [];
+  const days = {};
+  for (const bar of data5m) {
+    // KST 기준 날짜 (UTC+9)
+    const d = new Date(new Date(bar.t).getTime() + 9*3600000);
+    const key = d.toISOString().slice(0,10);
+    if (!days[key]) days[key] = [];
+    days[key].push(bar);
+  }
+  for (const [date, bars] of Object.entries(days).sort()) {
+    out.push({
+      t: date + 'T00:00:00.000Z',
+      o: bars[0].o,
+      h: Math.max(...bars.map(b => b.h)),
+      l: Math.min(...bars.map(b => b.l)),
+      c: bars[bars.length-1].c,
+    });
+  }
+  return out;
+}
+
 async function loadChart(key, tf) {
   currentKey = key;
   currentTf  = tf;
-  // 항상 최신 데이터 fetch (캐시버스터 + no-cache)
-  const url = `${BASE}/history/${key}_${tf}.json?_=${Date.now()}`;
-  let data;
+  // 항상 5분봉 파일 fetch
+  const url = `${BASE}/history/${key}_5m.json?_=${Date.now()}`;
+  let data5m;
   try {
     const r = await fetch(url, {cache: 'no-store'});
-    data = await r.json();
-    allHistory[`${key}_${tf}`] = data;
+    data5m = await r.json();
+    allHistory[`${key}_5m`] = data5m;
   } catch(e) { console.warn('차트 로드 실패', url); return; }
+  if (!data5m || data5m.length < 2) return;
+
+  // tf에 따라 리샘플링
+  let data;
+  if (tf === '5m')       data = data5m;
+  else if (tf === '15m') data = resample5m(data5m, 15);
+  else if (tf === '1d')  data = resampleDaily(data5m);
+  else data = data5m;
+
   if (!data || data.length < 2) return;
 
   const candles = data.map(d => ({
@@ -1557,10 +1626,10 @@ function switchGTabAndFill(id, btn) {
 function initApp() {
   initCharts();
   loadMarket();
-  loadChart('xauusd', '15m');
+  loadChart('xauusd', '5m');
   setInterval(loadMarket, 60000);
   // 15분마다 차트 데이터도 자동 갱신
-  setInterval(() => loadChart(currentKey, currentTf), 15 * 60 * 1000);
+  setInterval(() => loadChart(currentKey, currentTf), 5 * 60 * 1000);
 }
 </script>
 

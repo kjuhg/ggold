@@ -1,11 +1,10 @@
 """
 ggold - 금 선물 관련 지표 수집 스크립트
-GitHub Actions에서 15분마다 자동 실행
+GitHub Actions에서 실행
 
 저장 파일:
   data/market.json              전 종목 현재가 (매번 덮어쓰기)
-  data/history/XXX_15m.json     15분봉 최근 5일 (매번 덮어쓰기)
-  data/history/XXX_1d.json      일봉 1년 (매번 덮어쓰기)
+  data/history/XXX_5m.json      5분봉 최근 5일 (15분봉·일봉 계산 소스)
 """
 
 import json
@@ -15,21 +14,21 @@ import yfinance as yf
 
 TICKERS = {
     # 현물 금/은 (CFD 기준)
-    "xauusd":   "GC=F",       # 금 선물 (XAU/USD 대체)
-    "xagusd":   "SI=F",       # 은 선물 (XAG/USD 대체)
+    "xauusd":   "XAUUSD=X",
+    "xagusd":   "XAGUSD=X",
     # 금/은 선물
-    "gold":     "GC=F",       # 금 선물
-    "silver":   "SI=F",       # 은 선물
-    "platinum": "PL=F",       # 플래티넘
+    "gold":     "GC=F",
+    "silver":   "SI=F",
+    "platinum": "PL=F",
     # 달러
-    "dxy":      "DX-Y.NYB",   # 달러 인덱스
+    "dxy":      "DX-Y.NYB",
     # 환율
     "usdkrw":   "KRW=X",
     "usdjpy":   "JPY=X",
     "eurusd":   "EURUSD=X",
     # 미국채
-    "tnx":      "^TNX",       # 10년물
-    "irx":      "^IRX",       # 2년물
+    "tnx":      "^TNX",
+    "irx":      "^IRX",
     # 에너지
     "wti":      "CL=F",
     # 증시/변동성
@@ -40,7 +39,7 @@ TICKERS = {
     "copper":   "HG=F",
 }
 
-# 차트용 히스토리 수집 종목 (xauusd 메인)
+# 차트용 히스토리 수집 종목
 CHART_KEYS = ["xauusd", "xagusd", "dxy", "tnx", "vix", "sp500", "wti"]
 
 
@@ -109,22 +108,12 @@ def main():
                   f, ensure_ascii=False, indent=2)
     print("현재가 저장 -> data/market.json")
 
-    # 2. 15분봉 5일
-    print("\n15분봉 수집 (5일)...")
+    # 2. 5분봉 5일 (15분봉·일봉은 브라우저에서 계산)
+    print("\n5분봉 수집 (5일)...")
     for key in CHART_KEYS:
         sym = TICKERS[key]
-        bars = fetch_ohlc(sym, period="5d", interval="15m")
-        path = f"data/history/{key}_15m.json"
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump(bars, f, ensure_ascii=False)
-        print(f"  [{key}] {len(bars)}개 -> {path}")
-
-    # 3. 일봉 1년
-    print("\n일봉 수집 (1년)...")
-    for key in CHART_KEYS:
-        sym = TICKERS[key]
-        bars = fetch_ohlc(sym, period="1y", interval="1d")
-        path = f"data/history/{key}_1d.json"
+        bars = fetch_ohlc(sym, period="5d", interval="5m")
+        path = f"data/history/{key}_5m.json"
         with open(path, "w", encoding="utf-8") as f:
             json.dump(bars, f, ensure_ascii=False)
         print(f"  [{key}] {len(bars)}개 -> {path}")
