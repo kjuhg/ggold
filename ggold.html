@@ -864,8 +864,8 @@ const BASE = 'https://kjuhg.github.io/ggold/data';
 
 // 지표 카드 설정
 const CARD_DEFS = [
-  {key:'gold',   label:'XAU/USD (GC=F)', histKey:'xauusd'},
-  {key:'silver', label:'XAG/USD (SI=F)', histKey:'xagusd'},
+  {key:'xauusd', label:'XAU/USD (GC=F)', histKey:'xauusd'},
+  {key:'xagusd', label:'XAG/USD (SI=F)', histKey:'xagusd'},
   {key:'dxy',    label:'DXY 달러인덱스', histKey:'dxy'},
   {key:'tnx',    label:'미국채 10년',    histKey:'tnx'},
   {key:'vix',    label:'VIX 공포지수',   histKey:'vix'},
@@ -1591,7 +1591,7 @@ function updateGuideValues() {
     // ② DXY
     const dxy  = cur.dxy?.price;
     const dxyC = cur.dxy?.change_pct;
-    const gold = cur.gold?.price || cur.xauusd?.price;
+    const gold = cur.xauusd?.price;
     if (dxy  != null) setEl('g2-dxy',  dxy.toFixed(2));
     if (gold != null) setEl('g2-gold', gold.toLocaleString('en',{maximumFractionDigits:2}));
     if (dxyC != null) {
