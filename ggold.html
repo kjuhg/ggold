@@ -1467,18 +1467,31 @@ function initCharts() {
   });
 
   // 차트 동기화
-  mainChart.timeScale().subscribeVisibleLogicalRangeChange(r => {
-    if (r) {
-      rsiChart.timeScale().setVisibleLogicalRange(r);
-      macdChart.timeScale().setVisibleLogicalRange(r);
-      // 줌 범위 저장 (처음 fitContent 직후는 제외)
-      const zk = `${currentKey}_${currentTf}`;
-      if (!isFirstLoad[zk]) {
-        savedZoom[zk] = r;
-      } else {
-        isFirstLoad[zk] = false;
-      }
+  // 3개 차트 완전 양방향 동기화
+  let _syncing = false; // 무한루프 방지
+
+  function syncRange(src, targets, r) {
+    if (_syncing) return;
+    _syncing = true;
+    targets.forEach(t => t.timeScale().setVisibleLogicalRange(r));
+    _syncing = false;
+    // 줌 범위 저장
+    const zk = `${currentKey}_${currentTf}`;
+    if (!isFirstLoad[zk]) {
+      savedZoom[zk] = r;
+    } else {
+      isFirstLoad[zk] = false;
     }
+  }
+
+  mainChart.timeScale().subscribeVisibleLogicalRangeChange(r => {
+    if (r) syncRange(mainChart, [rsiChart, macdChart], r);
+  });
+  rsiChart.timeScale().subscribeVisibleLogicalRangeChange(r => {
+    if (r) syncRange(rsiChart, [mainChart, macdChart], r);
+  });
+  macdChart.timeScale().subscribeVisibleLogicalRangeChange(r => {
+    if (r) syncRange(macdChart, [mainChart, rsiChart], r);
   });
 }
 
