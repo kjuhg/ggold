@@ -310,6 +310,48 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
 .cot-stat-lbl { font-size:10px; color:var(--text3); margin-top:2px; }
 .cot-note { font-size:10px; color:var(--text3); margin-top:10px; line-height:1.6; }
 
+
+/* 캘린더 개선 */
+.cal-month-title { font-size:11px; font-weight:700; color:var(--text3);
+  letter-spacing:0.08em; text-transform:uppercase; margin:8px 0 4px; padding-bottom:3px;
+  border-bottom:1px solid var(--bg2); }
+.cal-item { display:grid; grid-template-columns:44px 14px 1fr; gap:4px; align-items:start;
+  padding:5px 0; border-bottom:1px solid var(--bg2); font-size:11px; }
+.cal-item:last-child { border-bottom:none; }
+.cal-item.today { background:var(--gold-bg); margin:0 -14px; padding:5px 14px;
+  border-left:3px solid var(--gold); }
+.cal-item.past { opacity:0.45; }
+.cal-time { color:var(--text3); font-size:10px; line-height:1.5; }
+.cal-time.today-time { color:var(--gold); font-weight:700; }
+.cal-name { line-height:1.4; }
+.cal-name.today-name { font-weight:700; color:var(--text); }
+.cal-note { font-size:10px; color:var(--text3); }
+.cal-badge { display:inline-block; font-size:9px; font-weight:700; padding:1px 4px;
+  border-radius:3px; margin-left:4px; vertical-align:middle; }
+.cal-badge.today-badge { background:var(--gold); color:#fff; }
+
+
+/* 멀티 타임프레임 요약 */
+.mtf-section { background:#fff; border:1px solid var(--border); border-radius:10px;
+  padding:12px 14px; margin-bottom:12px; }
+.mtf-title { font-size:11px; font-weight:700; color:var(--text); margin-bottom:8px;
+  display:flex; justify-content:space-between; align-items:center; }
+.mtf-grid { display:grid; grid-template-columns:90px repeat(3,1fr); gap:0;
+  border:1px solid var(--border); border-radius:6px; overflow:hidden; font-size:11px; }
+.mtf-header { background:var(--bg2); font-weight:700; text-align:center;
+  padding:5px 4px; border-bottom:1px solid var(--border); }
+.mtf-label { padding:5px 8px; font-weight:600; color:var(--text2);
+  border-bottom:1px solid var(--bg2); border-right:1px solid var(--bg2); background:#fafaf8; }
+.mtf-cell { text-align:center; padding:5px 4px; border-bottom:1px solid var(--bg2);
+  border-right:1px solid var(--bg2); }
+.mtf-cell:last-child { border-right:none; }
+.mtf-row:last-child .mtf-label,
+.mtf-row:last-child .mtf-cell { border-bottom:none; }
+.mtf-bull { color:var(--bull); font-weight:700; }
+.mtf-bear { color:var(--bear); font-weight:700; }
+.mtf-neut { color:var(--neut); }
+.mtf-row { display:contents; }
+
 </style>
 </head>
 <body>
@@ -341,11 +383,58 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
       <span>📅 경제지표 캘린더</span>
       <span style="font-size:10px;color:var(--text3);" id="cal-date">오늘</span>
     </div>
-    <div id="cal-list"><div class="cal-empty">로딩 중...</div></div>
+    <div id="cal-list" style="max-height:180px;overflow-y:auto;"><div class="cal-empty">로딩 중...</div></div>
     <div style="font-size:10px;color:var(--text3);margin-top:8px;text-align:right;">
       <a href="https://kr.investing.com/economic-calendar/" target="_blank"
          style="color:var(--gold);">전체 캘린더 →</a>
     </div>
+  </div>
+</div>
+
+<!-- 멀티 타임프레임 요약 -->
+<div class="mtf-section">
+  <div class="mtf-title">
+    <span>📊 멀티 타임프레임 요약</span>
+    <button onclick="calcMTF()" style="font-size:10px;padding:3px 10px;border:1px solid var(--border);border-radius:4px;background:var(--bg2);cursor:pointer;">새로고침</button>
+  </div>
+  <div class="mtf-grid">
+    <div class="mtf-header">지표</div>
+    <div class="mtf-header">5분봉</div>
+    <div class="mtf-header">15분봉</div>
+    <div class="mtf-header">일봉</div>
+    <div class="mtf-row">
+      <div class="mtf-label">EMA 배열</div>
+      <div class="mtf-cell" id="mtf-ema-5m">—</div>
+      <div class="mtf-cell" id="mtf-ema-15m">—</div>
+      <div class="mtf-cell" id="mtf-ema-1d">—</div>
+    </div>
+    <div class="mtf-row">
+      <div class="mtf-label">RSI(14)</div>
+      <div class="mtf-cell" id="mtf-rsi-5m">—</div>
+      <div class="mtf-cell" id="mtf-rsi-15m">—</div>
+      <div class="mtf-cell" id="mtf-rsi-1d">—</div>
+    </div>
+    <div class="mtf-row">
+      <div class="mtf-label">MACD</div>
+      <div class="mtf-cell" id="mtf-macd-5m">—</div>
+      <div class="mtf-cell" id="mtf-macd-15m">—</div>
+      <div class="mtf-cell" id="mtf-macd-1d">—</div>
+    </div>
+    <div class="mtf-row">
+      <div class="mtf-label">BB 위치</div>
+      <div class="mtf-cell" id="mtf-bb-5m">—</div>
+      <div class="mtf-cell" id="mtf-bb-15m">—</div>
+      <div class="mtf-cell" id="mtf-bb-1d">—</div>
+    </div>
+    <div class="mtf-row">
+      <div class="mtf-label" style="font-weight:700;color:var(--text);">종합</div>
+      <div class="mtf-cell" id="mtf-sum-5m" style="font-weight:700;">—</div>
+      <div class="mtf-cell" id="mtf-sum-15m" style="font-weight:700;">—</div>
+      <div class="mtf-cell" id="mtf-sum-1d" style="font-weight:700;">—</div>
+    </div>
+  </div>
+  <div id="mtf-signal" style="margin-top:8px;font-size:11px;text-align:center;color:var(--text3);">
+    새로고침 버튼을 눌러 분석을 시작하세요
   </div>
 </div>
 
@@ -1881,13 +1970,43 @@ function renderVerdict(techTotal, dir) {
         <div class="verdict-item-label">방향</div>
         <div class="verdict-item-val" style="color:${grade.color}">${dir==='long'?'▲ 롱':'▼ 숏'}</div>
       </div>
-      <div class="verdict-item">
-        <div class="verdict-item-label">1차 목표 (R×1.5)</div>
-        <div class="verdict-item-val">진입가 기준 계산</div>
+    </div>
+    <div style="margin:10px 0;padding:10px;background:rgba(255,255,255,0.5);border-radius:8px;">
+      <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:8px;">📐 손절/목표가 계산</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+        <div>
+          <div style="font-size:10px;color:var(--text3);margin-bottom:3px;">진입가 (달러)</div>
+          <input type="number" id="v-entry" placeholder="${currentGoldPrice()}"
+            style="width:100%;padding:5px 8px;border:1px solid rgba(0,0,0,0.15);border-radius:5px;font-size:12px;background:rgba(255,255,255,0.8);"
+            oninput="calcTP('${dir}')">
+        </div>
+        <div>
+          <div style="font-size:10px;color:var(--text3);margin-bottom:3px;">손절폭 (달러)</div>
+          <input type="number" id="v-sl" placeholder="25"
+            style="width:100%;padding:5px 8px;border:1px solid rgba(0,0,0,0.15);border-radius:5px;font-size:12px;background:rgba(255,255,255,0.8);"
+            oninput="calcTP('${dir}')">
+        </div>
       </div>
-      <div class="verdict-item">
-        <div class="verdict-item-label">2차 목표 (R×3.0)</div>
-        <div class="verdict-item-val">손절폭의 3배</div>
+      <div id="v-result" style="font-size:11px;display:none;">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center;">
+          <div style="padding:6px;background:rgba(0,0,0,0.06);border-radius:5px;">
+            <div style="font-size:10px;color:var(--text3);">진입가</div>
+            <div style="font-weight:700;" id="v-show-entry">—</div>
+          </div>
+          <div style="padding:6px;background:var(--bear-bg);border-radius:5px;">
+            <div style="font-size:10px;color:var(--bear);">손절가</div>
+            <div style="font-weight:700;color:var(--bear);" id="v-show-sl">—</div>
+          </div>
+          <div style="padding:6px;background:var(--bull-bg);border-radius:5px;">
+            <div style="font-size:10px;color:var(--bull);">1차목표(R×1.5)</div>
+            <div style="font-weight:700;color:var(--bull);" id="v-show-tp1">—</div>
+          </div>
+          <div style="padding:6px;background:var(--bull-bg);border-radius:5px;">
+            <div style="font-size:10px;color:var(--bull);">2차목표(R×3.0)</div>
+            <div style="font-weight:700;color:var(--bull);" id="v-show-tp2">—</div>
+          </div>
+        </div>
+        <div style="margin-top:6px;font-size:10px;color:var(--text3);text-align:center;" id="v-show-rr"></div>
       </div>
     </div>
     ${overrideMsg ? `<div class="override-msg" style="background:rgba(200,0,0,0.08);color:var(--bear)">${overrideMsg}</div>` : ''}
@@ -2004,15 +2123,90 @@ function switchMainTab(id, btn) {
 }
 
 // ── 경제지표 캘린더 ──────────────────────────
-const GOLD_EVENTS = [
-  // 금 가격에 영향 큰 이벤트 목록 (매주 업데이트 필요)
-  { time:'화 21:30', name:'미국 CPI (소비자물가지수)', impact:'high',   note:'인플레이션 핵심 지표' },
-  { time:'화 21:30', name:'미국 PPI (생산자물가지수)', impact:'high',   note:'미래 인플레이션 선행' },
-  { time:'수 21:30', name:'FOMC 회의록',               impact:'high',   note:'금리 방향 힌트' },
-  { time:'목 21:30', name:'신규 실업수당 청구건수',    impact:'medium', note:'고용 상황 주간 지표' },
-  { time:'금 21:30', name:'미국 비농업 고용(NFP)',      impact:'high',   note:'월 1회, 가장 중요' },
-  { time:'금 23:00', name:'미시간대 소비자심리지수',   impact:'medium', note:'기대인플레이션 포함' },
-];
+// 날짜 헬퍼
+function getNthWeekday(year, month, weekday, n) {
+  // n번째 weekday (0=일,1=월,...,6=토) 구하기
+  const d = new Date(year, month, 1);
+  let count = 0;
+  while (d.getMonth() === month) {
+    if (d.getDay() === weekday) { count++; if (count === n) return new Date(d); }
+    d.setDate(d.getDate() + 1);
+  }
+  return null;
+}
+function getLastWeekday(year, month, weekday) {
+  const d = new Date(year, month + 1, 0); // 월 마지막 날
+  while (d.getDay() !== weekday) d.setDate(d.getDate() - 1);
+  return new Date(d);
+}
+function getFirstBusinessDay(year, month) {
+  const d = new Date(year, month, 1);
+  while (d.getDay() === 0 || d.getDay() === 6) d.setDate(d.getDate() + 1);
+  return new Date(d);
+}
+function eachThursday(year, month) {
+  const result = [];
+  const d = new Date(year, month, 1);
+  while (d.getDay() !== 4) d.setDate(d.getDate() + 1);
+  while (d.getMonth() === month) {
+    result.push(new Date(d));
+    d.setDate(d.getDate() + 7);
+  }
+  return result;
+}
+// FOMC 월 목록 (0-indexed)
+const FOMC_MONTHS = [0,2,4,5,6,8,9,11];
+
+function buildMonthEvents(year, month) {
+  const events = [];
+  const add = (date, time, name, impact, note) => {
+    if (date) events.push({ date, time, name, impact, note });
+  };
+
+  // 매주 목요일 - 신규 실업수당
+  eachThursday(year, month).forEach(d =>
+    add(d, '21:30', '신규 실업수당 청구건수', 'medium', '매주 목요일, 고용 주간 지표'));
+
+  // 첫째 주 수요일 - ADP 민간고용
+  add(getNthWeekday(year, month, 3, 1), '21:15', 'ADP 민간고용', 'medium', 'NFP 선행 지표');
+
+  // 첫째 주 금요일 - NFP
+  add(getNthWeekday(year, month, 5, 1), '21:30', '🔥 미국 비농업고용(NFP)', 'high', '금 가격 최대 변동 지표');
+
+  // 첫 영업일 - ISM 제조업 PMI
+  add(getFirstBusinessDay(year, month), '23:00', 'ISM 제조업 PMI', 'medium', '경기 선행 지표');
+
+  // 둘째 주 화요일 - CPI
+  add(getNthWeekday(year, month, 2, 2), '21:30', '🔥 CPI 소비자물가지수', 'high', '인플레이션 핵심, 금리 방향 결정');
+
+  // 둘째 주 수요일 - PPI
+  add(getNthWeekday(year, month, 3, 2), '21:30', 'PPI 생산자물가지수', 'high', '미래 인플레이션 선행');
+
+  // 둘째/넷째 금요일 - 미시간대 소비자심리
+  add(getNthWeekday(year, month, 5, 2), '23:00', '미시간대 소비자심리 (예비)', 'medium', '기대인플레이션 포함');
+  add(getNthWeekday(year, month, 5, 4), '23:00', '미시간대 소비자심리 (확정)', 'medium', '');
+
+  // 매월 마지막 금요일 - PCE
+  add(getLastWeekday(year, month, 5), '21:30', '🔥 PCE 물가지수', 'high', '연준 선호 인플레이션 지표');
+
+  // FOMC 해당 월: 셋째 주 수요일 (대략)
+  if (FOMC_MONTHS.includes(month)) {
+    const d = getNthWeekday(year, month, 3, 3);
+    if (d) add(d, '03:00+1', '🔥 FOMC 금리 결정', 'high', '다음날 새벽, 금 최대 변동');
+  }
+
+  // 매주 화요일 - COT 보고서
+  const d = new Date(year, month, 1);
+  while (d.getDay() !== 2) d.setDate(d.getDate() + 1);
+  while (d.getMonth() === month) {
+    add(new Date(d), '04:30+1', 'COT 포지션 보고서 (CFTC)', 'low', '화요일 데이터, 중기 방향 참고');
+    d.setDate(d.getDate() + 7);
+  }
+
+  // 날짜순 정렬
+  events.sort((a, b) => a.date - b.date);
+  return events;
+}
 
 function renderCalendar() {
   const list = document.getElementById('cal-list');
@@ -2020,28 +2214,48 @@ function renderCalendar() {
   if (!list) return;
 
   const now = new Date();
+  // KST 기준 오늘
+  const kst = new Date(now.getTime() + 9*3600000);
+  const todayY = kst.getUTCFullYear();
+  const todayM = kst.getUTCMonth();
+  const todayD = kst.getUTCDate();
+
   const days = ['일','월','화','수','목','금','토'];
-  dateEl.textContent = `${now.getMonth()+1}/${now.getDate()}(${days[now.getDay()]})`;
+  dateEl.textContent = `${todayM+1}/${todayD}(${days[kst.getUTCDay()]}) KST`;
 
-  // 이번 주 주요 일정 고정 표시 + 직접 링크
-  const items = [
-    { time:'매주 화', name:'CFTC COT 보고서 발표', impact:'high', note:'화요일 데이터 기준' },
-    { time:'매월 초', name:'중앙은행 금 수급 (WGC)', impact:'high', note:'1개월 지연' },
-    ...GOLD_EVENTS,
-  ];
+  const events = buildMonthEvents(todayY, todayM);
 
-  list.innerHTML = items.map(e => `
-    <div class="cal-item">
+  // 오늘 포함 이후 이벤트 먼저, 지난 이벤트는 아래
+  const future = events.filter(e => {
+    const ed = e.date;
+    return ed.getFullYear() > todayY ||
+      (ed.getMonth() === todayM && ed.getDate() >= todayD);
+  });
+  const past = events.filter(e => {
+    const ed = e.date;
+    return ed.getMonth() === todayM && ed.getDate() < todayD;
+  });
+  const sorted = [...future, ...past];
+
+  const impactIcon = { high:'🔴', medium:'🟠', low:'🟢' };
+
+  list.innerHTML = sorted.map(e => {
+    const ed = e.date;
+    const isToday = ed.getMonth() === todayM && ed.getDate() === todayD;
+    const isPast  = ed.getMonth() === todayM && ed.getDate() < todayD;
+    const cls = isToday ? 'today' : isPast ? 'past' : '';
+    const dateStr = `${ed.getMonth()+1}/${ed.getDate()}(${days[ed.getDay()]})`;
+    return `<div class="cal-item ${cls}">
+      <div class="cal-time ${isToday?'today-time':''}">${dateStr}<br>${e.time}</div>
+      <div style="padding-top:2px;">${impactIcon[e.impact]||'🟢'}</div>
       <div>
-        <div class="cal-time">${e.time}</div>
-        <div class="cal-impact-label">${e.impact==='high'?'🔴':e.impact==='medium'?'🟠':'🟢'}</div>
+        <div class="cal-name ${isToday?'today-name':''}">${e.name}
+          ${isToday?'<span class="cal-badge today-badge">TODAY</span>':''}
+        </div>
+        <div class="cal-note">${e.note}</div>
       </div>
-      <div>
-        <div class="cal-name">${e.name}</div>
-        <div style="font-size:10px;color:var(--text3);">${e.note}</div>
-      </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
 
 // ── 상관관계 차트 ─────────────────────────────
@@ -2193,6 +2407,148 @@ function calcCOT() {
   } catch(e) {}
 }
 
+
+// ── 손절/목표가 계산 ──────────────────────────
+function currentGoldPrice() {
+  return allHistory['xauusd_5m']?.slice(-1)[0]?.c?.toFixed(2) || '';
+}
+
+function calcTP(dir) {
+  const entry = parseFloat(document.getElementById('v-entry')?.value);
+  const sl    = parseFloat(document.getElementById('v-sl')?.value);
+  const res   = document.getElementById('v-result');
+  if (!entry || !sl || !res) return;
+
+  const mult = dir === 'long' ? 1 : -1;
+  const slPrice  = entry - mult * sl;
+  const tp1Price = entry + mult * sl * 1.5;
+  const tp2Price = entry + mult * sl * 3.0;
+  const rrRatio  = (sl * 1.5 / sl).toFixed(1);
+
+  res.style.display = 'block';
+  document.getElementById('v-show-entry').textContent = entry.toFixed(2);
+  document.getElementById('v-show-sl').textContent    = slPrice.toFixed(2);
+  document.getElementById('v-show-tp1').textContent   = tp1Price.toFixed(2);
+  document.getElementById('v-show-tp2').textContent   = tp2Price.toFixed(2);
+  document.getElementById('v-show-rr').textContent    =
+    `손실 $${sl.toFixed(0)} | 1차 수익 $${(sl*1.5).toFixed(0)} (R:R 1.5) | 2차 수익 $${(sl*3).toFixed(0)} (R:R 3.0)`;
+}
+
+
+// ── 멀티 타임프레임 요약 ─────────────────────
+async function calcMTF() {
+  const sig = document.getElementById('mtf-signal');
+  if (sig) sig.textContent = '분석 중...';
+
+  try {
+    // 5분봉 fetch
+    const r5 = await fetch(`${BASE}/history/xauusd_5m.json?_=${Date.now()}`, {cache:'no-store'});
+    const d5m = await r5.json();
+    const d15m = resample5m(d5m, 15);
+
+    const r1d = await fetch(`${BASE}/history/xauusd_1d.json?_=${Date.now()}`, {cache:'no-store'});
+    const d1d = await r1d.json();
+
+    const tfs = [
+      { key:'5m',  data: d5m  },
+      { key:'15m', data: d15m },
+      { key:'1d',  data: d1d  },
+    ];
+
+    const scores = {};
+    tfs.forEach(({ key, data }) => {
+      if (!data || data.length < 30) return;
+      const last = data[data.length-1];
+
+      // EMA
+      const ema20 = calcEMA(data, 20).slice(-1)[0]?.value;
+      const ema50 = calcEMA(data, 50).slice(-1)[0]?.value;
+      const ema200 = calcEMA(data, 200).slice(-1)[0]?.value;
+      const price = last.c;
+      let emaScore = 0, emaText = '중립';
+      if (price > ema20 && ema20 > ema50 && ema50 > ema200) { emaScore=3; emaText='▲▲ 완전상승'; }
+      else if (price > ema20 && ema20 > ema50)               { emaScore=2; emaText='▲ 상승'; }
+      else if (price > ema20)                                  { emaScore=1; emaText='↗ 단기상승'; }
+      else if (price < ema20 && ema20 < ema50 && ema50 < ema200) { emaScore=-3; emaText='▼▼ 완전하락'; }
+      else if (price < ema20 && ema20 < ema50)               { emaScore=-2; emaText='▼ 하락'; }
+      else if (price < ema20)                                  { emaScore=-1; emaText='↘ 단기하락'; }
+
+      // RSI
+      const rsiArr = calcRSI(data, 14);
+      const rsiVal = rsiArr.slice(-1)[0]?.value;
+      let rsiScore = 0, rsiText = '—';
+      if (rsiVal) {
+        rsiText = rsiVal.toFixed(1);
+        if      (rsiVal > 70) { rsiScore=-1; rsiText+=' 🔴과매수'; }
+        else if (rsiVal > 55) { rsiScore=1;  rsiText+=' 🟢강세'; }
+        else if (rsiVal > 45) { rsiScore=0;  rsiText+=' ⚪중립'; }
+        else if (rsiVal > 30) { rsiScore=-1; rsiText+=' 🟡약세'; }
+        else                  { rsiScore=1;  rsiText+=' 🔵과매도'; }
+      }
+
+      // MACD
+      const macdData = calcMACD(data);
+      const lastHist = macdData.hist.slice(-1)[0]?.value;
+      const prevHist = macdData.hist.slice(-2)[0]?.value;
+      let macdScore = 0, macdText = '—';
+      if (lastHist !== undefined && prevHist !== undefined) {
+        const growing = Math.abs(lastHist) > Math.abs(prevHist);
+        if (lastHist > 0 && growing)  { macdScore=2;  macdText='▲▲ 상승강화'; }
+        else if (lastHist > 0)        { macdScore=1;  macdText='▲ 상승약화'; }
+        else if (lastHist < 0 && growing) { macdScore=-2; macdText='▼▼ 하락강화'; }
+        else if (lastHist < 0)        { macdScore=-1; macdText='▼ 하락약화'; }
+      }
+
+      // BB
+      const bb = calcBB(data);
+      const bbU = bb.upper.slice(-1)[0]?.value;
+      const bbL = bb.lower.slice(-1)[0]?.value;
+      const bbM = bb.mid.slice(-1)[0]?.value;
+      let bbScore = 0, bbText = '—';
+      if (bbU && bbL && bbM) {
+        const range = bbU - bbL;
+        const pos = (price - bbL) / range;
+        if      (pos > 0.9) { bbScore=-1; bbText='상단 (과열)'; }
+        else if (pos > 0.6) { bbScore=1;  bbText='중상단'; }
+        else if (pos > 0.4) { bbScore=2;  bbText='중간선 ★'; }
+        else if (pos > 0.1) { bbScore=0;  bbText='중하단'; }
+        else                { bbScore=-1; bbText='하단'; }
+      }
+
+      const total = emaScore + rsiScore + macdScore + bbScore;
+      scores[key] = total;
+
+      const bull = v => `<span class="mtf-bull">${v}</span>`;
+      const bear = v => `<span class="mtf-bear">${v}</span>`;
+      const neut = v => `<span class="mtf-neut">${v}</span>`;
+      const color = (v, t) => v>0 ? bull(t) : v<0 ? bear(t) : neut(t);
+
+      document.getElementById(`mtf-ema-${key}`).innerHTML  = color(emaScore, emaText);
+      document.getElementById(`mtf-rsi-${key}`).innerHTML  = color(rsiScore, rsiText);
+      document.getElementById(`mtf-macd-${key}`).innerHTML = color(macdScore, macdText);
+      document.getElementById(`mtf-bb-${key}`).innerHTML   = color(bbScore, bbText);
+
+      const sumEl = document.getElementById(`mtf-sum-${key}`);
+      const sumText = total > 4 ? '▲ 강한상승' : total > 1 ? '↗ 상승' :
+                      total < -4 ? '▼ 강한하락' : total < -1 ? '↘ 하락' : '→ 중립';
+      sumEl.innerHTML = color(total, sumText + ` (${total>0?'+':''}${total})`);
+    });
+
+    // 종합 신호
+    const s5 = scores['5m']||0, s15 = scores['15m']||0, s1d = scores['1d']||0;
+    const agree = (s5>0&&s15>0&&s1d>0) ? '🟢 전 구간 상승 일치 — 롱 유리' :
+                  (s5<0&&s15<0&&s1d<0) ? '🔴 전 구간 하락 일치 — 숏 유리' :
+                  (s1d>0&&s15>0&&s5<0) ? '⚡ 장기/중기 상승, 단기 조정 — 눌림목 매수 고려' :
+                  (s1d<0&&s15<0&&s5>0) ? '⚡ 장기/중기 하락, 단기 반등 — 데드캣 주의' :
+                  '⚪ 혼조세 — 방향 확인 후 진입';
+    if (sig) sig.innerHTML = `<b>${agree}</b>`;
+
+  } catch(e) {
+    if (sig) sig.textContent = '로드 실패 — 데이터 확인 필요';
+    console.warn('MTF 오류', e);
+  }
+}
+
 function switchGTabAndFill(id, btn) {
   switchGTab(id, btn);
   // 내부 탭 전환 후 DOM이 표시된 다음 tick에 값 채우기
@@ -2214,7 +2570,8 @@ function initApp() {
   setInterval(loadMarket, 60000);
   updateClock();
   setInterval(updateClock, 1000);
-  renderCalendar();  // 현재시각 1초마다 갱신
+  renderCalendar();
+  setTimeout(calcMTF, 2000); // 차트 로드 후 MTF 계산  // 현재시각 1초마다 갱신
   // 15분마다 차트 데이터도 자동 갱신
   setInterval(() => loadChart(currentKey, currentTf), 2 * 60 * 1000);
 }
