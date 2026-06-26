@@ -1113,7 +1113,7 @@ function toggleInd(ind, btn) {
 // ── 현재가 카드 ───────────────────────────────
 async function loadMarket() {
   try {
-    const r = await fetch(`${BASE}/market.json?_=${Date.now()}`);
+    const r = await fetch(`${BASE}/market.json?_=${Date.now()}`, {cache:'no-store'});
     const data = await r.json();
     renderCards(data.current);
     // 데이터 수집 시간 (UTC→KST)
