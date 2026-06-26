@@ -875,6 +875,8 @@ const CARD_DEFS = [
 
 // ── 차트 상태 ──────────────────────────────────
 let mainChart, mainSeries, rsiChart, rsiSeries, macdChart, macdSeries, macdSignalSeries;
+let savedZoom = {};      // 종목+timeframe별 줌 범위 저장
+let isFirstLoad = {};    // 처음 로드 여부
 let ema20s, ema50s, ema200s, bbUpperS, bbLowerS, bbMidS;
 let currentTf = '15m', currentKey = 'xauusd', currentLabel = 'XAU/USD';
 let allHistory = {};
@@ -1035,6 +1037,13 @@ function initCharts() {
     if (r) {
       rsiChart.timeScale().setVisibleLogicalRange(r);
       macdChart.timeScale().setVisibleLogicalRange(r);
+      // 줌 범위 저장 (처음 fitContent 직후는 제외)
+      const zk = `${currentKey}_${currentTf}`;
+      if (!isFirstLoad[zk]) {
+        savedZoom[zk] = r;
+      } else {
+        isFirstLoad[zk] = false;
+      }
     }
   });
 }
@@ -1086,9 +1095,18 @@ async function loadChart(key, tf) {
   macdSignalSeries.setData(macd.sigLine);
 
   applyIndVisibility();
-  mainChart.timeScale().fitContent();
-  rsiChart.timeScale().fitContent();
-  macdChart.timeScale().fitContent();
+
+  const zoomKey = `${key}_${tf}`;
+  if (savedZoom[zoomKey]) {
+    // 이전 줌 범위 복원
+    mainChart.timeScale().setVisibleLogicalRange(savedZoom[zoomKey]);
+  } else {
+    // 처음 로드시에만 전체 보기
+    mainChart.timeScale().fitContent();
+    rsiChart.timeScale().fitContent();
+    macdChart.timeScale().fitContent();
+    isFirstLoad[zoomKey] = true;
+  }
 }
 
 function applyIndVisibility() {
