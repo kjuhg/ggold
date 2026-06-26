@@ -271,8 +271,8 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
 <div class="header">
   <div class="header-title">GG<span>OLD</span> &nbsp;●&nbsp; 금 선물 매매 판단</div>
   <div class="header-time">
-    <b id="update-time">로딩 중...</b><br>
-    데이터 갱신: 15분 (KST)
+    <span style="font-size:11px;color:var(--text3);">현재</span> <b id="current-time">—</b><br>
+    <span style="font-size:11px;color:var(--text3);">데이터</span> <b id="update-time" style="color:var(--gold);">로딩 중...</b>
   </div>
 </div>
 
@@ -1208,12 +1208,12 @@ async function loadMarket() {
     const r = await fetch(`${BASE}/market.json?_=${Date.now()}`, {cache:'no-store'});
     const data = await r.json();
     renderCards(data.current);
-    // 데이터 수집 시간 (UTC→KST)
+    // 데이터 수집 시간 (UTC→KST 변환해서 표시)
     const t = new Date(data.updated_at);
-    const nowKST = new Date().toLocaleString('ko-KR', {timeZone:'Asia/Seoul', hour12:false,
-      year:'numeric', month:'2-digit', day:'2-digit',
+    const dataKST = t.toLocaleString('ko-KR', {timeZone:'Asia/Seoul', hour12:false,
+      month:'2-digit', day:'2-digit',
       hour:'2-digit', minute:'2-digit', second:'2-digit'});
-    document.getElementById('update-time').textContent = nowKST;
+    document.getElementById('update-time').textContent = dataKST + ' KST';
   } catch(e) { document.getElementById('update-time').textContent = '로드 실패'; }
 }
 
@@ -1628,11 +1628,21 @@ function switchGTabAndFill(id, btn) {
   setTimeout(updateGuideValues, 0);
 }
 
+function updateClock() {
+  const now = new Date().toLocaleString('ko-KR', {timeZone:'Asia/Seoul', hour12:false,
+    month:'2-digit', day:'2-digit',
+    hour:'2-digit', minute:'2-digit', second:'2-digit'});
+  const el = document.getElementById('current-time');
+  if (el) el.textContent = now + ' KST';
+}
+
 function initApp() {
   initCharts();
   loadMarket();
   loadChart('xauusd', '5m');
   setInterval(loadMarket, 60000);
+  updateClock();
+  setInterval(updateClock, 1000);  // 현재시각 1초마다 갱신
   // 15분마다 차트 데이터도 자동 갱신
   setInterval(() => loadChart(currentKey, currentTf), 2 * 60 * 1000);
 }
