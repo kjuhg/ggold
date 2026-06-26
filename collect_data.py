@@ -13,12 +13,10 @@ import datetime
 import yfinance as yf
 
 TICKERS = {
-    # 현물 금/은 (CFD 기준)
-    "xauusd":   "XAUUSD=X",
-    "xagusd":   "XAGUSD=X",
+    # 금 선물 (CFD 기준)
+    "xauusd":   "GC=F",        # 금 선물 (XAU/USD 대체)
+    "xagusd":   "SI=F",        # 은 선물 (XAG/USD 대체)
     # 금/은 선물
-    "gold":     "GC=F",
-    "silver":   "SI=F",
     "platinum": "PL=F",
     # 달러
     "dxy":      "DX-Y.NYB",
