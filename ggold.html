@@ -256,6 +256,60 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
 /* 판단기준 박스 */
 .flow-node[style*="F8F4E8"] { margin-top: 8px; margin-bottom: 8px; }
 
+
+/* 대시보드 상단 2컬럼 레이아웃 */
+.dashboard-top { display: grid; grid-template-columns: 1fr 380px; gap: 12px; margin-bottom: 20px; }
+@media(max-width:768px){ .dashboard-top { grid-template-columns: 1fr; } }
+
+/* 경제지표 캘린더 */
+.calendar-section { background:#fff; border:1px solid var(--border); border-radius:10px; padding:14px; }
+.calendar-title { font-size:12px; font-weight:700; color:var(--text); margin-bottom:10px;
+  display:flex; justify-content:space-between; align-items:center; }
+.cal-item { display:grid; grid-template-columns:52px 1fr auto; gap:6px; align-items:start;
+  padding:6px 0; border-bottom:1px solid var(--bg2); font-size:11px; }
+.cal-item:last-child { border-bottom:none; }
+.cal-time { color:var(--text3); font-size:10px; }
+.cal-name { color:var(--text); font-weight:500; line-height:1.4; }
+.cal-impact { width:8px; height:8px; border-radius:50%; flex-shrink:0; margin-top:3px; }
+.cal-impact.high   { background:#C0392B; }
+.cal-impact.medium { background:#E67E22; }
+.cal-impact.low    { background:#27AE60; }
+.cal-impact-label  { font-size:9px; color:var(--text3); }
+.cal-prev { font-size:10px; color:var(--text3); }
+.cal-empty { text-align:center; color:var(--text3); font-size:11px; padding:20px 0; }
+
+/* 메인 탭 (대시보드 차트 영역) */
+.main-tab-nav { display:flex; gap:0; border-bottom:2px solid var(--border); margin-bottom:0; }
+.main-tab-btn { padding:8px 16px; font-size:12px; font-weight:600; border:none;
+  background:transparent; color:var(--text3); cursor:pointer;
+  border-bottom:2px solid transparent; margin-bottom:-2px; transition:all 0.15s; }
+.main-tab-btn:hover { color:var(--text); }
+.main-tab-btn.active { color:var(--gold); border-bottom-color:var(--gold); }
+.main-tab-panel { display:none; }
+.main-tab-panel.active { display:block; }
+
+/* 상관관계 차트 */
+.corr-chart-wrap { background:#fff; border:1px solid var(--border); border-radius:10px; padding:14px; }
+.corr-legend { display:flex; gap:16px; margin-bottom:8px; font-size:11px; }
+.corr-leg-item { display:flex; align-items:center; gap:4px; }
+.corr-leg-dot { width:12px; height:3px; border-radius:2px; }
+#corr-chart { width:100%; height:280px; }
+#corr-rsi-chart { width:100%; height:80px; border-top:1px solid var(--bg2); }
+
+/* COT 보고서 */
+.cot-section { background:#fff; border:1px solid var(--border); border-radius:10px; padding:14px; }
+.cot-title { font-size:12px; font-weight:700; color:var(--text); margin-bottom:12px; }
+.cot-bar-wrap { margin-bottom:12px; }
+.cot-bar-label { display:flex; justify-content:space-between; font-size:11px; margin-bottom:4px; }
+.cot-bar-bg { height:12px; background:var(--bg2); border-radius:6px; overflow:hidden; position:relative; }
+.cot-bar-fill { height:100%; border-radius:6px; transition:width 0.5s; }
+.cot-bar-center { position:absolute; top:0; left:50%; width:1px; height:100%; background:var(--border); }
+.cot-stats { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:12px; }
+.cot-stat { text-align:center; padding:8px; background:var(--bg2); border-radius:6px; }
+.cot-stat-val { font-size:16px; font-weight:700; }
+.cot-stat-lbl { font-size:10px; color:var(--text3); margin-top:2px; }
+.cot-note { font-size:10px; color:var(--text3); margin-top:10px; line-height:1.6; }
+
 </style>
 </head>
 <body>
@@ -276,14 +330,35 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
   </div>
 </div>
 
-<!-- 지표 카드 -->
-<div class="cards-section">
-  <div class="section-title">실시간 지표</div>
-  <div class="cards-grid" id="cards-grid"></div>
+<!-- 대시보드 상단: 지표카드 + 캘린더 -->
+<div class="dashboard-top">
+  <div class="cards-section" style="margin-bottom:0;">
+    <div class="section-title">실시간 지표</div>
+    <div class="cards-grid" id="cards-grid"></div>
+  </div>
+  <div class="calendar-section">
+    <div class="calendar-title">
+      <span>📅 경제지표 캘린더</span>
+      <span style="font-size:10px;color:var(--text3);" id="cal-date">오늘</span>
+    </div>
+    <div id="cal-list"><div class="cal-empty">로딩 중...</div></div>
+    <div style="font-size:10px;color:var(--text3);margin-top:8px;text-align:right;">
+      <a href="https://kr.investing.com/economic-calendar/" target="_blank"
+         style="color:var(--gold);">전체 캘린더 →</a>
+    </div>
+  </div>
 </div>
 
-<!-- 차트 -->
+<!-- 차트 영역 탭 -->
 <div class="chart-section">
+<div class="main-tab-nav">
+  <button class="main-tab-btn active" onclick="switchMainTab('candle',this)">📊 캔들 차트</button>
+  <button class="main-tab-btn" onclick="switchMainTab('corr',this)">🔗 금/달러 상관관계</button>
+  <button class="main-tab-btn" onclick="switchMainTab('cot',this)">📋 COT 보고서</button>
+</div>
+
+<div class="main-tab-panel active" id="main-tab-candle">
+
   <div class="chart-controls">
     <div>
       <span class="chart-sym-label" id="chart-sym-label">XAU/USD</span>
@@ -314,7 +389,111 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
     <span class="legend-item"><span class="legend-dot" style="background:#00ACC1"></span>RSI(14)</span>
     <span class="legend-item"><span class="legend-dot" style="background:#7B1FA2"></span>MACD</span>
   </div>
+</div><!-- /main-tab-candle -->
+
+<!-- 상관관계 차트 탭 -->
+<div class="main-tab-panel" id="main-tab-corr">
+  <div class="corr-chart-wrap">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <div class="corr-legend">
+        <span class="corr-leg-item"><span class="corr-leg-dot" style="background:#C4962A"></span>금 (GC=F)</span>
+        <span class="corr-leg-item"><span class="corr-leg-dot" style="background:#2196F3"></span>DXY (역축)</span>
+      </div>
+      <div style="display:flex;gap:4px;">
+        <button class="tf-btn active" id="corr-5m-btn"  onclick="setCorrTf('5m',this)">5분</button>
+        <button class="tf-btn" id="corr-15m-btn" onclick="setCorrTf('15m',this)">15분</button>
+        <button class="tf-btn" id="corr-1d-btn"  onclick="setCorrTf('1d',this)">일봉</button>
+      </div>
+    </div>
+    <div style="font-size:11px;color:var(--text3);margin-bottom:6px;">
+      상관계수: <b id="corr-coef" style="color:var(--bear);">계산 중...</b>
+      &nbsp;|&nbsp; DXY는 역축(오른쪽)으로 표시됩니다
+    </div>
+    <div id="corr-chart" style="height:280px;"></div>
+    <div id="corr-rsi-chart" style="height:80px;border-top:1px solid var(--bg2);"></div>
+  </div>
 </div>
+
+<!-- COT 보고서 탭 -->
+<div class="main-tab-panel" id="main-tab-cot">
+  <div class="cot-section">
+    <div class="cot-title">📋 COT (비상업 순포지션) — 매주 금요일 CFTC 발표, 화요일 데이터 기준</div>
+    <div class="cot-bar-wrap">
+      <div class="cot-bar-label">
+        <span style="color:var(--bull);font-weight:600;">▲ 비상업 롱 (투기 매수)</span>
+        <span style="color:var(--bear);font-weight:600;">비상업 숏 (투기 매도) ▼</span>
+      </div>
+      <div class="cot-bar-bg">
+        <div class="cot-bar-fill" id="cot-bar-long" style="background:var(--bull);width:65%;"></div>
+        <div class="cot-bar-center"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-top:2px;">
+        <span id="cot-long-val">롱: 수동 입력 필요</span>
+        <span id="cot-short-val">숏: 수동 입력 필요</span>
+      </div>
+    </div>
+    <div class="cot-stats">
+      <div class="cot-stat">
+        <div class="cot-stat-val" id="cot-net" style="color:var(--bull);">—</div>
+        <div class="cot-stat-lbl">순포지션 (롱-숏)</div>
+      </div>
+      <div class="cot-stat">
+        <div class="cot-stat-val" id="cot-chg">—</div>
+        <div class="cot-stat-lbl">전주 대비</div>
+      </div>
+      <div class="cot-stat">
+        <div class="cot-stat-val" id="cot-signal">—</div>
+        <div class="cot-stat-lbl">COT 신호</div>
+      </div>
+    </div>
+
+    <!-- COT 수동 입력 -->
+    <div style="margin-top:14px;padding:12px;background:var(--bg2);border-radius:8px;">
+      <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:8px;">📝 이번 주 데이터 입력 (CFTC에서 확인 후 입력)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+        <div>
+          <div style="font-size:10px;color:var(--text3);margin-bottom:3px;">비상업 롱 (계약수)</div>
+          <input type="number" id="cot-input-long" placeholder="예: 285000"
+            style="width:100%;padding:6px 8px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;"
+            oninput="calcCOT()">
+        </div>
+        <div>
+          <div style="font-size:10px;color:var(--text3);margin-bottom:3px;">비상업 숏 (계약수)</div>
+          <input type="number" id="cot-input-short" placeholder="예: 95000"
+            style="width:100%;padding:6px 8px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;"
+            oninput="calcCOT()">
+        </div>
+        <div>
+          <div style="font-size:10px;color:var(--text3);margin-bottom:3px;">전주 순포지션</div>
+          <input type="number" id="cot-input-prev" placeholder="예: 180000"
+            style="width:100%;padding:6px 8px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;"
+            oninput="calcCOT()">
+        </div>
+      </div>
+      <div style="font-size:10px;color:var(--text3);margin-top:6px;">
+        📌 <a href="https://www.cftc.gov/dea/futures/deacmesf.htm" target="_blank" style="color:var(--gold);">CFTC 공식 데이터</a>
+        &nbsp;|&nbsp; <a href="https://kr.investing.com/commodities/gold-commitment-of-traders" target="_blank" style="color:var(--gold);">Investing.com COT 차트</a>
+      </div>
+    </div>
+
+    <div style="margin-top:14px;">
+      <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:8px;">COT 해석 가이드</div>
+      <table class="guide-table">
+        <tr><th>상태</th><th>의미</th><th>금 영향</th></tr>
+        <tr class="row-bull"><td>순롱 증가 (+)</td><td>기관 매수 확대</td><td>상승 압력 ↑</td></tr>
+        <tr class="row-bull"><td>순롱 극단적 최고</td><td>과도한 낙관론</td><td>단기 조정 주의 ⚠️</td></tr>
+        <tr class="row-neut"><td>소폭 변화</td><td>방향성 없음</td><td>중립</td></tr>
+        <tr class="row-bear"><td>순숏 증가 (-)</td><td>기관 매도 확대</td><td>하락 압력 ↑</td></tr>
+        <tr class="row-bear"><td>순숏 극단적 최고</td><td>극단적 비관론</td><td>숏 스퀴즈 가능 ⚠️</td></tr>
+      </table>
+      <div style="font-size:10px;color:var(--text3);margin-top:8px;padding:6px;background:var(--neut-bg);border-radius:5px;">
+        💡 COT는 역발상 지표로도 활용 — 순롱/순숏이 극단치일 때 반전 가능성 높음
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /chart-section -->
 <!-- 체크리스트 -->
 <div class="checklist-section">
   <div class="section-title">매매 판단 체크리스트</div>
@@ -438,6 +617,7 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
   <button class="gtab-btn" onclick="switchGTabAndFill('g3',this)">③ 지정학 리스크</button>
   <button class="gtab-btn" onclick="switchGTabAndFill('g4',this)">④ 중앙은행 수급</button>
   <button class="gtab-btn" onclick="switchGTabAndFill('g5',this)">⑤ 종합 판단 기준</button>
+  <button class="gtab-btn" onclick="switchGTabAndFill('g6',this)">⑥ 차트 가이드</button>
 </div>
 
 <div class="gtab-panel active" id="gtab-g1">
@@ -845,6 +1025,169 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
   </div><!-- /guide-cols -->
 </div>
 
+<div class="gtab-panel" id="gtab-g6">
+  <div class="guide-section-title" style="background:#2C5F8A">⑥ 차트 인디케이터 가이드 — 기술적 분석 5단계</div>
+  <div style="font-size:12px;color:var(--text3);padding:8px 0 12px;">
+    펀더멘털로 방향을 먼저 결정한 후, 아래 5단계로 진입 타이밍을 확인하세요.
+  </div>
+
+  <div class="guide-cols">
+  <div class="guide-col-left">
+
+  <!-- STEP 1: EMA -->
+  <div class="guide-box">
+    <div class="guide-box-title">📈 STEP 1 — EMA 배열 (추세 방향)</div>
+    <p class="guide-p"><b>EMA(지수이동평균)</b>는 최근 가격에 더 많은 가중치를 둔 이동평균선입니다. 3개 선의 배열로 현재 추세를 판단합니다.</p>
+    <div class="guide-formula">파란선=EMA20 &nbsp;|&nbsp; 주황선=EMA50 &nbsp;|&nbsp; 빨간선=EMA200</div>
+    <table class="guide-table" style="margin-top:8px;">
+      <tr><th>배열 상태</th><th>의미</th><th>점수</th></tr>
+      <tr class="row-bull"><td>캔들 &gt; EMA20 &gt; EMA50 &gt; EMA200</td><td>완전 상승 배열 ★</td><td>+3</td></tr>
+      <tr class="row-bull"><td>EMA20 위로 막 회복</td><td>상승 전환 시작</td><td>+2</td></tr>
+      <tr class="row-bull"><td>캔들 &gt; EMA20 &gt; EMA50 (EMA200은 위)</td><td>단기 반등</td><td>+1</td></tr>
+      <tr class="row-neut"><td>선들 수렴 / 뒤엉킴</td><td>방향 불명확, 대기</td><td>0</td></tr>
+      <tr class="row-bear"><td>캔들 &lt; EMA20 &lt; EMA50</td><td>단기 하락</td><td>-2</td></tr>
+      <tr class="row-bear"><td>EMA200 &gt; EMA50 &gt; EMA20 &gt; 캔들</td><td>완전 하락 배열 ★</td><td>-3</td></tr>
+    </table>
+    <div style="margin-top:8px;padding:8px;background:var(--bull-bg);border-radius:6px;font-size:11px;color:var(--bull);">
+      💡 <b>핵심:</b> EMA200이 장기 추세선. 캔들이 EMA200 위 = 장기 상승장, 아래 = 장기 하락장
+    </div>
+  </div>
+
+  <!-- STEP 2: RSI -->
+  <div class="guide-box">
+    <div class="guide-box-title">📊 STEP 2 — RSI (모멘텀 강도)</div>
+    <p class="guide-p"><b>RSI(상대강도지수)</b>는 0~100 사이 값으로 현재 가격 움직임의 강도를 나타냅니다. 50이 중립 기준선입니다.</p>
+    <table class="guide-table" style="margin-top:8px;">
+      <tr><th>RSI 상태</th><th>의미</th><th>점수</th></tr>
+      <tr class="row-bull"><td>RSI 50 위에서 40~60 눌림 후 반등</td><td>추세 속 매수 자리</td><td>+2</td></tr>
+      <tr class="row-bull"><td>RSI 50선 아래→위 돌파</td><td>모멘텀 전환</td><td>+2</td></tr>
+      <tr class="row-bull"><td>RSI 30 이하 과매도 → 반등 시작</td><td>반등 가능성</td><td>+1</td></tr>
+      <tr class="row-bull"><td>가격 신저점, RSI 전저점 상회</td><td>상승 다이버전스 ★</td><td>+1</td></tr>
+      <tr class="row-neut"><td>RSI 50 아래 방향 불명확</td><td>대기</td><td>-1</td></tr>
+      <tr class="row-bear"><td>RSI 70 이상 과매수 → 꺾임</td><td>하락 신호</td><td>-1</td></tr>
+      <tr class="row-bear"><td>RSI 50선 위→아래 이탈</td><td>하락 전환</td><td>-2</td></tr>
+      <tr class="row-bear"><td>가격 신고점, RSI 전고점 하회</td><td>하락 다이버전스 ★</td><td>-2</td></tr>
+    </table>
+    <div style="margin-top:8px;padding:8px;background:var(--neut-bg);border-radius:6px;font-size:11px;color:var(--neut);">
+      ⚠️ <b>다이버전스:</b> 가격과 RSI가 반대 방향일 때 → 강력한 반전 신호
+    </div>
+  </div>
+
+  <!-- STEP 3: BB -->
+  <div class="guide-box">
+    <div class="guide-box-title">📉 STEP 3 — 볼린저밴드 (가격 위치)</div>
+    <p class="guide-p"><b>볼린저밴드</b>는 EMA20(중간선) ± 2표준편차로 그린 상하단 밴드입니다. 현재 가격이 통계적으로 비싼지 저렴한지 판단합니다.</p>
+    <table class="guide-table" style="margin-top:8px;">
+      <tr><th>위치</th><th>추세</th><th>의미</th><th>점수</th></tr>
+      <tr class="row-bull"><td>중간선(EMA20) 근처</td><td>상승 추세</td><td>최적 매수 자리 ★</td><td>+2</td></tr>
+      <tr class="row-bull"><td>하단 밴드 근처</td><td>상승 추세</td><td>강한 매수 자리</td><td>+2</td></tr>
+      <tr class="row-bull"><td>밴드 확장 + 캔들 상단 방향</td><td>—</td><td>추세 가속</td><td>+1</td></tr>
+      <tr class="row-neut"><td>밴드 폭 좁아짐 (스퀴즈)</td><td>—</td><td>큰 움직임 직전</td><td>0</td></tr>
+      <tr class="row-bear"><td>상단 밴드 근처</td><td>하락 추세</td><td>숏 진입 자리</td><td>-1</td></tr>
+      <tr class="row-bear"><td>하단 밴드 근처</td><td>하락 추세</td><td>추가 하락 가능 (매수 ✗)</td><td>-1</td></tr>
+    </table>
+    <div style="margin-top:8px;padding:8px;background:var(--bear-bg);border-radius:6px;font-size:11px;color:var(--bear);">
+      ⚠️ <b>중요:</b> 하단 밴드 = 무조건 매수 ✗. 하락 추세에서 하단 밴드는 추가 하락 신호
+    </div>
+  </div>
+
+  </div><!-- /col-left -->
+  <div class="guide-col-right">
+
+  <!-- STEP 4: 트리거 -->
+  <div class="guide-box">
+    <div class="guide-box-title">🎯 STEP 4 — 진입 트리거 (지금 들어가는 이유)</div>
+    <p class="guide-p">방향과 자리가 맞아도 <b>트리거(구체적 진입 근거)</b>가 없으면 진입하지 않습니다. 반드시 아래 중 하나가 있어야 합니다.</p>
+
+    <div style="margin-bottom:10px;">
+      <div style="font-size:11px;font-weight:700;color:var(--bull);margin-bottom:6px;">▲ 롱(매수) 트리거</div>
+      <table class="guide-table">
+        <tr><th>트리거</th><th>설명</th><th>점수</th></tr>
+        <tr class="row-bull"><td>직전 지지선 반등</td><td>과거 저점에서 재반등 확인</td><td>+2</td></tr>
+        <tr class="row-bull"><td>저항선 종가 돌파</td><td>캔들 종가가 저항선 위로 마감</td><td>+2</td></tr>
+        <tr class="row-bull"><td>거래량 증가 동반</td><td>반등 시 거래량 급증</td><td>+2</td></tr>
+        <tr class="row-bull"><td>핀바 (긴 아래꼬리)</td><td>망치형 캔들 = 매도 소진</td><td>+1</td></tr>
+        <tr class="row-bull"><td>EMA 터치 후 반등</td><td>EMA20/50에서 지지 확인</td><td>+1</td></tr>
+        <tr class="row-bull"><td>거래량 급감 후 소폭 반등</td><td>매도세 소진 신호</td><td>+1</td></tr>
+      </table>
+    </div>
+
+    <div style="margin-bottom:10px;">
+      <div style="font-size:11px;font-weight:700;color:var(--bear);margin-bottom:6px;">▼ 숏(매도) 트리거</div>
+      <table class="guide-table">
+        <tr><th>트리거</th><th>설명</th><th>점수</th></tr>
+        <tr class="row-bear"><td>지지선 하향 이탈 + 거래량 폭증</td><td>가장 강력한 숏 신호 ★</td><td>+3</td></tr>
+        <tr class="row-bear"><td>저항 이탈 실패 후 하락 재개</td><td>상승 시도 실패</td><td>+2</td></tr>
+        <tr class="row-bear"><td>역핀바 (긴 위꼬리)</td><td>매수 압력을 매도가 흡수</td><td>+2</td></tr>
+        <tr class="row-bear"><td>EMA 위 반등 후 재하락</td><td>저항 역할 확인</td><td>+2</td></tr>
+        <tr class="row-bear"><td>RSI 반등 실패 (50 못 넘음)</td><td>하락 모멘텀 유지</td><td>+1</td></tr>
+      </table>
+    </div>
+
+    <div style="padding:8px;background:var(--neut-bg);border-radius:6px;font-size:11px;color:var(--neut);">
+      → <b>트리거 없음:</b> 진입 근거 없음 → 무조건 대기 (0점)
+    </div>
+  </div>
+
+  <!-- STEP 5: MACD -->
+  <div class="guide-box">
+    <div class="guide-box-title">📈 STEP 5 — MACD (최종 방향 확인)</div>
+    <p class="guide-p"><b>MACD</b>는 단기(12일) - 장기(26일) EMA 차이입니다. 히스토그램 막대가 0선 위/아래, 커지는지 작아지는지로 모멘텀을 확인합니다.</p>
+    <table class="guide-table" style="margin-top:8px;">
+      <tr><th>MACD 상태</th><th>의미</th><th>점수</th></tr>
+      <tr class="row-bull"><td>0선 위 + 막대 커지는 중</td><td>상승 모멘텀 강화 ★</td><td>+2</td></tr>
+      <tr class="row-bull"><td>0선 아래→위 전환</td><td>상승 전환 신호</td><td>+2</td></tr>
+      <tr class="row-bull"><td>0선 아래 + 막대 작아지는 중</td><td>하락 모멘텀 약화 (반등 준비)</td><td>+1</td></tr>
+      <tr class="row-neut"><td>0선 위 + 막대 작아지는 중</td><td>상승 모멘텀 약화</td><td>-1</td></tr>
+      <tr class="row-bear"><td>0선 위→아래 전환</td><td>하락 전환 신호</td><td>-2</td></tr>
+      <tr class="row-bear"><td>0선 아래 + 막대 커지는 중</td><td>하락 모멘텀 강화 ★</td><td>-2</td></tr>
+    </table>
+    <div style="margin-top:8px;padding:8px;background:var(--bull-bg);border-radius:6px;font-size:11px;color:var(--bull);">
+      💡 <b>핵심:</b> MACD는 후행 지표. EMA배열+RSI가 방향을 잡고, MACD로 최종 확인하는 순서로 사용
+    </div>
+  </div>
+
+  <!-- 종합 흐름 -->
+  <div class="guide-box">
+    <div class="guide-box-title">🔄 5단계 종합 활용 흐름</div>
+    <div class="flow-chart">
+      <div class="flow-node flow-q-node">펀더멘털 먼저 → 롱/숏 방향 결정</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;">
+        <div class="flow-node" style="font-size:11px;background:var(--bull-bg);border-color:var(--bull-border);">
+          <b>STEP 1 EMA:</b> 추세 방향 확인 (완전 상승배열이면 +3)
+        </div>
+        <div style="text-align:center;font-size:16px;color:var(--text3);">↓</div>
+        <div class="flow-node" style="font-size:11px;background:var(--bull-bg);border-color:var(--bull-border);">
+          <b>STEP 2 RSI:</b> 모멘텀 확인 (50선 위치 + 다이버전스)
+        </div>
+        <div style="text-align:center;font-size:16px;color:var(--text3);">↓</div>
+        <div class="flow-node" style="font-size:11px;background:var(--bull-bg);border-color:var(--bull-border);">
+          <b>STEP 3 BB:</b> 가격 위치 확인 (중간선 근처가 최적)
+        </div>
+        <div style="text-align:center;font-size:16px;color:var(--text3);">↓</div>
+        <div class="flow-node" style="font-size:11px;background:var(--bull-bg);border-color:var(--bull-border);">
+          <b>STEP 4 트리거:</b> 진입 근거 확인 (없으면 대기)
+        </div>
+        <div style="text-align:center;font-size:16px;color:var(--text3);">↓</div>
+        <div class="flow-node" style="font-size:11px;background:var(--bull-bg);border-color:var(--bull-border);">
+          <b>STEP 5 MACD:</b> 최종 방향 확인
+        </div>
+        <div style="text-align:center;font-size:16px;color:var(--text3);">↓</div>
+        <div class="flow-node flow-q-node">
+          체크리스트 Phase 3 입력 → Phase 4 종합 판단
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:10px;padding:10px;background:var(--bear-bg);border-radius:6px;font-size:11px;color:var(--bear);">
+      <b>⚠️ 오버라이드 룰:</b><br>
+      EMA 완전 하락 배열 + MACD 하락 강화 = 기술적 ≤ -6 → 롱 진입 절대 금지<br>
+      반대로 완전 상승 배열 + 강한 호재 = 공격적 롱 가능
+    </div>
+  </div>
+
+  </div><!-- /col-right -->
+  </div><!-- /guide-cols -->
+</div><!-- /gtab-g6 -->
 </div><!-- /wrap -->
 </div><!-- /tab-guide -->
 
@@ -1649,6 +1992,207 @@ function updateGuideValues() {
     .catch(e => console.warn('guide fetch error', e));
 }
 
+
+// ── 메인 탭 전환 ─────────────────────────────
+function switchMainTab(id, btn) {
+  document.querySelectorAll('.main-tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.main-tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('main-tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  if (id === 'corr') initCorrChart();
+  if (id === 'cot')  initCOT();
+}
+
+// ── 경제지표 캘린더 ──────────────────────────
+const GOLD_EVENTS = [
+  // 금 가격에 영향 큰 이벤트 목록 (매주 업데이트 필요)
+  { time:'화 21:30', name:'미국 CPI (소비자물가지수)', impact:'high',   note:'인플레이션 핵심 지표' },
+  { time:'화 21:30', name:'미국 PPI (생산자물가지수)', impact:'high',   note:'미래 인플레이션 선행' },
+  { time:'수 21:30', name:'FOMC 회의록',               impact:'high',   note:'금리 방향 힌트' },
+  { time:'목 21:30', name:'신규 실업수당 청구건수',    impact:'medium', note:'고용 상황 주간 지표' },
+  { time:'금 21:30', name:'미국 비농업 고용(NFP)',      impact:'high',   note:'월 1회, 가장 중요' },
+  { time:'금 23:00', name:'미시간대 소비자심리지수',   impact:'medium', note:'기대인플레이션 포함' },
+];
+
+function renderCalendar() {
+  const list = document.getElementById('cal-list');
+  const dateEl = document.getElementById('cal-date');
+  if (!list) return;
+
+  const now = new Date();
+  const days = ['일','월','화','수','목','금','토'];
+  dateEl.textContent = `${now.getMonth()+1}/${now.getDate()}(${days[now.getDay()]})`;
+
+  // 이번 주 주요 일정 고정 표시 + 직접 링크
+  const items = [
+    { time:'매주 화', name:'CFTC COT 보고서 발표', impact:'high', note:'화요일 데이터 기준' },
+    { time:'매월 초', name:'중앙은행 금 수급 (WGC)', impact:'high', note:'1개월 지연' },
+    ...GOLD_EVENTS,
+  ];
+
+  list.innerHTML = items.map(e => `
+    <div class="cal-item">
+      <div>
+        <div class="cal-time">${e.time}</div>
+        <div class="cal-impact-label">${e.impact==='high'?'🔴':e.impact==='medium'?'🟠':'🟢'}</div>
+      </div>
+      <div>
+        <div class="cal-name">${e.name}</div>
+        <div style="font-size:10px;color:var(--text3);">${e.note}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── 상관관계 차트 ─────────────────────────────
+let corrChart = null, corrGoldS = null, corrDxyS = null;
+let corrTf = '5m';
+
+function calcCorrelation(gold, dxy) {
+  if (!gold || !dxy || gold.length < 10) return null;
+  // 공통 시간대 데이터 매핑
+  const dxyMap = {};
+  dxy.forEach(d => { dxyMap[d.t] = d.c; });
+  const pairs = gold.filter(d => dxyMap[d.t]).map(d => [d.c, dxyMap[d.t]]);
+  if (pairs.length < 10) return null;
+
+  const n = pairs.length;
+  const mx = pairs.reduce((s,p) => s+p[0], 0)/n;
+  const my = pairs.reduce((s,p) => s+p[1], 0)/n;
+  const num = pairs.reduce((s,p) => s+(p[0]-mx)*(p[1]-my), 0);
+  const dx  = Math.sqrt(pairs.reduce((s,p) => s+(p[0]-mx)**2, 0));
+  const dy  = Math.sqrt(pairs.reduce((s,p) => s+(p[1]-my)**2, 0));
+  return dx && dy ? (num/(dx*dy)).toFixed(3) : null;
+}
+
+async function initCorrChart() {
+  if (corrChart) return; // 이미 초기화됨
+
+  const opts = {
+    layout: { background:{type:'Solid',color:'#ffffff'}, textColor:'#555' },
+    grid: { vertLines:{color:'#f0ede6'}, horzLines:{color:'#f0ede6'} },
+    crosshair: { mode:1 },
+    timeScale: { timeVisible:true, secondsVisible:false, borderColor:'#CECCA0' },
+    rightPriceScale: { borderColor:'#CECCA0' },
+    leftPriceScale:  { visible:true, borderColor:'#CECCA0' },
+  };
+
+  const el = document.getElementById('corr-chart');
+  if (!el) return;
+  corrChart = LightweightCharts.createChart(el, {...opts, height:280});
+  corrGoldS = corrChart.addLineSeries({
+    color:'#C4962A', lineWidth:1.5,
+    priceScaleId:'right', title:'Gold',
+  });
+  corrDxyS = corrChart.addLineSeries({
+    color:'#2196F3', lineWidth:1.5,
+    priceScaleId:'left', title:'DXY(역)',
+    // DXY 역축 표시를 위해 값을 반전
+  });
+
+  await loadCorrData(corrTf);
+}
+
+async function loadCorrData(tf) {
+  corrTf = tf;
+  try {
+    const [rg, rd] = await Promise.all([
+      fetch(`${BASE}/history/xauusd_${tf}.json?_=${Date.now()}`, {cache:'no-store'}).then(r=>r.json()),
+      fetch(`${BASE}/history/dxy_${tf}.json?_=${Date.now()}`,    {cache:'no-store'}).then(r=>r.json()),
+    ]);
+
+    let goldData = rg, dxyData = rd;
+    if (tf === '15m') { goldData = resample5m(rg, 15); dxyData = resample5m(rd, 15); }
+
+    corrGoldS.setData(goldData.map(d => ({ time:toTime(d.t), value:d.c })));
+
+    // DXY 역축: 최대값 - 현재값으로 반전 느낌 주기
+    const dxyMax = Math.max(...dxyData.map(d=>d.c));
+    const dxyMin = Math.min(...dxyData.map(d=>d.c));
+    corrDxyS.setData(dxyData.map(d => ({
+      time:  toTime(d.t),
+      value: dxyMax + dxyMin - d.c,  // 값 반전
+    })));
+
+    corrChart.timeScale().fitContent();
+
+    // 상관계수 계산 (원본 값으로)
+    const coef = calcCorrelation(goldData, dxyData);
+    const coefEl = document.getElementById('corr-coef');
+    if (coefEl && coef) {
+      const c = parseFloat(coef);
+      coefEl.textContent = coef;
+      coefEl.style.color = c < -0.5 ? 'var(--bull)' : c > 0.5 ? 'var(--bear)' : 'var(--neut)';
+      const desc = c < -0.7 ? '강한 역상관 (정상)' : c < -0.3 ? '역상관' : c > 0.3 ? '⚠️ 양의 상관 (위기징후)' : '상관없음';
+      coefEl.textContent = `${coef} (${desc})`;
+    }
+  } catch(e) { console.warn('상관관계 로드 실패', e); }
+}
+
+function setCorrTf(tf, btn) {
+  document.querySelectorAll('#main-tab-corr .tf-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (corrChart) loadCorrData(tf);
+}
+
+// ── COT 계산 ──────────────────────────────────
+function initCOT() {
+  // localStorage에서 이전 입력값 복원
+  try {
+    const saved = JSON.parse(localStorage.getItem('ggold_cot') || '{}');
+    if (saved.long)  document.getElementById('cot-input-long').value  = saved.long;
+    if (saved.short) document.getElementById('cot-input-short').value = saved.short;
+    if (saved.prev)  document.getElementById('cot-input-prev').value  = saved.prev;
+    if (saved.long || saved.short) calcCOT();
+  } catch(e) {}
+}
+
+function calcCOT() {
+  const longV  = parseInt(document.getElementById('cot-input-long')?.value)  || 0;
+  const shortV = parseInt(document.getElementById('cot-input-short')?.value) || 0;
+  const prevV  = parseInt(document.getElementById('cot-input-prev')?.value)  || 0;
+
+  if (!longV && !shortV) return;
+
+  const net = longV - shortV;
+  const chg = prevV ? net - prevV : null;
+  const total = longV + shortV;
+  const longPct = total ? (longV / total * 100).toFixed(1) : 50;
+
+  // 바 업데이트
+  const bar = document.getElementById('cot-bar-long');
+  if (bar) bar.style.width = longPct + '%';
+
+  document.getElementById('cot-long-val').textContent  = `롱: ${longV.toLocaleString()}`;
+  document.getElementById('cot-short-val').textContent = `숏: ${shortV.toLocaleString()}`;
+  document.getElementById('cot-net').textContent = net.toLocaleString();
+  document.getElementById('cot-net').style.color = net > 0 ? 'var(--bull)' : 'var(--bear)';
+
+  if (chg !== null) {
+    const chgEl = document.getElementById('cot-chg');
+    chgEl.textContent = (chg > 0 ? '+' : '') + chg.toLocaleString();
+    chgEl.style.color = chg > 0 ? 'var(--bull)' : 'var(--bear)';
+  }
+
+  // COT 신호 판단
+  const sigEl = document.getElementById('cot-signal');
+  let sig = '중립', sigColor = 'var(--neut)';
+  if (net > 200000)       { sig = '과도 롱 ⚠️'; sigColor = 'var(--neut)'; }
+  else if (net > 100000)  { sig = '강한 롱 ↑';  sigColor = 'var(--bull)'; }
+  else if (net > 0)       { sig = '롱 우세';     sigColor = 'var(--bull)'; }
+  else if (net > -50000)  { sig = '숏 우세';     sigColor = 'var(--bear)'; }
+  else                    { sig = '과도 숏 ⚠️'; sigColor = 'var(--neut)'; }
+  sigEl.textContent   = sig;
+  sigEl.style.color   = sigColor;
+
+  // 저장
+  try {
+    localStorage.setItem('ggold_cot', JSON.stringify({
+      long: longV, short: shortV, prev: prevV
+    }));
+  } catch(e) {}
+}
+
 function switchGTabAndFill(id, btn) {
   switchGTab(id, btn);
   // 내부 탭 전환 후 DOM이 표시된 다음 tick에 값 채우기
@@ -1669,7 +2213,8 @@ function initApp() {
   loadChart('xauusd', '5m');
   setInterval(loadMarket, 60000);
   updateClock();
-  setInterval(updateClock, 1000);  // 현재시각 1초마다 갱신
+  setInterval(updateClock, 1000);
+  renderCalendar();  // 현재시각 1초마다 갱신
   // 15분마다 차트 데이터도 자동 갱신
   setInterval(() => loadChart(currentKey, currentTf), 2 * 60 * 1000);
 }
