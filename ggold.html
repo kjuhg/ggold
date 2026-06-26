@@ -1112,22 +1112,27 @@ function resampleDaily(data5m) {
 async function loadChart(key, tf) {
   currentKey = key;
   currentTf  = tf;
-  // 항상 5분봉 파일 fetch
-  const url = `${BASE}/history/${key}_5m.json?_=${Date.now()}`;
-  let data5m;
-  try {
-    const r = await fetch(url, {cache: 'no-store'});
-    data5m = await r.json();
-    allHistory[`${key}_5m`] = data5m;
-  } catch(e) { console.warn('차트 로드 실패', url); return; }
-  if (!data5m || data5m.length < 2) return;
-
-  // tf에 따라 리샘플링
+  // 일봉은 별도 1년치 파일 사용, 5분/15분은 5분봉에서 리샘플링
   let data;
-  if (tf === '5m')       data = data5m;
-  else if (tf === '15m') data = resample5m(data5m, 15);
-  else if (tf === '1d')  data = resampleDaily(data5m);
-  else data = data5m;
+  if (tf === '1d') {
+    const url1d = `${BASE}/history/${key}_1d.json?_=${Date.now()}`;
+    try {
+      const r = await fetch(url1d, {cache: 'no-store'});
+      data = await r.json();
+    } catch(e) { console.warn('일봉 로드 실패', url1d); return; }
+  } else {
+    const url5m = `${BASE}/history/${key}_5m.json?_=${Date.now()}`;
+    let data5m;
+    try {
+      const r = await fetch(url5m, {cache: 'no-store'});
+      data5m = await r.json();
+      allHistory[`${key}_5m`] = data5m;
+    } catch(e) { console.warn('5분봉 로드 실패', url5m); return; }
+    if (!data5m || data5m.length < 2) return;
+    if (tf === '5m')       data = data5m;
+    else if (tf === '15m') data = resample5m(data5m, 15);
+    else data = data5m;
+  }
 
   if (!data || data.length < 2) return;
 
@@ -1234,7 +1239,7 @@ function renderCards(current) {
         document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
         div.classList.add('active');
         document.getElementById('chart-sym-label').textContent = def.label;
-        loadChart(def.histKey, currentTf);
+        loadChart(def.histKey, currentTf);  // histKey로 파일명 결정
       };
     }
     grid.appendChild(div);

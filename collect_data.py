@@ -108,12 +108,22 @@ def main():
                   f, ensure_ascii=False, indent=2)
     print("현재가 저장 -> data/market.json")
 
-    # 2. 5분봉 5일 (15분봉·일봉은 브라우저에서 계산)
+    # 2. 5분봉 5일
     print("\n5분봉 수집 (5일)...")
     for key in CHART_KEYS:
         sym = TICKERS[key]
         bars = fetch_ohlc(sym, period="5d", interval="5m")
         path = f"data/history/{key}_5m.json"
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(bars, f, ensure_ascii=False)
+        print(f"  [{key}] {len(bars)}개 -> {path}")
+
+    # 3. 일봉 1년 (브라우저 계산 불가 → 별도 수집)
+    print("\n일봉 수집 (1년)...")
+    for key in CHART_KEYS:
+        sym = TICKERS[key]
+        bars = fetch_ohlc(sym, period="1y", interval="1d")
+        path = f"data/history/{key}_1d.json"
         with open(path, "w", encoding="utf-8") as f:
             json.dump(bars, f, ensure_ascii=False)
         print(f"  [{key}] {len(bars)}개 -> {path}")
