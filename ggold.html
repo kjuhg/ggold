@@ -1641,7 +1641,11 @@ async function loadChart(key, tf) {
   bbMidS.setData(bb.mid);
 
   // RSI
-  if (data.length > 20) rsiSeries.setData(calcRSI(data));
+  const rsiData = calcRSI(data);
+  if (rsiData.length > 0) {
+    rsiSeries.setData(rsiData);
+    console.log(`캔들: ${data.length}개, RSI: ${rsiData.length}개, 캔들마지막: ${data[data.length-1].t}, RSI마지막: ${JSON.stringify(rsiData[rsiData.length-1])}`);
+  }
 
   // MACD
   const macd = calcMACD(data);
