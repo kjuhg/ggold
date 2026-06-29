@@ -396,10 +396,106 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
     <button onclick="toggleFloat()" style="background:transparent;border:none;color:#fff;font-size:16px;cursor:pointer;">✕</button>
   </div>
   <div class="float-panel-body" id="float-panel-body">
-    <div style="padding:12px;font-size:11px;color:var(--text3);text-align:center;">
-      로딩 중...
+  <div class="checklist-section" style="padding:0 12px;">
+  <div class="section-title" style="padding-top:12px;">매매 판단 체크리스트</div>
+
+  <!-- Phase 1 -->
+  <div class="phase-block active" id="phase1">
+    <div class="phase-header">
+      <div class="phase-num" style="background:var(--q1)">1</div>
+      <div><div class="phase-title">펀더멘털 편향</div></div>
+      <div class="phase-subtitle" id="ph1-subtitle">각 영역 -2 ~ +2 선택</div>
+    </div>
+    <div class="phase-body">
+      <div class="fund-row">
+        <div><div class="fund-label">실질금리</div><div class="fund-desc">TIPS 10년 방향</div></div>
+        <input type="range" min="-2" max="2" step="1" value="0" id="f-rate" oninput="updateFund()">
+        <div class="fund-val" id="fv-rate">0</div>
+        <div class="fund-hint" id="fh-rate">중립</div>
+      </div>
+      <div class="fund-row">
+        <div><div class="fund-label">DXY 달러</div><div class="fund-desc">달러 강약</div></div>
+        <input type="range" min="-2" max="2" step="1" value="0" id="f-dxy" oninput="updateFund()">
+        <div class="fund-val" id="fv-dxy">0</div>
+        <div class="fund-hint" id="fh-dxy">중립</div>
+      </div>
+      <div class="fund-row">
+        <div><div class="fund-label">지정학</div><div class="fund-desc">VIX · 분쟁 리스크</div></div>
+        <input type="range" min="-2" max="2" step="1" value="0" id="f-geo" oninput="updateFund()">
+        <div class="fund-val" id="fv-geo">0</div>
+        <div class="fund-hint" id="fh-geo">중립</div>
+      </div>
+      <div class="fund-row">
+        <div><div class="fund-label">중앙은행</div><div class="fund-desc">순매입/매도</div></div>
+        <input type="range" min="-2" max="2" step="1" value="0" id="f-cb" oninput="updateFund()">
+        <div class="fund-val" id="fv-cb">0</div>
+        <div class="fund-hint" id="fh-cb">중립</div>
+      </div>
+      <div class="fund-total-row">
+        <span class="fund-total-label">합산 점수</span>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="fund-total-val" id="fund-total">0</span>
+          <span class="fund-bias" id="fund-bias" style="background:var(--neut-bg);color:var(--neut)">중립</span>
+        </div>
+      </div>
+      <div style="margin-top:12px;text-align:right;">
+        <button class="opt-btn" style="display:inline-block;width:auto;padding:8px 20px;" onclick="goPhase2()">다음 →</button>
+      </div>
     </div>
   </div>
+
+  <!-- Phase 2 -->
+  <div class="phase-block" id="phase2">
+    <div class="phase-header">
+      <div class="phase-num" style="background:var(--q2)">2</div>
+      <div><div class="phase-title">방향 선택</div></div>
+      <div class="phase-subtitle" id="ph2-subtitle">롱 / 숏 / 관망</div>
+    </div>
+    <div class="phase-body">
+      <div class="dir-btns">
+        <div class="dir-btn" id="dir-long" onclick="setDir('long')">
+          <div class="dir-icon">▲</div>
+          <div class="dir-title" style="color:var(--bull)">롱 (매수)</div>
+          <div class="dir-sub">상승 진입 탐색</div>
+        </div>
+        <div class="dir-btn" id="dir-neut" onclick="setDir('neut')">
+          <div class="dir-icon">—</div>
+          <div class="dir-title" style="color:var(--neut)">중립 관망</div>
+          <div class="dir-sub">대기</div>
+        </div>
+        <div class="dir-btn" id="dir-short" onclick="setDir('short')">
+          <div class="dir-icon">▼</div>
+          <div class="dir-title" style="color:var(--bear)">숏 (매도)</div>
+          <div class="dir-sub">하락 진입 탐색</div>
+        </div>
+      </div>
+      <div class="dir-warn" id="dir-warn">⚠ 펀더멘털 편향과 반대 방향입니다. 신중하게 판단하세요.</div>
+    </div>
+  </div>
+
+  <!-- Phase 3 -->
+  <div class="phase-block" id="phase3">
+    <div class="phase-header">
+      <div class="phase-num" style="background:var(--q3b)" id="ph3-num">3</div>
+      <div><div class="phase-title">기술적 분석</div></div>
+      <div class="phase-subtitle" id="ph3-subtitle">차트 보면서 선택</div>
+    </div>
+    <div class="phase-body" id="phase3-body"></div>
+  </div>
+
+  <!-- Phase 4 -->
+  <div class="phase-block" id="phase4">
+    <div class="phase-header">
+      <div class="phase-num" style="background:var(--q4)">4</div>
+      <div><div class="phase-title">종합 판단</div></div>
+      <div class="phase-subtitle" id="ph4-subtitle"></div>
+    </div>
+    <div class="phase-body" id="phase4-body"></div>
+  </div>
+
+  <button class="reset-btn" onclick="resetAll()">↺ 처음부터 다시</button>
+  </div><!-- /checklist-section -->
+  </div><!-- /float-panel-body -->
 </div>
 <div class="page-container">
 <div class="tab-nav">
@@ -631,111 +727,6 @@ input[type=range] { width: 100%; accent-color: var(--q1); }
 </div>
 
 </div><!-- /chart-section -->
-<!-- 체크리스트 -->
-<div class="checklist-section">
-  <div class="section-title">매매 판단 체크리스트</div>
-
-  <!-- Phase 1 -->
-  <div class="phase-block active" id="phase1">
-    <div class="phase-header">
-      <div class="phase-num" style="background:var(--q1)">1</div>
-      <div>
-        <div class="phase-title">펀더멘털 편향</div>
-      </div>
-      <div class="phase-subtitle" id="ph1-subtitle">각 영역 -2 ~ +2 선택</div>
-    </div>
-    <div class="phase-body">
-      <div class="fund-row">
-        <div><div class="fund-label">실질금리</div><div class="fund-desc">TIPS 10년 방향</div></div>
-        <input type="range" min="-2" max="2" step="1" value="0" id="f-rate" oninput="updateFund()">
-        <div class="fund-val" id="fv-rate">0</div>
-        <div class="fund-hint" id="fh-rate">중립</div>
-      </div>
-      <div class="fund-row">
-        <div><div class="fund-label">DXY 달러</div><div class="fund-desc">달러 강약</div></div>
-        <input type="range" min="-2" max="2" step="1" value="0" id="f-dxy" oninput="updateFund()">
-        <div class="fund-val" id="fv-dxy">0</div>
-        <div class="fund-hint" id="fh-dxy">중립</div>
-      </div>
-      <div class="fund-row">
-        <div><div class="fund-label">지정학</div><div class="fund-desc">VIX · 분쟁 리스크</div></div>
-        <input type="range" min="-2" max="2" step="1" value="0" id="f-geo" oninput="updateFund()">
-        <div class="fund-val" id="fv-geo">0</div>
-        <div class="fund-hint" id="fh-geo">중립</div>
-      </div>
-      <div class="fund-row">
-        <div><div class="fund-label">중앙은행</div><div class="fund-desc">순매입/매도</div></div>
-        <input type="range" min="-2" max="2" step="1" value="0" id="f-cb" oninput="updateFund()">
-        <div class="fund-val" id="fv-cb">0</div>
-        <div class="fund-hint" id="fh-cb">중립</div>
-      </div>
-      <div class="fund-total-row">
-        <span class="fund-total-label">합산 점수</span>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <span class="fund-total-val" id="fund-total">0</span>
-          <span class="fund-bias" id="fund-bias" style="background:var(--neut-bg);color:var(--neut)">중립</span>
-        </div>
-      </div>
-      <div style="margin-top:12px;text-align:right;">
-        <button class="opt-btn" style="display:inline-block;width:auto;padding:8px 20px;" onclick="goPhase2()">다음 →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Phase 2 -->
-  <div class="phase-block" id="phase2">
-    <div class="phase-header">
-      <div class="phase-num" style="background:var(--q2)">2</div>
-      <div><div class="phase-title">방향 선택</div></div>
-      <div class="phase-subtitle" id="ph2-subtitle">롱 / 숏 / 관망</div>
-    </div>
-    <div class="phase-body">
-      <div class="dir-btns">
-        <div class="dir-btn" id="dir-long" onclick="setDir('long')">
-          <div class="dir-icon">▲</div>
-          <div class="dir-title" style="color:var(--bull)">롱 (매수)</div>
-          <div class="dir-sub">상승 진입 탐색</div>
-        </div>
-        <div class="dir-btn" id="dir-neut" onclick="setDir('neut')">
-          <div class="dir-icon">—</div>
-          <div class="dir-title" style="color:var(--neut)">중립 관망</div>
-          <div class="dir-sub">대기</div>
-        </div>
-        <div class="dir-btn" id="dir-short" onclick="setDir('short')">
-          <div class="dir-icon">▼</div>
-          <div class="dir-title" style="color:var(--bear)">숏 (매도)</div>
-          <div class="dir-sub">하락 진입 탐색</div>
-        </div>
-      </div>
-      <div class="dir-warn" id="dir-warn">⚠ 펀더멘털 편향과 반대 방향입니다. 신중하게 판단하세요.</div>
-    </div>
-  </div>
-
-  <!-- Phase 3 -->
-  <div class="phase-block" id="phase3">
-    <div class="phase-header">
-      <div class="phase-num" style="background:var(--q3b)" id="ph3-num">3</div>
-      <div><div class="phase-title">기술적 분석</div></div>
-      <div class="phase-subtitle" id="ph3-subtitle">차트 보면서 선택</div>
-    </div>
-    <div class="phase-body" id="phase3-body">
-      <!-- JS로 동적 렌더 -->
-    </div>
-  </div>
-
-  <!-- Phase 4 -->
-  <div class="phase-block" id="phase4">
-    <div class="phase-header">
-      <div class="phase-num" style="background:var(--q4)">4</div>
-      <div><div class="phase-title">종합 판단</div></div>
-      <div class="phase-subtitle" id="ph4-subtitle"></div>
-    </div>
-    <div class="phase-body" id="phase4-body"></div>
-  </div>
-
-  <button class="reset-btn" onclick="resetAll()">↺ 처음부터 다시</button>
-</div>
-
 
 </div><!-- /wrap-dashboard -->
 </div><!-- /tab-dashboard -->
@@ -2623,17 +2614,6 @@ function toggleFloat() {
   const toggle = document.getElementById('float-toggle');
   const isOpen = panel.classList.toggle('open');
   toggle.classList.toggle('open', isOpen);
-
-  // 처음 열 때 체크리스트 내용 복사
-  if (isOpen) {
-    const body = document.getElementById('float-panel-body');
-    const src  = document.querySelector('.checklist-section');
-    if (src && body.querySelector('.phase-block') === null) {
-      body.innerHTML = src.innerHTML;
-      // 이벤트 핸들러 재연결 (onclick 속성은 유지됨)
-      body.style.padding = '0';
-    }
-  }
 }
 
 // ── 차트 힌트 자동 표시 ──────────────────────
