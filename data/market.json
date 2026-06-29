@@ -1,47 +1,47 @@
 {
-  "updated_at": "2026-06-29T09:35:25Z",
+  "updated_at": "2026-06-29T09:40:29Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4061.7,
-      "change": -0.4001,
-      "change_pct": -0.01
+      "price": 4063.6001,
+      "change": 2.4001,
+      "change_pct": 0.059
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 58.545,
-      "change": -0.02,
-      "change_pct": -0.034
+      "price": 58.635,
+      "change": 0.08,
+      "change_pct": 0.137
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1613.1,
-      "change": 0.7,
-      "change_pct": 0.043
+      "price": 1615.5,
+      "change": 1.6,
+      "change_pct": 0.099
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 101.294,
-      "change": 0.01,
-      "change_pct": 0.01
+      "price": 101.263,
+      "change": -0.01,
+      "change_pct": -0.01
     },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1541.09,
+      "price": 1541.71,
       "change": 0.0599,
       "change_pct": 0.004
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 161.868,
-      "change": 0.004,
-      "change_pct": 0.002
+      "price": 161.892,
+      "change": 0.013,
+      "change_pct": 0.008
     },
     "eurusd": {
       "symbol": "EURUSD=X",
-      "price": 1.1405,
-      "change": 0.0001,
-      "change_pct": 0.009
+      "price": 1.1403,
+      "change": -0.0001,
+      "change_pct": -0.009
     },
     "tnx": {
       "symbol": "^TNX",
@@ -57,7 +57,7 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 70.2,
+      "price": 70.32,
       "change": -0.01,
       "change_pct": -0.014
     },
@@ -75,15 +75,15 @@
     },
     "vix": {
       "symbol": "^VIX",
-      "price": 18.41,
-      "change": 0.01,
-      "change_pct": 0.054
+      "price": 18.4,
+      "change": -0.01,
+      "change_pct": -0.054
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.18,
-      "change": 0.0,
-      "change_pct": 0.0
+      "price": 6.1845,
+      "change": 0.001,
+      "change_pct": 0.016
     }
   }
 }
