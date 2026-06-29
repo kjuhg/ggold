@@ -1,47 +1,47 @@
 {
-  "updated_at": "2026-06-29T03:35:26Z",
+  "updated_at": "2026-06-29T03:40:26Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4087.7,
-      "change": -0.7,
-      "change_pct": -0.017
+      "price": 4087.3999,
+      "change": 0.3999,
+      "change_pct": 0.01
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 59.405,
-      "change": 0.0,
-      "change_pct": 0.0
+      "price": 59.33,
+      "change": -0.035,
+      "change_pct": -0.059
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1641.5,
-      "change": -0.7,
-      "change_pct": -0.043
-    },
-    "dxy": {
-      "symbol": "DX-Y.NYB",
-      "price": 101.346,
+      "price": 1638.2,
       "change": 0.0,
       "change_pct": 0.0
     },
+    "dxy": {
+      "symbol": "DX-Y.NYB",
+      "price": 101.331,
+      "change": -0.006,
+      "change_pct": -0.006
+    },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1544.05,
-      "change": -0.0299,
-      "change_pct": -0.002
+      "price": 1544.37,
+      "change": 0.01,
+      "change_pct": 0.001
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 161.776,
-      "change": 0.002,
-      "change_pct": 0.001
+      "price": 161.786,
+      "change": 0.006,
+      "change_pct": 0.004
     },
     "eurusd": {
       "symbol": "EURUSD=X",
-      "price": 1.1393,
-      "change": 0.0001,
-      "change_pct": 0.009
+      "price": 1.1392,
+      "change": -0.0001,
+      "change_pct": -0.009
     },
     "tnx": {
       "symbol": "^TNX",
@@ -57,9 +57,9 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 69.92,
-      "change": -0.01,
-      "change_pct": -0.014
+      "price": 69.94,
+      "change": -0.07,
+      "change_pct": -0.1
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -81,9 +81,9 @@
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.2045,
-      "change": -0.0025,
-      "change_pct": -0.04
+      "price": 6.206,
+      "change": 0.0,
+      "change_pct": 0.0
     }
   }
 }
