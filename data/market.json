@@ -1,41 +1,41 @@
 {
-  "updated_at": "2026-06-29T09:20:28Z",
+  "updated_at": "2026-06-29T09:25:26Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4067.5,
-      "change": 0.6001,
-      "change_pct": 0.015
+      "price": 4064.0,
+      "change": -0.5,
+      "change_pct": -0.012
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 58.535,
-      "change": -0.005,
-      "change_pct": -0.009
+      "price": 58.505,
+      "change": -0.01,
+      "change_pct": -0.017
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1615.8,
-      "change": 0.5,
-      "change_pct": 0.031
+      "price": 1612.0,
+      "change": -1.3,
+      "change_pct": -0.081
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 101.292,
-      "change": -0.001,
-      "change_pct": -0.001
+      "price": 101.283,
+      "change": 0.0,
+      "change_pct": 0.0
     },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1541.5601,
-      "change": 0.1101,
-      "change_pct": 0.007
+      "price": 1541.1899,
+      "change": 0.4099,
+      "change_pct": 0.027
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 161.85,
-      "change": -0.002,
-      "change_pct": -0.001
+      "price": 161.871,
+      "change": 0.008,
+      "change_pct": 0.005
     },
     "eurusd": {
       "symbol": "EURUSD=X",
@@ -57,9 +57,9 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 70.01,
-      "change": -0.01,
-      "change_pct": -0.014
+      "price": 69.98,
+      "change": -0.04,
+      "change_pct": -0.057
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -75,15 +75,15 @@
     },
     "vix": {
       "symbol": "^VIX",
-      "price": 18.43,
-      "change": 0.0,
-      "change_pct": 0.0
+      "price": 18.44,
+      "change": -0.01,
+      "change_pct": -0.054
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.179,
-      "change": 0.0005,
-      "change_pct": 0.008
+      "price": 6.175,
+      "change": -0.001,
+      "change_pct": -0.016
     }
   }
 }
