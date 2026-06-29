@@ -1439,6 +1439,7 @@ function initCharts() {
     crosshair:{ mode:1 },
     timeScale:{
       timeVisible:true, secondsVisible:false, borderColor:'#CECCA0',
+      rightOffset: 5,
       tickMarkFormatter: (time) => {
         // UTC → KST (+9시간) 변환해서 표시
         const d = new Date((time + 9*3600) * 1000);
@@ -1472,9 +1473,18 @@ function initCharts() {
   bbLowerS = mainChart.addLineSeries({color:'rgba(156,39,176,0.35)', lineWidth:1, priceLineVisible:false, lastValueVisible:false, lineStyle:2});
   bbMidS   = mainChart.addLineSeries({color:'rgba(156,39,176,0.25)', lineWidth:1, priceLineVisible:false, lastValueVisible:false, lineStyle:1});
 
-  const subOpts = {...opts, height:100,
-    layout:{...opts.layout, fontSize:10},
-    timeScale:{...opts.timeScale, visible:false},
+  const subOpts = {
+    ...opts,
+    height: 100,
+    layout: {...opts.layout, fontSize:10},
+    timeScale: {
+      ...opts.timeScale,
+      visible: false,
+      rightOffset: 0,        // 오른쪽 빈 공간 제거
+      barSpacing: 6,
+      fixLeftEdge: false,
+      fixRightEdge: true,    // 오른쪽 끝 고정
+    },
   };
   rsiChart  = LightweightCharts.createChart(document.getElementById('rsi-chart'),  subOpts);
   macdChart = LightweightCharts.createChart(document.getElementById('macd-chart'), subOpts);
@@ -1513,12 +1523,7 @@ function initCharts() {
   function syncRange(src, targets, r) {
     if (_syncing) return;
     _syncing = true;
-    // LogicalRange + VisibleRange 둘 다 동기화
-    const vr = src.timeScale().getVisibleRange();
-    targets.forEach(t => {
-      t.timeScale().setVisibleLogicalRange(r);
-      if (vr) t.timeScale().setVisibleRange({from: vr.from, to: vr.to});
-    });
+    targets.forEach(t => t.timeScale().setVisibleLogicalRange(r));
     _syncing = false;
     // 줌 범위 저장
     const zk = `${currentKey}_${currentTf}`;
@@ -1688,12 +1693,12 @@ async function loadChart(key, tf) {
   // 차트 힌트 업데이트
   updateChartHint(data);
 
-  // RSI/MACD 오른쪽 짤림 방지 - mainChart 범위로 강제 고정
+  // RSI/MACD 오른쪽 짤림 방지 - LogicalRange 기준으로 동기화
   function forceSyncSubCharts() {
-    const vr = mainChart.timeScale().getVisibleRange();
-    if (vr) {
-      rsiChart.timeScale().setVisibleRange({from: vr.from, to: vr.to});
-      macdChart.timeScale().setVisibleRange({from: vr.from, to: vr.to});
+    const lr = mainChart.timeScale().getVisibleLogicalRange();
+    if (lr) {
+      rsiChart.timeScale().setVisibleLogicalRange(lr);
+      macdChart.timeScale().setVisibleLogicalRange(lr);
     }
   }
   setTimeout(forceSyncSubCharts, 150);
@@ -1715,11 +1720,7 @@ async function loadChart(key, tf) {
         macdChart.timeScale().setVisibleLogicalRange(r);
       }
       // barSpacing 동기화로 오른쪽 짤림 방지
-      const bs = mainChart.timeScale().getVisibleRange();
-      if (bs) {
-        rsiChart.timeScale().setVisibleRange(bs);
-        macdChart.timeScale().setVisibleRange(bs);
-      }
+
     }, 100);
   }
 }
