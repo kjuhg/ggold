@@ -1474,8 +1474,7 @@ function initCharts() {
 
   const subOpts = {...opts, height:100,
     layout:{...opts.layout, fontSize:10},
-    timeScale:{...opts.timeScale, visible:false, rightOffset:0},
-    rightPriceScale:{...opts.rightPriceScale, scaleMargins:{top:0.1, bottom:0.1}},
+    timeScale:{...opts.timeScale, visible:false},
   };
   rsiChart  = LightweightCharts.createChart(document.getElementById('rsi-chart'),  subOpts);
   macdChart = LightweightCharts.createChart(document.getElementById('macd-chart'), subOpts);
@@ -1514,7 +1513,9 @@ function initCharts() {
   function syncRange(src, targets, r) {
     if (_syncing) return;
     _syncing = true;
-    targets.forEach(t => t.timeScale().setVisibleLogicalRange(r));
+    targets.forEach(t => {
+      t.timeScale().setVisibleLogicalRange(r);
+    });
     _syncing = false;
     // 줌 범위 저장
     const zk = `${currentKey}_${currentTf}`;
@@ -1641,11 +1642,7 @@ async function loadChart(key, tf) {
   bbMidS.setData(bb.mid);
 
   // RSI
-  const rsiData = calcRSI(data);
-  if (rsiData.length > 0) {
-    rsiSeries.setData(rsiData);
-    console.log(`캔들: ${data.length}개, RSI: ${rsiData.length}개, 캔들마지막: ${data[data.length-1].t}, RSI마지막: ${JSON.stringify(rsiData[rsiData.length-1])}`);
-  }
+  if (data.length > 20) rsiSeries.setData(calcRSI(data));
 
   // MACD
   const macd = calcMACD(data);
@@ -1696,14 +1693,20 @@ async function loadChart(key, tf) {
     // 처음 로드시에만 전체 보기 (isFirstLoad를 먼저 설정해서 zoom 저장 방지)
     isFirstLoad[zoomKey] = true;
     mainChart.timeScale().fitContent();
-    // RSI/MACD를 mainChart와 강제 동기화
+    // RSI/MACD 타임스케일 완전 동기화 (barSpacing 포함)
     setTimeout(() => {
       const r = mainChart.timeScale().getVisibleLogicalRange();
       if (r) {
         rsiChart.timeScale().setVisibleLogicalRange(r);
         macdChart.timeScale().setVisibleLogicalRange(r);
       }
-    }, 50);
+      // barSpacing 동기화로 오른쪽 짤림 방지
+      const bs = mainChart.timeScale().getVisibleRange();
+      if (bs) {
+        rsiChart.timeScale().setVisibleRange(bs);
+        macdChart.timeScale().setVisibleRange(bs);
+      }
+    }, 100);
   }
 }
 
