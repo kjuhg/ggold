@@ -1513,8 +1513,11 @@ function initCharts() {
   function syncRange(src, targets, r) {
     if (_syncing) return;
     _syncing = true;
+    // LogicalRange + VisibleRange 둘 다 동기화
+    const vr = src.timeScale().getVisibleRange();
     targets.forEach(t => {
       t.timeScale().setVisibleLogicalRange(r);
+      if (vr) t.timeScale().setVisibleRange({from: vr.from, to: vr.to});
     });
     _syncing = false;
     // 줌 범위 저장
@@ -1684,6 +1687,17 @@ async function loadChart(key, tf) {
   applyIndVisibility();
   // 차트 힌트 업데이트
   updateChartHint(data);
+
+  // RSI/MACD 오른쪽 짤림 방지 - mainChart 범위로 강제 고정
+  function forceSyncSubCharts() {
+    const vr = mainChart.timeScale().getVisibleRange();
+    if (vr) {
+      rsiChart.timeScale().setVisibleRange({from: vr.from, to: vr.to});
+      macdChart.timeScale().setVisibleRange({from: vr.from, to: vr.to});
+    }
+  }
+  setTimeout(forceSyncSubCharts, 150);
+  setTimeout(forceSyncSubCharts, 500);
 
   const zoomKey = `${key}_${tf}`;
   if (savedZoom[zoomKey]) {
