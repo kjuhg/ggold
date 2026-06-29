@@ -45,7 +45,7 @@ body { background: var(--bg); color: var(--text); font-family: -apple-system, 'S
 .chart-section { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 14px; margin-bottom: 20px; }
 .chart-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
 .chart-sym-label { font-size: 14px; font-weight: 600; color: var(--text); }
-.chart-ohlc { font-size: 11px; color: var(--text2); margin-left: 8px; }
+.chart-ohlc { font-size: 11px; color: var(--text2); margin-left: 4px; display:flex; align-items:center; gap:2px; flex-wrap:wrap; }
 .ctrl-group { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
 .tf-btn, .ind-btn { font-size: 11px; padding: 3px 10px; border: 1px solid var(--border); border-radius: 4px; background: #fff; color: var(--text2); cursor: pointer; transition: all 0.15s; }
 .tf-btn.active, .ind-btn.active { background: var(--q1); color: #fff; border-color: var(--q1); }
@@ -1384,6 +1384,7 @@ function calcBB(data, period=20, mult=2) {
 
 function calcRSI(data, period=14) {
   const res = [];
+  if (data.length <= period) return res;
   let gains=0, losses=0;
   for (let i=1; i<=period; i++) {
     const d = data[i].c - data[i-1].c;
@@ -1499,21 +1500,60 @@ function initCharts() {
   macdSignalSeries = macdChart.addLineSeries({color:'#FF9800', lineWidth:1, priceLineVisible:false});
 
   // 크로스헤어 동기화
-  function syncCross(src, targets) {
-    src.subscribeCrosshairMove(p => {
-      targets.forEach(t => {
-        if (p.time) t.setCrosshairPosition(p.point?.y ?? 0, p.time, t.series);
+  // 크로스헤어 3차트 양방향 동기화
+  let _crossSyncing = false;
+  function setupCrossSync() {
+    [[mainChart, mainSeries, [rsiChart, rsiSeries, macdChart, macdSeries]],
+     [rsiChart,  rsiSeries,  [mainChart, mainSeries, macdChart, macdSeries]],
+     [macdChart, macdSeries, [mainChart, mainSeries, rsiChart,  rsiSeries]]
+    ].forEach(([chart, series, targets]) => {
+      chart.subscribeCrosshairMove(p => {
+        if (_crossSyncing) return;
+        _crossSyncing = true;
+        if (p.time) {
+          for (let i = 0; i < targets.length; i += 2) {
+            targets[i].setCrosshairPosition(
+              targets[i+1] === mainSeries ? (p.point?.y ?? 0) : 50,
+              p.time,
+              targets[i+1]
+            );
+          }
+        } else {
+          for (let i = 0; i < targets.length; i += 2) {
+            targets[i].clearCrosshairPosition();
+          }
+        }
+        _crossSyncing = false;
       });
     });
   }
 
-  // OHLC 툴팁
+  // OHLC 툴팁 - 색상 구분 + 등락률
   mainChart.subscribeCrosshairMove(p => {
     if (!p.seriesData.size) return;
     const d = p.seriesData.get(mainSeries);
     if (!d) return;
-    document.getElementById('chart-ohlc').textContent =
-      `O:${d.open?.toFixed(2)}  H:${d.high?.toFixed(2)}  L:${d.low?.toFixed(2)}  C:${d.close?.toFixed(2)}`;
+    const kstTime = new Date((p.time + 9*3600)*1000);
+    const mo = String(kstTime.getUTCMonth()+1).padStart(2,'0');
+    const dd = String(kstTime.getUTCDate()).padStart(2,'0');
+    const hh = String(kstTime.getUTCHours()).padStart(2,'0');
+    const mn = String(kstTime.getUTCMinutes()).padStart(2,'0');
+    const timeStr = `${mo}/${dd} ${hh}:${mn} KST`;
+    const o = d.open?.toFixed(2), h = d.high?.toFixed(2);
+    const l = d.low?.toFixed(2),  c = d.close?.toFixed(2);
+    const chgPct = d.open ? ((d.close - d.open) / d.open * 100).toFixed(2) : 0;
+    const chgAmt = d.open ? (d.close - d.open).toFixed(2) : 0;
+    const isUp = parseFloat(chgPct) >= 0;
+    const cc = isUp ? '#0F6E56' : '#C0392B';
+    const cs = isUp ? '+' : '';
+    const el = document.getElementById('chart-ohlc');
+    if (el) el.innerHTML =
+      `<span style="color:#999;font-size:10px;">${timeStr}</span>` +
+      ` &nbsp;<span style="color:#666;">O:<b style="color:#333;">${o}</b></span>` +
+      ` <span style="color:#C0392B;">H:<b>${h}</b></span>` +
+      ` <span style="color:#2471A3;">L:<b>${l}</b></span>` +
+      ` <span style="color:#666;">C:<b style="color:#333;">${c}</b></span>` +
+      ` <b style="color:${cc};">${cs}${chgAmt} (${cs}${chgPct}%)</b>`;
   });
 
   // 차트 동기화
