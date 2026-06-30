@@ -2,8 +2,13 @@ name: Collect Market Data
 
 on:
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '*/15 * * * *'   # GitHub 백업용 (cron-job.org가 주로 실행)
   workflow_dispatch:
+
+# 동시 실행 방지 - 이전 실행이 끝날 때까지 대기
+concurrency:
+  group: collect-data
+  cancel-in-progress: false  # 취소 말고 대기
 
 jobs:
   collect:
@@ -34,6 +39,13 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/
-          git diff --cached --quiet || git commit -m "data: $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
-          git pull --rebase origin main
-          git push
+          git diff --cached --quiet && exit 0
+          git commit -m "data: $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+          git push origin main || (
+            git fetch origin main &&
+            git reset --soft origin/main &&
+            git add data/ &&
+            git diff --cached --quiet && exit 0 || true
+            git commit -m "data: $(date -u '+%Y-%m-%dT%H:%M:%SZ') (retry)" &&
+            git push origin main
+          )
