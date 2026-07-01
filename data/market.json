@@ -1,47 +1,47 @@
 {
-  "updated_at": "2026-07-01T02:35:26Z",
+  "updated_at": "2026-07-01T02:40:31Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 3995.0,
-      "change": 0.5,
-      "change_pct": 0.013
+      "price": 3994.5,
+      "change": 0.8,
+      "change_pct": 0.02
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 58.245,
-      "change": -0.02,
-      "change_pct": -0.034
+      "price": 58.235,
+      "change": 0.035,
+      "change_pct": 0.06
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1548.0,
-      "change": -0.4,
-      "change_pct": -0.026
+      "price": 1549.2,
+      "change": 1.6,
+      "change_pct": 0.103
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 101.306,
-      "change": 0.009,
-      "change_pct": 0.009
+      "price": 101.319,
+      "change": -0.001,
+      "change_pct": -0.001
     },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1556.38,
-      "change": -0.3,
-      "change_pct": -0.019
+      "price": 1556.42,
+      "change": 0.14,
+      "change_pct": 0.009
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 162.706,
-      "change": -0.005,
-      "change_pct": -0.003
+      "price": 162.718,
+      "change": 0.009,
+      "change_pct": 0.006
     },
     "eurusd": {
       "symbol": "EURUSD=X",
-      "price": 1.1406,
-      "change": -0.0001,
-      "change_pct": -0.009
+      "price": 1.1408,
+      "change": 0.0,
+      "change_pct": 0.0
     },
     "tnx": {
       "symbol": "^TNX",
@@ -57,9 +57,9 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 69.84,
-      "change": -0.01,
-      "change_pct": -0.014
+      "price": 69.8,
+      "change": 0.03,
+      "change_pct": 0.043
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -81,9 +81,9 @@
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.1555,
-      "change": -0.0015,
-      "change_pct": -0.024
+      "price": 6.149,
+      "change": 0.003,
+      "change_pct": 0.049
     }
   }
 }
