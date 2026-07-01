@@ -1,47 +1,47 @@
 {
-  "updated_at": "2026-07-01T04:35:24Z",
+  "updated_at": "2026-07-01T04:40:28Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 3989.6001,
-      "change": 0.0,
-      "change_pct": 0.0
+      "price": 3991.0,
+      "change": 0.8999,
+      "change_pct": 0.023
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 58.155,
-      "change": 0.0,
-      "change_pct": 0.0
+      "price": 58.19,
+      "change": 0.01,
+      "change_pct": 0.017
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1548.2,
-      "change": 0.5,
-      "change_pct": 0.032
+      "price": 1548.3,
+      "change": 0.1001,
+      "change_pct": 0.006
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 101.337,
-      "change": 0.003,
-      "change_pct": 0.003
+      "price": 101.315,
+      "change": -0.014,
+      "change_pct": -0.014
     },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1554.48,
-      "change": -0.1,
-      "change_pct": -0.006
+      "price": 1553.58,
+      "change": -0.5,
+      "change_pct": -0.032
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 162.695,
-      "change": -0.016,
-      "change_pct": -0.01
+      "price": 162.679,
+      "change": -0.018,
+      "change_pct": -0.011
     },
     "eurusd": {
       "symbol": "EURUSD=X",
-      "price": 1.141,
-      "change": -0.0001,
-      "change_pct": -0.009
+      "price": 1.1412,
+      "change": 0.0,
+      "change_pct": 0.0
     },
     "tnx": {
       "symbol": "^TNX",
@@ -57,9 +57,9 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 69.77,
-      "change": 0.02,
-      "change_pct": 0.029
+      "price": 69.76,
+      "change": -0.01,
+      "change_pct": -0.014
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -81,9 +81,9 @@
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.139,
-      "change": -0.0005,
-      "change_pct": -0.008
+      "price": 6.144,
+      "change": 0.002,
+      "change_pct": 0.033
     }
   }
 }
