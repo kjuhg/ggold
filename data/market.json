@@ -1,47 +1,47 @@
 {
-  "updated_at": "2026-07-02T00:05:24Z",
+  "updated_at": "2026-07-02T00:10:30Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4048.3,
-      "change": -0.3,
-      "change_pct": -0.007
+      "price": 4048.2,
+      "change": 0.8,
+      "change_pct": 0.02
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 59.69,
-      "change": 0.01,
-      "change_pct": 0.017
+      "price": 59.615,
+      "change": 0.015,
+      "change_pct": 0.025
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1586.5,
-      "change": 0.8,
-      "change_pct": 0.05
+      "price": 1585.2,
+      "change": -1.1001,
+      "change_pct": -0.069
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 101.404,
-      "change": -0.001,
-      "change_pct": -0.001
+      "price": 101.411,
+      "change": 0.005,
+      "change_pct": 0.005
     },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1553.78,
-      "change": -0.5,
-      "change_pct": -0.032
+      "price": 1554.38,
+      "change": 0.2,
+      "change_pct": 0.013
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 162.488,
-      "change": 0.002,
-      "change_pct": 0.001
+      "price": 162.484,
+      "change": -0.004,
+      "change_pct": -0.002
     },
     "eurusd": {
       "symbol": "EURUSD=X",
-      "price": 1.1382,
-      "change": -0.0001,
-      "change_pct": -0.009
+      "price": 1.1386,
+      "change": 0.0,
+      "change_pct": 0.0
     },
     "tnx": {
       "symbol": "^TNX",
@@ -57,9 +57,9 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 68.0,
-      "change": 0.01,
-      "change_pct": 0.015
+      "price": 68.02,
+      "change": 0.03,
+      "change_pct": 0.044
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -81,9 +81,9 @@
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.1555,
-      "change": -0.0015,
-      "change_pct": -0.024
+      "price": 6.151,
+      "change": -0.004,
+      "change_pct": -0.065
     }
   }
 }
