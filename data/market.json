@@ -1,45 +1,45 @@
 {
-  "updated_at": "2026-07-17T03:35:21Z",
+  "updated_at": "2026-07-17T03:40:29Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4007.3999,
-      "change": 0.5,
-      "change_pct": 0.012
+      "price": 4004.3,
+      "change": -0.8,
+      "change_pct": -0.02
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 55.86,
-      "change": 0.04,
-      "change_pct": 0.072
+      "price": 55.845,
+      "change": -0.015,
+      "change_pct": -0.027
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1619.5,
-      "change": -1.6,
-      "change_pct": -0.099
+      "price": 1619.8,
+      "change": -0.6,
+      "change_pct": -0.037
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 100.76,
-      "change": -0.001,
-      "change_pct": -0.001
+      "price": 100.761,
+      "change": 0.003,
+      "change_pct": 0.003
     },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1480.53,
-      "change": -0.14,
-      "change_pct": -0.009
+      "price": 1479.89,
+      "change": -0.58,
+      "change_pct": -0.039
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 162.381,
-      "change": 0.001,
-      "change_pct": 0.001
+      "price": 162.389,
+      "change": 0.005,
+      "change_pct": 0.003
     },
     "eurusd": {
       "symbol": "EURUSD=X",
-      "price": 1.1442,
+      "price": 1.144,
       "change": 0.0,
       "change_pct": 0.0
     },
@@ -58,8 +58,8 @@
     "wti": {
       "symbol": "CL=F",
       "price": 78.99,
-      "change": 0.0,
-      "change_pct": 0.0
+      "change": -0.06,
+      "change_pct": -0.076
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -81,9 +81,9 @@
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.255,
-      "change": 0.0005,
-      "change_pct": 0.008
+      "price": 6.2515,
+      "change": -0.0005,
+      "change_pct": -0.008
     }
   }
 }
