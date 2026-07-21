@@ -1,41 +1,41 @@
 {
-  "updated_at": "2026-07-21T09:50:27Z",
+  "updated_at": "2026-07-21T09:55:25Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4066.8999,
-      "change": -0.1001,
-      "change_pct": -0.002
+      "price": 4066.8,
+      "change": -0.2,
+      "change_pct": -0.005
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 59.4,
-      "change": -0.025,
-      "change_pct": -0.042
+      "price": 59.39,
+      "change": 0.0,
+      "change_pct": 0.0
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1634.6,
-      "change": -1.6,
-      "change_pct": -0.098
+      "price": 1632.9,
+      "change": 0.0,
+      "change_pct": 0.0
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 100.909,
-      "change": 0.002,
-      "change_pct": 0.002
+      "price": 100.922,
+      "change": 0.005,
+      "change_pct": 0.005
     },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1477.04,
-      "change": -0.0299,
-      "change_pct": -0.002
+      "price": 1476.6801,
+      "change": -0.3099,
+      "change_pct": -0.021
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 162.661,
-      "change": 0.0,
-      "change_pct": 0.0
+      "price": 162.665,
+      "change": 0.002,
+      "change_pct": 0.001
     },
     "eurusd": {
       "symbol": "EURUSD=X",
@@ -57,9 +57,9 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 82.98,
-      "change": 0.05,
-      "change_pct": 0.06
+      "price": 83.0,
+      "change": 0.01,
+      "change_pct": 0.012
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -75,15 +75,15 @@
     },
     "vix": {
       "symbol": "^VIX",
-      "price": 17.53,
-      "change": 0.01,
-      "change_pct": 0.057
+      "price": 17.57,
+      "change": -0.01,
+      "change_pct": -0.057
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.519,
-      "change": -0.0045,
-      "change_pct": -0.069
+      "price": 6.524,
+      "change": 0.001,
+      "change_pct": 0.015
     }
   }
 }
