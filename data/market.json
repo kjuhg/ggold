@@ -1,29 +1,29 @@
 {
-  "updated_at": "2026-07-22T12:25:29Z",
+  "updated_at": "2026-07-22T12:30:36Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4130.5,
-      "change": -1.5,
-      "change_pct": -0.036
+      "price": 4134.2998,
+      "change": 3.5,
+      "change_pct": 0.085
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 59.73,
-      "change": -0.025,
-      "change_pct": -0.042
+      "price": 59.715,
+      "change": 0.065,
+      "change_pct": 0.109
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1665.8,
-      "change": -0.6,
-      "change_pct": -0.036
+      "price": 1664.4,
+      "change": 1.4,
+      "change_pct": 0.084
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 101.113,
-      "change": -0.001,
-      "change_pct": -0.001
+      "price": 101.114,
+      "change": -0.002,
+      "change_pct": -0.002
     },
     "usdkrw": {
       "symbol": "KRW=X",
@@ -33,15 +33,15 @@
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 163.06,
-      "change": -0.001,
-      "change_pct": -0.001
+      "price": 163.058,
+      "change": 0.0,
+      "change_pct": 0.0
     },
     "eurusd": {
       "symbol": "EURUSD=X",
-      "price": 1.1413,
-      "change": 0.0,
-      "change_pct": 0.0
+      "price": 1.1416,
+      "change": 0.0003,
+      "change_pct": 0.026
     },
     "tnx": {
       "symbol": "^TNX",
@@ -57,9 +57,9 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 87.08,
-      "change": 0.06,
-      "change_pct": 0.069
+      "price": 87.04,
+      "change": 0.03,
+      "change_pct": 0.034
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -75,15 +75,15 @@
     },
     "vix": {
       "symbol": "^VIX",
-      "price": 17.65,
+      "price": 17.61,
       "change": 0.0,
       "change_pct": 0.0
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.5155,
-      "change": -0.0015,
-      "change_pct": -0.023
+      "price": 6.512,
+      "change": -0.0005,
+      "change_pct": -0.008
     }
   }
 }
