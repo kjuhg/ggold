@@ -1,17 +1,17 @@
 {
-  "updated_at": "2026-07-23T08:30:34Z",
+  "updated_at": "2026-07-23T08:35:25Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4093.8,
-      "change": 1.1001,
-      "change_pct": 0.027
+      "price": 4093.2,
+      "change": -0.4001,
+      "change_pct": -0.01
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 59.185,
-      "change": 0.04,
-      "change_pct": 0.068
+      "price": 59.12,
+      "change": 0.025,
+      "change_pct": 0.042
     },
     "platinum": {
       "symbol": "PL=F",
@@ -22,26 +22,26 @@
     "dxy": {
       "symbol": "DX-Y.NYB",
       "price": 101.115,
-      "change": 0.001,
-      "change_pct": 0.001
+      "change": -0.003,
+      "change_pct": -0.003
     },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1469.88,
-      "change": 0.4,
-      "change_pct": 0.027
+      "price": 1470.22,
+      "change": 0.1,
+      "change_pct": 0.007
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 163.395,
-      "change": -0.002,
-      "change_pct": -0.001
+      "price": 163.403,
+      "change": 0.001,
+      "change_pct": 0.001
     },
     "eurusd": {
       "symbol": "EURUSD=X",
-      "price": 1.1419,
-      "change": -0.0001,
-      "change_pct": -0.009
+      "price": 1.1417,
+      "change": 0.0001,
+      "change_pct": 0.009
     },
     "tnx": {
       "symbol": "^TNX",
@@ -57,9 +57,9 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 89.14,
-      "change": -0.09,
-      "change_pct": -0.101
+      "price": 89.43,
+      "change": -0.03,
+      "change_pct": -0.034
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -75,15 +75,15 @@
     },
     "vix": {
       "symbol": "^VIX",
-      "price": 17.6,
-      "change": 0.0,
-      "change_pct": 0.0
+      "price": 17.53,
+      "change": -0.01,
+      "change_pct": -0.057
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.4515,
-      "change": 0.002,
-      "change_pct": 0.031
+      "price": 6.448,
+      "change": 0.0,
+      "change_pct": 0.0
     }
   }
 }
