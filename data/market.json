@@ -1,47 +1,47 @@
 {
-  "updated_at": "2026-07-30T07:45:33Z",
+  "updated_at": "2026-07-30T07:50:28Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4098.2002,
-      "change": -0.1997,
-      "change_pct": -0.005
+      "price": 4099.2998,
+      "change": 2.0996,
+      "change_pct": 0.051
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 57.395,
-      "change": 0.0,
-      "change_pct": 0.0
+      "price": 57.39,
+      "change": 0.01,
+      "change_pct": 0.017
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1597.3,
-      "change": 0.1001,
-      "change_pct": 0.006
+      "price": 1598.9,
+      "change": 1.6,
+      "change_pct": 0.1
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 101.065,
+      "price": 101.043,
       "change": -0.001,
       "change_pct": -0.001
     },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1438.29,
-      "change": 0.01,
+      "price": 1438.6899,
+      "change": 0.0199,
       "change_pct": 0.001
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 163.708,
-      "change": 0.013,
-      "change_pct": 0.008
+      "price": 163.726,
+      "change": 0.003,
+      "change_pct": 0.002
     },
     "eurusd": {
       "symbol": "EURUSD=X",
       "price": 1.144,
-      "change": -0.0001,
-      "change_pct": -0.009
+      "change": 0.0,
+      "change_pct": 0.0
     },
     "tnx": {
       "symbol": "^TNX",
@@ -58,8 +58,8 @@
     "wti": {
       "symbol": "CL=F",
       "price": 85.77,
-      "change": 0.06,
-      "change_pct": 0.07
+      "change": 0.03,
+      "change_pct": 0.035
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -75,15 +75,15 @@
     },
     "vix": {
       "symbol": "^VIX",
-      "price": 19.84,
-      "change": 0.05,
-      "change_pct": 0.253
+      "price": 19.91,
+      "change": 0.03,
+      "change_pct": 0.151
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.3645,
-      "change": -0.0005,
-      "change_pct": -0.008
+      "price": 6.3655,
+      "change": 0.001,
+      "change_pct": 0.016
     }
   }
 }
