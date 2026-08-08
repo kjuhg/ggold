@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-08-08T04:40:25Z",
+  "updated_at": "2026-08-08T04:45:30Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4401.2998,
-      "change": -0.1001,
-      "change_pct": -0.002
+      "price": 4399.7002,
+      "change": -1.6997,
+      "change_pct": -0.039
     },
     "xagusd": {
       "symbol": "SI=F",
@@ -57,9 +57,9 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 77.08,
-      "change": -0.01,
-      "change_pct": -0.013
+      "price": 78.18,
+      "change": 1.09,
+      "change_pct": 1.414
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -81,9 +81,9 @@
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.585,
-      "change": -0.0055,
-      "change_pct": -0.083
+      "price": 6.591,
+      "change": 0.0005,
+      "change_pct": 0.008
     }
   }
 }
