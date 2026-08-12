@@ -1,47 +1,47 @@
 {
-  "updated_at": "2026-08-12T05:35:28Z",
+  "updated_at": "2026-08-12T05:40:24Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4454.8999,
-      "change": 0.8999,
-      "change_pct": 0.02
+      "price": 4450.0,
+      "change": -2.3999,
+      "change_pct": -0.054
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 65.28,
-      "change": 0.04,
-      "change_pct": 0.061
+      "price": 65.225,
+      "change": -0.065,
+      "change_pct": -0.1
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1763.0,
-      "change": 0.7,
-      "change_pct": 0.04
+      "price": 1762.1,
+      "change": -1.4,
+      "change_pct": -0.079
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 99.897,
-      "change": -0.003,
-      "change_pct": -0.003
+      "price": 99.893,
+      "change": -0.001,
+      "change_pct": -0.001
     },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1414.7,
-      "change": -0.0801,
-      "change_pct": -0.006
+      "price": 1415.02,
+      "change": -0.1799,
+      "change_pct": -0.013
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 159.408,
-      "change": 0.002,
-      "change_pct": 0.001
+      "price": 159.378,
+      "change": -0.017,
+      "change_pct": -0.011
     },
     "eurusd": {
       "symbol": "EURUSD=X",
-      "price": 1.1537,
-      "change": -0.0001,
-      "change_pct": -0.009
+      "price": 1.1538,
+      "change": 0.0,
+      "change_pct": 0.0
     },
     "tnx": {
       "symbol": "^TNX",
@@ -57,9 +57,9 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 83.78,
-      "change": -0.04,
-      "change_pct": -0.048
+      "price": 83.73,
+      "change": -0.07,
+      "change_pct": -0.084
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -81,9 +81,9 @@
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.644,
-      "change": -0.002,
-      "change_pct": -0.03
+      "price": 6.642,
+      "change": -0.0015,
+      "change_pct": -0.023
     }
   }
 }
