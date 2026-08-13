@@ -1,29 +1,29 @@
 {
-  "updated_at": "2026-08-13T12:30:33Z",
+  "updated_at": "2026-08-13T12:34:46Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4444.7002,
-      "change": 1.6001,
-      "change_pct": 0.036
+      "price": 4441.3999,
+      "change": -1.8003,
+      "change_pct": -0.041
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 65.135,
-      "change": -0.05,
-      "change_pct": -0.077
+      "price": 65.065,
+      "change": -0.025,
+      "change_pct": -0.038
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1740.9,
-      "change": -0.2999,
-      "change_pct": -0.017
+      "price": 1737.5,
+      "change": -1.9,
+      "change_pct": -0.109
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 99.934,
-      "change": -0.006,
-      "change_pct": -0.006
+      "price": 99.941,
+      "change": 0.001,
+      "change_pct": 0.001
     },
     "usdkrw": {
       "symbol": "KRW=X",
@@ -33,15 +33,15 @@
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 159.321,
-      "change": -0.023,
-      "change_pct": -0.014
+      "price": 159.312,
+      "change": -0.065,
+      "change_pct": -0.041
     },
     "eurusd": {
       "symbol": "EURUSD=X",
-      "price": 1.1535,
-      "change": 0.0001,
-      "change_pct": 0.009
+      "price": 1.1531,
+      "change": 0.0,
+      "change_pct": 0.0
     },
     "tnx": {
       "symbol": "^TNX",
@@ -57,9 +57,9 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 81.53,
-      "change": 0.0,
-      "change_pct": 0.0
+      "price": 81.56,
+      "change": -0.07,
+      "change_pct": -0.086
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -75,15 +75,15 @@
     },
     "vix": {
       "symbol": "^VIX",
-      "price": 14.57,
-      "change": 0.0,
-      "change_pct": 0.0
+      "price": 14.59,
+      "change": 0.01,
+      "change_pct": 0.069
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.598,
-      "change": 0.004,
-      "change_pct": 0.061
+      "price": 6.6,
+      "change": 0.001,
+      "change_pct": 0.015
     }
   }
 }
