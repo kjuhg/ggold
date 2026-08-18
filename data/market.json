@@ -1,41 +1,41 @@
 {
-  "updated_at": "2026-08-18T12:15:28Z",
+  "updated_at": "2026-08-18T12:20:25Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4452.8999,
-      "change": -0.2002,
-      "change_pct": -0.004
+      "price": 4447.0,
+      "change": -1.0,
+      "change_pct": -0.022
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 65.275,
-      "change": 0.02,
-      "change_pct": 0.031
+      "price": 65.135,
+      "change": -0.025,
+      "change_pct": -0.038
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1757.5,
-      "change": -0.1,
-      "change_pct": -0.006
+      "price": 1755.3,
+      "change": 1.0,
+      "change_pct": 0.057
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 99.626,
-      "change": 0.003,
-      "change_pct": 0.003
+      "price": 99.644,
+      "change": 0.001,
+      "change_pct": 0.001
     },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1409.79,
-      "change": 0.03,
-      "change_pct": 0.002
+      "price": 1409.08,
+      "change": -0.7001,
+      "change_pct": -0.05
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 159.679,
-      "change": 0.008,
-      "change_pct": 0.005
+      "price": 159.643,
+      "change": -0.018,
+      "change_pct": -0.011
     },
     "eurusd": {
       "symbol": "EURUSD=X",
@@ -57,9 +57,9 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 84.02,
-      "change": 0.02,
-      "change_pct": 0.024
+      "price": 84.38,
+      "change": -0.05,
+      "change_pct": -0.059
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -75,15 +75,15 @@
     },
     "vix": {
       "symbol": "^VIX",
-      "price": 15.7,
-      "change": 0.01,
-      "change_pct": 0.064
+      "price": 15.66,
+      "change": -0.02,
+      "change_pct": -0.128
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.552,
-      "change": 0.0,
-      "change_pct": 0.0
+      "price": 6.556,
+      "change": 0.008,
+      "change_pct": 0.122
     }
   }
 }
