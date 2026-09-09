@@ -1,41 +1,41 @@
 {
-  "updated_at": "2026-09-09T11:45:29Z",
+  "updated_at": "2026-09-09T11:50:31Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4447.8999,
-      "change": -0.6001,
-      "change_pct": -0.013
+      "price": 4449.5,
+      "change": 0.6001,
+      "change_pct": 0.013
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 67.015,
-      "change": -0.02,
-      "change_pct": -0.03
+      "price": 67.065,
+      "change": 0.03,
+      "change_pct": 0.045
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1859.0,
-      "change": -0.8,
-      "change_pct": -0.043
+      "price": 1859.1,
+      "change": -0.4,
+      "change_pct": -0.022
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 98.65,
-      "change": 0.001,
-      "change_pct": 0.001
+      "price": 98.672,
+      "change": -0.001,
+      "change_pct": -0.001
     },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1336.48,
-      "change": -0.4301,
-      "change_pct": -0.032
+      "price": 1336.49,
+      "change": 0.21,
+      "change_pct": 0.016
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 153.349,
-      "change": -0.017,
-      "change_pct": -0.011
+      "price": 153.26,
+      "change": -0.048,
+      "change_pct": -0.031
     },
     "eurusd": {
       "symbol": "EURUSD=X",
@@ -57,9 +57,9 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 95.52,
-      "change": 0.07,
-      "change_pct": 0.073
+      "price": 95.61,
+      "change": 0.01,
+      "change_pct": 0.01
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -75,15 +75,15 @@
     },
     "vix": {
       "symbol": "^VIX",
-      "price": 16.33,
-      "change": 0.02,
-      "change_pct": 0.123
+      "price": 16.4,
+      "change": -0.01,
+      "change_pct": -0.061
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.7555,
-      "change": -0.001,
-      "change_pct": -0.015
+      "price": 6.76,
+      "change": 0.002,
+      "change_pct": 0.03
     }
   }
 }
