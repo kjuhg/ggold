@@ -1,41 +1,41 @@
 {
-  "updated_at": "2026-09-15T11:25:22Z",
+  "updated_at": "2026-09-15T11:30:31Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4324.0,
-      "change": 0.2002,
-      "change_pct": 0.005
+      "price": 4323.8999,
+      "change": 0.2998,
+      "change_pct": 0.007
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 63.67,
-      "change": -0.015,
-      "change_pct": -0.024
+      "price": 63.645,
+      "change": 0.015,
+      "change_pct": 0.024
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1773.5,
-      "change": 0.0,
-      "change_pct": 0.0
+      "price": 1771.5,
+      "change": -0.9,
+      "change_pct": -0.051
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 99.614,
-      "change": -0.003,
-      "change_pct": -0.003
+      "price": 99.59,
+      "change": -0.001,
+      "change_pct": -0.001
     },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1358.16,
-      "change": -0.9199,
-      "change_pct": -0.068
+      "price": 1359.3199,
+      "change": 0.24,
+      "change_pct": 0.018
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 154.794,
-      "change": -0.01,
-      "change_pct": -0.006
+      "price": 154.778,
+      "change": 0.002,
+      "change_pct": 0.001
     },
     "eurusd": {
       "symbol": "EURUSD=X",
@@ -57,9 +57,9 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 102.5,
-      "change": -0.05,
-      "change_pct": -0.049
+      "price": 102.45,
+      "change": 0.04,
+      "change_pct": 0.039
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -75,15 +75,15 @@
     },
     "vix": {
       "symbol": "^VIX",
-      "price": 17.06,
-      "change": -0.02,
-      "change_pct": -0.117
+      "price": 17.07,
+      "change": 0.0,
+      "change_pct": 0.0
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.4075,
-      "change": 0.0035,
-      "change_pct": 0.055
+      "price": 6.408,
+      "change": 0.0,
+      "change_pct": 0.0
     }
   }
 }
