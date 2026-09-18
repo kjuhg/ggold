@@ -1,47 +1,47 @@
 {
-  "updated_at": "2026-09-18T01:20:24Z",
+  "updated_at": "2026-09-18T01:25:22Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4399.1001,
-      "change": -1.1001,
-      "change_pct": -0.025
+      "price": 4396.0,
+      "change": -1.0,
+      "change_pct": -0.023
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 66.29,
-      "change": -0.015,
-      "change_pct": -0.023
+      "price": 66.165,
+      "change": -0.045,
+      "change_pct": -0.068
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1789.8,
-      "change": 0.1001,
-      "change_pct": 0.006
+      "price": 1789.6,
+      "change": -0.7001,
+      "change_pct": -0.039
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 100.222,
-      "change": -0.003,
-      "change_pct": -0.003
+      "price": 100.229,
+      "change": 0.002,
+      "change_pct": 0.002
     },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1383.08,
-      "change": -0.1001,
+      "price": 1383.79,
+      "change": -0.09,
       "change_pct": -0.007
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 156.233,
-      "change": -0.013,
-      "change_pct": -0.008
+      "price": 156.207,
+      "change": 0.002,
+      "change_pct": 0.001
     },
     "eurusd": {
       "symbol": "EURUSD=X",
-      "price": 1.1482,
-      "change": -0.0001,
-      "change_pct": -0.009
+      "price": 1.1485,
+      "change": 0.0001,
+      "change_pct": 0.009
     },
     "tnx": {
       "symbol": "^TNX",
@@ -57,9 +57,9 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 101.05,
-      "change": -0.04,
-      "change_pct": -0.04
+      "price": 101.17,
+      "change": 0.02,
+      "change_pct": 0.02
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -81,9 +81,9 @@
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.6235,
-      "change": -0.0015,
-      "change_pct": -0.023
+      "price": 6.62,
+      "change": -0.003,
+      "change_pct": -0.045
     }
   }
 }
