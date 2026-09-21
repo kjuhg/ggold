@@ -1,45 +1,45 @@
 {
-  "updated_at": "2026-09-21T10:25:26Z",
+  "updated_at": "2026-09-21T10:31:10Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4393.2998,
-      "change": 2.2998,
-      "change_pct": 0.052
+      "price": 4389.7002,
+      "change": -0.5996,
+      "change_pct": -0.014
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 66.8,
-      "change": 0.03,
-      "change_pct": 0.045
+      "price": 66.77,
+      "change": 0.01,
+      "change_pct": 0.015
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1805.2,
-      "change": 1.1,
-      "change_pct": 0.061
+      "price": 1804.8,
+      "change": -0.7,
+      "change_pct": -0.039
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 100.304,
-      "change": -0.004,
-      "change_pct": -0.004
+      "price": 100.307,
+      "change": 0.0,
+      "change_pct": 0.0
     },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1372.08,
-      "change": -0.25,
-      "change_pct": -0.018
+      "price": 1372.1899,
+      "change": 0.09,
+      "change_pct": 0.007
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 157.22,
-      "change": -0.019,
-      "change_pct": -0.012
+      "price": 157.213,
+      "change": -0.003,
+      "change_pct": -0.002
     },
     "eurusd": {
       "symbol": "EURUSD=X",
-      "price": 1.1485,
+      "price": 1.1484,
       "change": 0.0,
       "change_pct": 0.0
     },
@@ -57,9 +57,9 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 93.37,
-      "change": 0.02,
-      "change_pct": 0.021
+      "price": 93.17,
+      "change": 0.05,
+      "change_pct": 0.054
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -75,15 +75,15 @@
     },
     "vix": {
       "symbol": "^VIX",
-      "price": 14.89,
+      "price": 14.87,
       "change": 0.0,
       "change_pct": 0.0
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.7825,
-      "change": 0.0025,
-      "change_pct": 0.037
+      "price": 6.7835,
+      "change": 0.002,
+      "change_pct": 0.029
     }
   }
 }
