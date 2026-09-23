@@ -1,47 +1,47 @@
 {
-  "updated_at": "2026-09-23T00:17:25Z",
+  "updated_at": "2026-09-23T00:20:26Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4401.2998,
-      "change": 0.0,
-      "change_pct": 0.0
+      "price": 4400.0,
+      "change": -1.0,
+      "change_pct": -0.023
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 67.935,
-      "change": -0.015,
-      "change_pct": -0.022
+      "price": 67.91,
+      "change": 0.0,
+      "change_pct": 0.0
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1841.5,
-      "change": -1.4,
-      "change_pct": -0.076
+      "price": 1843.9,
+      "change": 0.7001,
+      "change_pct": 0.038
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 100.575,
-      "change": -0.001,
-      "change_pct": -0.001
+      "price": 100.574,
+      "change": 0.002,
+      "change_pct": 0.002
     },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1348.98,
-      "change": -0.4,
-      "change_pct": -0.03
+      "price": 1349.48,
+      "change": 0.2,
+      "change_pct": 0.015
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 157.507,
-      "change": -0.001,
-      "change_pct": -0.001
+      "price": 157.549,
+      "change": 0.005,
+      "change_pct": 0.003
     },
     "eurusd": {
       "symbol": "EURUSD=X",
-      "price": 1.1451,
-      "change": 0.0001,
-      "change_pct": 0.009
+      "price": 1.145,
+      "change": 0.0,
+      "change_pct": 0.0
     },
     "tnx": {
       "symbol": "^TNX",
@@ -57,9 +57,9 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 89.69,
-      "change": -0.05,
-      "change_pct": -0.056
+      "price": 89.6,
+      "change": 0.02,
+      "change_pct": 0.022
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -81,9 +81,9 @@
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.901,
-      "change": 0.002,
-      "change_pct": 0.029
+      "price": 6.904,
+      "change": 0.001,
+      "change_pct": 0.014
     }
   }
 }
