@@ -1,45 +1,45 @@
 {
-  "updated_at": "2026-09-23T11:50:28Z",
+  "updated_at": "2026-09-23T11:55:29Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4336.0,
-      "change": -0.1001,
-      "change_pct": -0.002
+      "price": 4342.1001,
+      "change": 0.6001,
+      "change_pct": 0.014
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 65.39,
-      "change": 0.01,
-      "change_pct": 0.015
+      "price": 65.51,
+      "change": 0.03,
+      "change_pct": 0.046
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1775.7,
-      "change": -0.9,
-      "change_pct": -0.051
+      "price": 1777.9,
+      "change": 0.7001,
+      "change_pct": 0.039
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 100.901,
-      "change": -0.005,
-      "change_pct": -0.005
+      "price": 100.902,
+      "change": -0.008,
+      "change_pct": -0.008
     },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1364.72,
-      "change": 0.0499,
-      "change_pct": 0.004
+      "price": 1364.78,
+      "change": 0.1901,
+      "change_pct": 0.014
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 157.917,
-      "change": 0.015,
-      "change_pct": 0.009
+      "price": 157.919,
+      "change": 0.004,
+      "change_pct": 0.003
     },
     "eurusd": {
       "symbol": "EURUSD=X",
-      "price": 1.1414,
+      "price": 1.1413,
       "change": 0.0,
       "change_pct": 0.0
     },
@@ -57,9 +57,9 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 90.78,
-      "change": -0.06,
-      "change_pct": -0.066
+      "price": 90.7,
+      "change": -0.04,
+      "change_pct": -0.044
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -75,15 +75,15 @@
     },
     "vix": {
       "symbol": "^VIX",
-      "price": 14.3,
+      "price": 14.35,
       "change": 0.0,
       "change_pct": 0.0
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.8005,
-      "change": -0.001,
-      "change_pct": -0.015
+      "price": 6.8025,
+      "change": 0.0,
+      "change_pct": 0.0
     }
   }
 }
