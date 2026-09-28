@@ -1,41 +1,41 @@
 {
-  "updated_at": "2026-09-28T20:15:26Z",
+  "updated_at": "2026-09-28T20:20:26Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4154.8999,
-      "change": 0.1997,
-      "change_pct": 0.005
+      "price": 4151.7998,
+      "change": 0.5996,
+      "change_pct": 0.014
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 61.19,
-      "change": 0.005,
-      "change_pct": 0.008
+      "price": 61.12,
+      "change": 0.015,
+      "change_pct": 0.025
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1741.4,
-      "change": 0.1,
-      "change_pct": 0.006
+      "price": 1740.0,
+      "change": 1.1,
+      "change_pct": 0.063
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 101.195,
-      "change": 0.004,
-      "change_pct": 0.004
+      "price": 101.206,
+      "change": -0.005,
+      "change_pct": -0.005
     },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1360.4,
-      "change": 0.02,
-      "change_pct": 0.001
+      "price": 1359.77,
+      "change": -0.59,
+      "change_pct": -0.043
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 157.392,
-      "change": -0.001,
-      "change_pct": -0.001
+      "price": 157.376,
+      "change": 0.001,
+      "change_pct": 0.001
     },
     "eurusd": {
       "symbol": "EURUSD=X",
@@ -57,9 +57,9 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 92.96,
-      "change": 0.01,
-      "change_pct": 0.011
+      "price": 92.9,
+      "change": 0.0,
+      "change_pct": 0.0
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -75,15 +75,15 @@
     },
     "vix": {
       "symbol": "^VIX",
-      "price": 16.1,
-      "change": -0.01,
-      "change_pct": -0.062
+      "price": 16.03,
+      "change": -0.03,
+      "change_pct": -0.187
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.613,
-      "change": -0.0015,
-      "change_pct": -0.023
+      "price": 6.6055,
+      "change": -0.0005,
+      "change_pct": -0.008
     }
   }
 }
