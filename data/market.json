@@ -1,47 +1,47 @@
 {
-  "updated_at": "2026-10-08T14:45:40Z",
+  "updated_at": "2026-10-08T14:50:58Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4160.0,
-      "change": -5.0,
-      "change_pct": -0.12
+      "price": 4154.5,
+      "change": -1.0,
+      "change_pct": -0.024
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 59.515,
-      "change": -0.105,
-      "change_pct": -0.176
+      "price": 59.325,
+      "change": -0.065,
+      "change_pct": -0.109
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1653.4,
-      "change": -3.4,
-      "change_pct": -0.205
+      "price": 1645.9,
+      "change": -1.7999,
+      "change_pct": -0.109
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 102.062,
-      "change": 0.021,
-      "change_pct": 0.021
+      "price": 102.099,
+      "change": 0.002,
+      "change_pct": 0.002
     },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1341.84,
-      "change": 0.36,
-      "change_pct": 0.027
+      "price": 1341.98,
+      "change": 0.23,
+      "change_pct": 0.017
     },
     "usdjpy": {
       "symbol": "JPY=X",
       "price": 158.155,
-      "change": 0.011,
-      "change_pct": 0.007
+      "change": -0.005,
+      "change_pct": -0.003
     },
     "eurusd": {
       "symbol": "EURUSD=X",
-      "price": 1.1221,
-      "change": 0.0001,
-      "change_pct": 0.009
+      "price": 1.1218,
+      "change": -0.0001,
+      "change_pct": -0.009
     },
     "tnx": {
       "symbol": "^TNX",
@@ -57,33 +57,33 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 91.98,
-      "change": 0.04,
-      "change_pct": 0.044
+      "price": 92.28,
+      "change": 0.03,
+      "change_pct": 0.033
     },
     "sp500": {
       "symbol": "^GSPC",
-      "price": 7787.5,
-      "change": 0.48,
-      "change_pct": 0.006
+      "price": 7783.75,
+      "change": -0.25,
+      "change_pct": -0.003
     },
     "nasdaq": {
       "symbol": "^IXIC",
-      "price": 27453.8828,
-      "change": 2.3848,
-      "change_pct": 0.009
+      "price": 27440.5508,
+      "change": -0.1465,
+      "change_pct": -0.001
     },
     "vix": {
       "symbol": "^VIX",
-      "price": 15.28,
+      "price": 15.27,
       "change": 0.0,
       "change_pct": 0.0
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.6295,
-      "change": -0.0025,
-      "change_pct": -0.038
+      "price": 6.618,
+      "change": -0.001,
+      "change_pct": -0.015
     }
   }
 }
