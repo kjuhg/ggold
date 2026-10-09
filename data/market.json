@@ -1,41 +1,41 @@
 {
-  "updated_at": "2026-10-09T00:05:23Z",
+  "updated_at": "2026-10-09T00:10:27Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4169.6001,
-      "change": 1.5,
-      "change_pct": 0.036
+      "price": 4172.8999,
+      "change": 3.6997,
+      "change_pct": 0.089
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 59.815,
-      "change": 0.005,
-      "change_pct": 0.008
+      "price": 59.86,
+      "change": 0.04,
+      "change_pct": 0.067
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1656.9,
-      "change": -0.1,
-      "change_pct": -0.006
+      "price": 1658.5,
+      "change": 2.2,
+      "change_pct": 0.133
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 102.134,
-      "change": 0.0,
-      "change_pct": 0.0
+      "price": 102.128,
+      "change": 0.001,
+      "change_pct": 0.001
     },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1342.9,
-      "change": 0.0,
-      "change_pct": 0.0
+      "price": 1342.8199,
+      "change": -0.02,
+      "change_pct": -0.001
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 158.077,
-      "change": -0.016,
-      "change_pct": -0.01
+      "price": 158.075,
+      "change": -0.014,
+      "change_pct": -0.009
     },
     "eurusd": {
       "symbol": "EURUSD=X",
@@ -57,9 +57,9 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 91.21,
-      "change": 0.02,
-      "change_pct": 0.022
+      "price": 91.25,
+      "change": 0.08,
+      "change_pct": 0.088
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -75,15 +75,15 @@
     },
     "vix": {
       "symbol": "^VIX",
-      "price": 15.42,
-      "change": -0.02,
-      "change_pct": -0.13
+      "price": 15.58,
+      "change": 0.05,
+      "change_pct": 0.322
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.5645,
-      "change": -0.0005,
-      "change_pct": -0.008
+      "price": 6.5715,
+      "change": 0.006,
+      "change_pct": 0.091
     }
   }
 }
