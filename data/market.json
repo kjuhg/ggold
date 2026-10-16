@@ -1,41 +1,41 @@
 {
-  "updated_at": "2026-10-16T11:15:28Z",
+  "updated_at": "2026-10-16T11:20:27Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4197.7002,
-      "change": 0.5,
-      "change_pct": 0.012
+      "price": 4195.5,
+      "change": 0.2002,
+      "change_pct": 0.005
     },
     "xagusd": {
       "symbol": "SI=F",
-      "price": 58.03,
-      "change": 0.08,
-      "change_pct": 0.138
+      "price": 57.995,
+      "change": 0.01,
+      "change_pct": 0.017
     },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1647.7,
-      "change": 0.8999,
-      "change_pct": 0.055
+      "price": 1646.3,
+      "change": -0.1,
+      "change_pct": -0.006
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 101.657,
-      "change": 0.003,
-      "change_pct": 0.003
+      "price": 101.672,
+      "change": 0.002,
+      "change_pct": 0.002
     },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1330.71,
-      "change": -0.37,
-      "change_pct": -0.028
+      "price": 1330.38,
+      "change": -0.6,
+      "change_pct": -0.045
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 158.031,
-      "change": -0.004,
-      "change_pct": -0.003
+      "price": 158.062,
+      "change": -0.002,
+      "change_pct": -0.001
     },
     "eurusd": {
       "symbol": "EURUSD=X",
@@ -57,9 +57,9 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 95.88,
-      "change": 0.01,
-      "change_pct": 0.01
+      "price": 95.95,
+      "change": 0.02,
+      "change_pct": 0.021
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -75,15 +75,15 @@
     },
     "vix": {
       "symbol": "^VIX",
-      "price": 16.14,
-      "change": 0.02,
-      "change_pct": 0.124
+      "price": 16.11,
+      "change": 0.0,
+      "change_pct": 0.0
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.636,
-      "change": 0.004,
-      "change_pct": 0.06
+      "price": 6.6395,
+      "change": -0.0005,
+      "change_pct": -0.008
     }
   }
 }
