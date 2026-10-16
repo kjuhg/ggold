@@ -1,47 +1,47 @@
 {
-  "updated_at": "2026-10-16T09:30:33Z",
+  "updated_at": "2026-10-16T09:35:26Z",
   "current": {
     "xauusd": {
       "symbol": "GC=F",
-      "price": 4210.5,
-      "change": 0.1001,
-      "change_pct": 0.002
-    },
-    "xagusd": {
-      "symbol": "SI=F",
-      "price": 58.09,
+      "price": 4207.2998,
       "change": 0.0,
       "change_pct": 0.0
     },
+    "xagusd": {
+      "symbol": "SI=F",
+      "price": 58.045,
+      "change": -0.01,
+      "change_pct": -0.017
+    },
     "platinum": {
       "symbol": "PL=F",
-      "price": 1651.4,
-      "change": 0.5,
-      "change_pct": 0.03
+      "price": 1648.6,
+      "change": 0.1,
+      "change_pct": 0.006
     },
     "dxy": {
       "symbol": "DX-Y.NYB",
-      "price": 101.687,
+      "price": 101.693,
       "change": 0.001,
       "change_pct": 0.001
     },
     "usdkrw": {
       "symbol": "KRW=X",
-      "price": 1331.04,
-      "change": 0.0601,
-      "change_pct": 0.005
+      "price": 1331.34,
+      "change": 0.25,
+      "change_pct": 0.019
     },
     "usdjpy": {
       "symbol": "JPY=X",
-      "price": 157.941,
-      "change": 0.011,
-      "change_pct": 0.007
+      "price": 157.93,
+      "change": -0.015,
+      "change_pct": -0.009
     },
     "eurusd": {
       "symbol": "EURUSD=X",
       "price": 1.1256,
-      "change": 0.0003,
-      "change_pct": 0.027
+      "change": -0.0001,
+      "change_pct": -0.009
     },
     "tnx": {
       "symbol": "^TNX",
@@ -57,9 +57,9 @@
     },
     "wti": {
       "symbol": "CL=F",
-      "price": 95.33,
-      "change": -0.04,
-      "change_pct": -0.042
+      "price": 95.43,
+      "change": 0.0,
+      "change_pct": 0.0
     },
     "sp500": {
       "symbol": "^GSPC",
@@ -75,13 +75,13 @@
     },
     "vix": {
       "symbol": "^VIX",
-      "price": 16.0,
+      "price": 15.99,
       "change": 0.0,
       "change_pct": 0.0
     },
     "copper": {
       "symbol": "HG=F",
-      "price": 6.632,
+      "price": 6.6275,
       "change": -0.001,
       "change_pct": -0.015
     }
